@@ -5,7 +5,7 @@
 @section('content')
 
     @if ($about)
-        <section class="py-20 md:py-32 bg-white">
+        <section class="py-12 md:py-16 bg-white">
             <div class="container-max">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <div>
@@ -52,7 +52,7 @@
             </div>
         </section>
     @else
-        <div class="py-32 text-center text-gray-500">Konten belum tersedia.</div>
+        <div class="py-16 text-center text-gray-500">Konten belum tersedia.</div>
     @endif
 
 @endsection

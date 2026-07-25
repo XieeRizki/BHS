@@ -11,7 +11,7 @@
     
     {{-- Fasilitas: 1 featured (besar) + 4 kecil, sama kayak layout di halaman /fasilitas --}}
     @if ($facilities->isNotEmpty())
-        <section id="fasilitas" class="pt-20 md:pt-32 pb-12 md:pb-16 bg-light">
+        <section id="fasilitas" class="pt-12 md:pt-16 pb-12 md:pb-16 bg-light">
         <div class="container-max">
             <div data-aos="fade-up">
                 <x-section-title
@@ -109,7 +109,7 @@
 
     {{-- Blog --}}
     @if ($blogPosts->isNotEmpty())
-        <section id="blog" class="py-20 md:py-32 bg-white">
+        <section id="blog" class="py-12 md:py-16 bg-white">
             <div class="container-max">
                 <div data-aos="fade-up">
                 <x-section-title
@@ -156,7 +156,7 @@
 
     {{-- Testimoni: preview 3 testimoni + tombol ke halaman /testimoni --}}
     @if (($testimonials ?? collect())->isNotEmpty())
-        <section id="testimoni" class="py-20 md:py-32 bg-light">
+        <section id="testimoni" class="py-12 md:py-16 bg-light">
             <div class="container-max">
                 <div data-aos="fade-up">
                     <x-section-title
@@ -189,7 +189,7 @@
                             id="testiHomeNextBtn"
                             type="button"
                             aria-label="Testimoni selanjutnya"
-                            class="group flex items-center justify-center absolute right-1 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-1/2 z-20 w-9 h-9 md:w-12 md:h-12 rounded-full bg-white border border-gray-200 shadow-lg text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+                            class="group flex items-center justify-center absolute right-1 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-1/2 z-20 w-9 h-9 md:w-12 md:h-12 rounded-full bg-white border border-gray-200 shadow-lg text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all-300"
                         >
                             <svg class="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -244,7 +244,7 @@
     @endif
 
    {{-- Kontak (form reservasi + info + map) --}}
-    <section id="kontak" class="py-20 md:py-32 bg-white">
+    <section id="kontak" class="py-12 md:py-16 bg-white">
         <div class="container-max">
             <div data-aos="fade-up">
             <x-section-title
@@ -313,7 +313,7 @@
             </div>
  
             {{-- Info Cards Row --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {{-- Info Card 1: Telepon --}}
                 @if ($contact?->phone)
                     <div data-aos="fade-up" data-aos-delay="0" class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200">

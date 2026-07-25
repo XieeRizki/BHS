@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="py-20 md:py-32 bg-white">
+    <section class="py-12 md:py-16 bg-white">
         <div class="container-max">
             <x-section-title
                 badge="Blog & Tips"

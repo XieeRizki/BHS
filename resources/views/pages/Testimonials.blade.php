@@ -5,7 +5,7 @@
 @section('content')
 
     {{-- Page Header --}}
-    <section class="py-16 md:py-20 bg-light border-b border-gray-200">
+    <section class="py-12 md:py-16 bg-light border-b border-gray-200">
         <div class="container-max">
             <div data-aos="fade-up">
                 <x-section-title
@@ -19,7 +19,7 @@
 
     {{-- Testimoni --}}
     @if ($testimonials->isNotEmpty())
-        <section class="py-20 md:py-32 bg-white">
+        <section class="py-12 md:py-16 bg-white">
             <div class="container-max">
 
                 {{-- ================= CAROUSEL WRAPPER ================= --}}

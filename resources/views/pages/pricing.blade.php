@@ -5,7 +5,7 @@
 @section('content')
 
     {{-- Page Header --}}
-    <section class="py-16 md:py-20 bg-light border-b border-gray-200">
+    <section class="py-12 md:py-16 bg-light border-b border-gray-200">
         <div class="container-max">
             <div data-aos="fade-up">
                 <x-section-title
@@ -19,7 +19,7 @@
 
     {{-- Harga / Paket --}}
     @if ($packages->isNotEmpty())
-        <section class="py-20 md:py-32 bg-white">
+        <section class="py-12 md:py-16 bg-white">
             <div class="container-max">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
                     @foreach ($packages as $package)
@@ -52,7 +52,7 @@
                             @endif
 
                             <x-button
-                                href="https://wa.me/{{ $contact->whatsapp ?? '' }}?text={{ urlencode('Halo, saya mau tanya soal ' . $package->name) }}"
+                                href="https://wa.me/62895385703917{{ $contact->whatsapp ?? '' }}?text={{ urlencode('Halo, saya mau tanya soal ' . $package->name) }}"
                                 variant="{{ $package->is_popular ? 'primary' : 'outline' }}"
                                 icon="whatsapp"
                                 class="w-full mt-8"

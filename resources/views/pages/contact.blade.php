@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section id="kontak" class="py-20 md:py-32 bg-light">
+    <section id="kontak" class="py-12 md:py-16 bg-light">
         <div class="container-max">
             <x-section-title
                 badge="Hubungi Kami"
