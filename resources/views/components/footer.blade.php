@@ -1,9 +1,11 @@
 {{--
     Footer. Dinamis pakai $contact biar nomor telepon/WA/email/sosmed
-    gak hardcode.
+    gak hardcode. List Fasilitas juga dinamis dari $footerFacilities
+    (4 fasilitas terbaru), bukan hardcode manual.
 --}}
 @php
     $contact = $contact ?? \App\Models\Contact::first();
+    $footerFacilities = $footerFacilities ?? \App\Models\Facility::latest()->take(4)->get();
 @endphp
 
 <footer class="bg-gray-600 text-white py-12 md:py-16 border-t border-gray-700">
@@ -44,10 +46,15 @@
             <div>
                 <h4 class="text-lg font-bold mb-6 text-white">Fasilitas Kami</h4>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="#fasilitas" class="text-gray-300 hover:text-primary-light transition-colors duration-300 font-medium">Kolam Pemancingan</a></li>
-                    <li><a href="#fasilitas" class="text-gray-300 hover:text-primary-light transition-colors duration-300 font-medium">Restoran</a></li>
-                    <li><a href="#fasilitas" class="text-gray-300 hover:text-primary-light transition-colors duration-300 font-medium">Parkir Luas</a></li>
-                    <li><a href="#fasilitas" class="text-gray-300 hover:text-primary-light transition-colors duration-300 font-medium">Mushollah</a></li>
+                    @forelse ($footerFacilities as $facility)
+                        <li>
+                            <a href="{{ route('facility.show', $facility) }}" class="text-gray-300 hover:text-primary-light transition-colors duration-300 font-medium">
+                                {{ $facility->name }}
+                            </a>
+                        </li>
+                    @empty
+                        <li class="text-gray-400">Belum ada fasilitas</li>
+                    @endforelse
                 </ul>
             </div>
 

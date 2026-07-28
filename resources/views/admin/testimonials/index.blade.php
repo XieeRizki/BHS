@@ -96,11 +96,6 @@
         color: var(--secondary);
     }
 
-    .role-cell {
-        color: var(--neutral);
-        font-size: 0.85rem;
-    }
-
     .rating-cell {
         font-size: 1rem;
         white-space: nowrap;
@@ -461,7 +456,6 @@
             <thead>
                 <tr>
                     <th>Nama</th>
-                    <th>Jabatan</th>
                     <th>Rating</th>
                     <th>Status</th>
                     <th style="width: 140px; text-align: center;">Aksi</th>
@@ -474,9 +468,6 @@
                             <div class="name-cell">{{ $testimonial->name }}</div>
                         </td>
                         <td>
-                            <span class="role-cell">{{ $testimonial->role ?? '-' }}</span>
-                        </td>
-                        <td>
                             <span class="rating-cell">{{ str_repeat('⭐', $testimonial->rating ?? 5) }}</span>
                         </td>
                         <td>
@@ -486,7 +477,7 @@
                         </td>
                         <td>
                             <div class="action-group">
-                                <button onclick="openEditTestimonialModal({{ $testimonial->id }})" class="btn-icon btn-edit" data-testimonial-id="{{ $testimonial->id }}" data-name="{{ $testimonial->name }}" data-role="{{ $testimonial->role }}" data-message="{{ str_replace('"', '&quot;', $testimonial->message) }}" data-rating="{{ $testimonial->rating }}" data-is-active="{{ $testimonial->is_active }}" data-avatar="{{ $testimonial->avatar }}">
+                                <button onclick="openEditTestimonialModal({{ $testimonial->id }})" class="btn-icon btn-edit" data-testimonial-id="{{ $testimonial->id }}" data-name="{{ $testimonial->name }}" data-message="{{ str_replace('"', '&quot;', $testimonial->message) }}" data-rating="{{ $testimonial->rating }}" data-is-active="{{ $testimonial->is_active }}" data-avatar="{{ $testimonial->avatar }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
@@ -500,7 +491,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">
+                        <td colspan="4">
                             <div class="empty-container">
                                 <div class="empty-icon">📭</div>
                                 <p class="empty-text">Belum ada testimoni</p>
@@ -537,12 +528,6 @@
                 <label for="name">Nama <span class="required">*</span></label>
                 <input type="text" id="name" name="name" placeholder="Contoh: Budi Santoso" value="{{ old('name') }}" required>
                 @error('name')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
-
-            <div class="form-group">
-                <label for="role">Jabatan / Asal</label>
-                <input type="text" id="role" name="role" placeholder="Contoh: Wisatawan dari Bandung" value="{{ old('role') }}">
-                @error('role')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 
             <div class="form-group">
@@ -607,12 +592,6 @@
             </div>
 
             <div class="form-group">
-                <label for="edit_role">Jabatan / Asal</label>
-                <input type="text" id="edit_role" name="role" placeholder="Contoh: Wisatawan dari Bandung">
-                @error('role')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
-
-            <div class="form-group">
                 <label for="edit_message">Isi Testimoni <span class="required">*</span></label>
                 <textarea id="edit_message" name="message" required></textarea>
                 @error('message')<div class="form-error">{{ $message }}</div>@enderror
@@ -671,7 +650,6 @@
         const data = {
             id: button.getAttribute('data-testimonial-id'),
             name: button.getAttribute('data-name'),
-            role: button.getAttribute('data-role'),
             message: button.getAttribute('data-message').replace(/&quot;/g, '"'),
             rating: button.getAttribute('data-rating'),
             isActive: button.getAttribute('data-is-active'),
@@ -680,7 +658,6 @@
 
         document.getElementById('editForm').action = `/admin/testimonials/${testimonialId}`;
         document.getElementById('edit_name').value = data.name;
-        document.getElementById('edit_role').value = data.role;
         document.getElementById('edit_message').value = data.message;
         document.getElementById('edit_rating').value = data.rating;
         document.getElementById('edit_is_active').checked = data.isActive == 1;

@@ -313,13 +313,33 @@
             </div>
  
             {{-- Info Cards Row --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @php
+                $infoCardCount = collect([
+                    $contact?->phone,
+                    $contact?->whatsapp,
+                    $contact?->email,
+                    $location?->address,
+                    $contact?->operational_hours,
+                ])->filter()->count();
+
+                $xlColsMap = [
+                    1 => 'xl:grid-cols-1',
+                    2 => 'xl:grid-cols-2',
+                    3 => 'xl:grid-cols-3',
+                    4 => 'xl:grid-cols-4',
+                    5 => 'xl:grid-cols-5',
+                ];
+                $xlCols = $xlColsMap[$infoCardCount] ?? 'xl:grid-cols-5';
+            @endphp
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 {{ $xlCols }} gap-6">
                 {{-- Info Card 1: Telepon --}}
                 @if ($contact?->phone)
                     <div data-aos="fade-up" data-aos-delay="0" class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200">
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-white text-lg"></i>
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-blue-900 mb-2">Telepon</p>
@@ -334,7 +354,9 @@
                     <div data-aos="fade-up" data-aos-delay="100" class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200">
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fab fa-whatsapp text-white text-lg"></i>
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-green-900 mb-2">WhatsApp</p>
@@ -352,7 +374,9 @@
                     <div data-aos="fade-up" data-aos-delay="150" class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200">
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-white text-lg"></i>
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-purple-900 mb-2">Email</p>
@@ -369,7 +393,10 @@
                     <div data-aos="fade-up" data-aos-delay="200" class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 border border-red-200">
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-white text-lg"></i>
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-red-900 mb-2">Lokasi</p>
@@ -384,7 +411,9 @@
                     <div data-aos="fade-up" data-aos-delay="250" class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border border-yellow-200">
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-white text-lg"></i>
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-semibold text-yellow-900 mb-2">Jam Operasional</p>
