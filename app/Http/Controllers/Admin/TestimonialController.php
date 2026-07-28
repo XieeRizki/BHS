@@ -24,15 +24,15 @@ class TestimonialController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
             'message' => 'required|string',
-            'image' => 'nullable|image|max:2048',
+            'avatar' => 'nullable|image|max:2048',
             'rating' => 'nullable|integer|min:1|max:5',
             'is_active' => 'nullable|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('testimonials', 'public');
+        if ($request->hasFile('avatar')) {
+            $validated['avatar'] = $request->file('avatar')->store('testimonials', 'public');
         }
         $validated['is_active'] = $request->boolean('is_active');
 
@@ -48,20 +48,27 @@ class TestimonialController extends Controller
 
     public function update(Request $request, Testimonial $testimonial)
     {
+
+    //  dd([
+    //     'has_file_avatar' => $request->hasFile('avatar'),
+    //     'all_files' => $request->allFiles(),
+    //     'all_input' => $request->all(),
+    // ]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'role' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
             'message' => 'required|string',
-            'image' => 'nullable|image|max:2048',
+            'avatar' => 'nullable|image|max:2048',
             'rating' => 'nullable|integer|min:1|max:5',
             'is_active' => 'nullable|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($testimonial->image) {
-                Storage::disk('public')->delete($testimonial->image);
+        if ($request->hasFile('avatar')) {
+            if ($testimonial->avatar) {
+                Storage::disk('public')->delete($testimonial->avatar);
             }
-            $validated['image'] = $request->file('image')->store('testimonials', 'public');
+            $validated['avatar'] = $request->file('avatar')->store('testimonials', 'public');
         }
         $validated['is_active'] = $request->boolean('is_active');
 
@@ -72,8 +79,8 @@ class TestimonialController extends Controller
 
     public function destroy(Testimonial $testimonial)
     {
-        if ($testimonial->image) {
-            Storage::disk('public')->delete($testimonial->image);
+        if ($testimonial->avatar) {
+            Storage::disk('public')->delete($testimonial->avatar);
         }
         $testimonial->delete();
 

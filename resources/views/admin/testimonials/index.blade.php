@@ -486,7 +486,7 @@
                         </td>
                         <td>
                             <div class="action-group">
-                                <button onclick="openEditTestimonialModal({{ $testimonial->id }})" class="btn-icon btn-edit" data-testimonial-id="{{ $testimonial->id }}" data-name="{{ $testimonial->name }}" data-role="{{ $testimonial->role }}" data-message="{{ str_replace('"', '&quot;', $testimonial->message) }}" data-rating="{{ $testimonial->rating }}" data-is-active="{{ $testimonial->is_active }}" data-image="{{ $testimonial->image }}">
+                                <button onclick="openEditTestimonialModal({{ $testimonial->id }})" class="btn-icon btn-edit" data-testimonial-id="{{ $testimonial->id }}" data-name="{{ $testimonial->name }}" data-role="{{ $testimonial->role }}" data-message="{{ str_replace('"', '&quot;', $testimonial->message) }}" data-rating="{{ $testimonial->rating }}" data-is-active="{{ $testimonial->is_active }}" data-avatar="{{ $testimonial->avatar }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
@@ -562,10 +562,10 @@
             </div>
 
             <div class="form-group">
-                <label for="image">Foto (Opsional)</label>
-                <input type="file" id="image" name="image" accept="image/*">
+                <label for="avatar">Foto (Opsional)</label>
+                <input type="file" id="avatar" name="avatar" accept="image/*">
                 <div class="form-hint">JPG, PNG · Maks 2MB</div>
-                @error('image')<div class="form-error">{{ $message }}</div>@enderror
+                @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 
             <div class="form-group">
@@ -631,9 +631,9 @@
             <div class="form-group">
                 <label for="edit_image">Foto (Opsional)</label>
                 <div id="edit_image_preview" class="image-preview"></div>
-                <input type="file" id="edit_image" name="image" accept="image/*" onchange="previewImageTestimonial()">
+                <input type="file" id="edit_image" name="avatar" accept="image/*" onchange="previewImageTestimonial()">
                 <div class="form-hint">JPG, PNG · Maks 2MB</div>
-                @error('image')<div class="form-error">{{ $message }}</div>@enderror
+                @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 
             <div class="form-group">
@@ -675,7 +675,7 @@
             message: button.getAttribute('data-message').replace(/&quot;/g, '"'),
             rating: button.getAttribute('data-rating'),
             isActive: button.getAttribute('data-is-active'),
-            image: button.getAttribute('data-image')
+            avatar: button.getAttribute('data-avatar')
         };
 
         document.getElementById('editForm').action = `/admin/testimonials/${testimonialId}`;
@@ -686,8 +686,8 @@
         document.getElementById('edit_is_active').checked = data.isActive == 1;
 
         const previewDiv = document.getElementById('edit_image_preview');
-        if (data.image) {
-            previewDiv.innerHTML = `<img src="{{ asset('storage/') }}${data.image}" alt="Preview">`;
+        if (data.avatar) {
+            previewDiv.innerHTML = `<img src="{{ asset('storage/') }}/${data.avatar}" alt="Preview">`;
         } else {
             previewDiv.innerHTML = '';
         }

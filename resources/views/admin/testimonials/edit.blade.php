@@ -32,13 +32,13 @@
 
         <div class="mb-6">
             <label class="block text-secondary font-bold mb-2">Foto Profil</label>
-            @if($testimonial->image)
+            @if($testimonial->avatar)
                 <div class="mb-4">
-                    <img src="{{ asset('storage/' . $testimonial->image) }}" alt="{{ $testimonial->name }}" class="w-32 h-32 object-cover rounded-lg">
+                    <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" class="w-32 h-32 object-cover rounded-lg">
                 </div>
             @endif
-            <input type="file" name="image" accept="image/*" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary">
-            @error('image') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+            <input type="file" name="avatar" accept="image/*" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+            @error('avatar') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div class="mb-6">

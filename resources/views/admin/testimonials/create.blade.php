@@ -31,8 +31,8 @@
 
         <div class="mb-6">
             <label class="block text-secondary font-bold mb-2">Foto Profil</label>
-            <input type="file" name="image" accept="image/*" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary">
-            @error('image') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+            <input type="file" name="avatar" accept="image/*" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+            @error('avatar') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div class="mb-6">
