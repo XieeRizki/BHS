@@ -214,16 +214,25 @@
     </script>
 
     <!-- Dark/Light Mode Toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const btn = document.getElementById('themeToggleBtn');
-            btn?.addEventListener('click', function () {
-                const html = document.documentElement;
-                const isDark = html.classList.toggle('dark');
-                localStorage.setItem('bhs-theme', isDark ? 'dark' : 'light');
-            });
-        });
-    </script>
+   <script>
+    // Cek preferensi tema saat halaman dimuat
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+
+    // Fungsi untuk dipanggil saat tombol diklik
+    window.toggleTheme = function() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    }
+</script>
 
     <!-- AOS JS & Init -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
