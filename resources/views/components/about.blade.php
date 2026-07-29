@@ -13,9 +13,9 @@
                 <!-- Image (Animasi masuk dari kiri) -->
                 <div class="order-2 md:order-1" data-aos="fade-right" data-aos-duration="1000">
                     <div class="relative h-96 md:h-[550px] rounded-3xl overflow-hidden shadow-2xl">
-                        @if ($about->image)
+                        @if (!empty($about->image))
                             <img src="{{ asset('storage/' . $about->image) }}"
-                                 alt="{{ $about->title }}"
+                                 alt="{{ $about->title ?? 'Tentang Kami' }}"
                                  class="w-full h-full object-cover">
                         @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-30"></div>
@@ -24,13 +24,13 @@
 
                 <!-- Content (Animasi masuk dari kanan) -->
                 <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1000">
-                    <x-section-title badge="Tentang Kami" :title="$about->title" align="left" />
+                    <x-section-title badge="Tentang Kami" :title="$about->title ?? ''" align="left" />
 
                     <div class="text-lg text-gray-600 mb-8 leading-relaxed space-y-4 -mt-12">
-                        {!! nl2br(e($about->description)) !!}
+                        {!! nl2br(e($about->description ?? '')) !!}
                     </div>
 
-                    @if ($about->benefits->isNotEmpty())
+                    @if (isset($about->benefits) && collect($about->benefits)->isNotEmpty())
                         <div class="space-y-4 mb-10">
                             @foreach ($about->benefits as $benefit)
                                 {{-- Tiap poin keunggulan muncul naik satu-satu secara berurutan --}}
@@ -41,8 +41,8 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-secondary text-lg">{{ $benefit->title }}</h4>
-                                        @if ($benefit->description)
+                                        <h4 class="font-bold text-secondary text-lg">{{ $benefit->title ?? '' }}</h4>
+                                        @if (!empty($benefit->description))
                                             <p class="text-gray-600 text-sm">{{ $benefit->description }}</p>
                                         @endif
                                     </div>

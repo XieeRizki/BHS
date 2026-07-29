@@ -20,10 +20,10 @@
 @if ($hero)
     @php
         // Kumpulan gambar buat slideshow. Fallback ke $hero->image kalau
-        // tabel hero_images masih kosong.
-        $slides = $hero->images->isNotEmpty()
-            ? $hero->images->pluck('image')
-            : ($hero->image ? collect([$hero->image]) : collect());
+        // tabel hero_images masih kosong atau relasi tidak ditemukan.
+        $slides = (isset($hero->images) && collect($hero->images)->isNotEmpty())
+            ? collect($hero->images)->pluck('image')
+            : (!empty($hero->image) ? collect([$hero->image]) : collect());
     @endphp
 
     <section
@@ -36,7 +36,7 @@
         <div class="absolute inset-0 z-0">
             @foreach ($slides as $index => $slideImage)
                 <img src="{{ asset('storage/' . $slideImage) }}"
-                     alt="{{ $hero->title }}"
+                     alt="{{ $hero->title ?? 'Balong Hardi Sumedang' }}"
                      data-hero-slide
                      class="hero-slide absolute inset-0 w-full h-full object-cover {{ $index === 0 ? 'is-active' : '' }}">
             @endforeach
@@ -65,11 +65,11 @@
 
                     {{-- Judul --}}
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
-                        {{ $hero->title }}
+                        {{ $hero->title ?? '' }}
                     </h1>
 
                     {{-- Subtitle --}}
-                    @if ($hero->subtitle)
+                    @if (!empty($hero->subtitle))
                         <p class="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto md:mx-0 font-light">
                             {{ $hero->subtitle }}
                         </p>
@@ -77,7 +77,7 @@
 
                     {{-- Tombol --}}
                     <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        @if ($hero->button_text && $hero->button_link)
+                        @if (!empty($hero->button_text) && !empty($hero->button_link))
                             <x-button href="{{ $hero->button_link }}" variant="primary" icon="whatsapp" class="!px-8 !py-4 shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:-translate-y-1 transition-transform duration-300">
                                 {{ $hero->button_text }}
                             </x-button>
@@ -89,21 +89,21 @@
                 </div>
 
                 {{-- KANAN: KOTAK STATISTIK (GLASSMORPHISM) --}}
-                @if ($hero->stats->isNotEmpty())
+                @if (isset($hero->stats) && collect($hero->stats)->isNotEmpty())
                     <div class="lg:col-span-5 hidden md:block">
                         <div class="grid grid-cols-2 gap-4">
                             @foreach ($hero->stats as $index => $stat)
                                 <div data-aos="fade-left" data-aos-delay="{{ $index * 150 }}" class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 transform transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:border-white/30 hover:shadow-2xl group">
                                     {{-- Icon Box --}}
                                     <div class="w-12 h-12 bg-primary/20 border border-primary/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        @if($stat->icon)
+                                        @if(!empty($stat->icon))
                                             <i class="{{ $stat->icon }} text-primary text-xl"></i>
                                         @else
                                             <i class="fas fa-chart-line text-primary text-xl"></i>
                                         @endif
                                     </div>
-                                    <h3 class="text-3xl lg:text-4xl font-bold text-white mb-1 tracking-tight">{{ $stat->value }}</h3>
-                                    <p class="text-gray-400 text-sm font-medium">{{ $stat->label }}</p>
+                                    <h3 class="text-3xl lg:text-4xl font-bold text-white mb-1 tracking-tight">{{ $stat->value ?? '' }}</h3>
+                                    <p class="text-gray-400 text-sm font-medium">{{ $stat->label ?? '' }}</p>
                                 </div>
                             @endforeach
                         </div>
