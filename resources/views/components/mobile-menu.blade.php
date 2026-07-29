@@ -1,72 +1,106 @@
-{{--
-    Mobile menu (slide-in dari kanan). Sama kayak navbar, WA number & jam
-    operasional diambil dari $contact, gak hardcode lagi.
-
-    UPDATE: background abu, tombol CTA ijo gelap.
---}}
 @php
-    $contact = $contact ?? \App\Models\Contact::first();
-    $waNumber = $contact->whatsapp ?? '6281234567890';
+    $contact = $contact ?? (object) ['whatsapp' => '62895385703917'];
+    $waNumber = $contact->whatsapp ?? '62895385703917';
 @endphp
 
-<div id="mobileMenu" class="mobile-menu bg-gray-100">
-    <!-- Close Button -->
-    <div class="flex items-center justify-between p-6 border-b border-gray-200">
-        <h2 class="text-xl font-bold text-secondary">MENU</h2>
-        <button id="closeMenuBtn" class="p-2 hover:bg-gray-200 rounded-lg transition-colors duration-300">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+<div id="mobileMenu" class="fixed inset-y-0 right-0 w-4/5 max-w-xs bg-light dark:bg-dark shadow-2xl z-50 transform translate-x-full transition-transform">
+  <div class="p-4 border-b border-gray-200 dark:border-white/6 flex items-center justify-between">
+    <a href="{{ route('home') }}" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full" style="background: linear-gradient(135deg,#8B5E34,#FFD700)"></div>
+      <div>
+        <div class="font-extrabold text-secondary dark:text-light">BALONG HARDI</div>
+        <div class="text-xs text-gray-500 dark:text-gray-400">Pemancingan Sumedang</div>
+      </div>
+    </a>
+    <button id="closeMobileMenu" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2E2216]">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="p-4 overflow-y-auto h-full">
+    <div class="mb-4">
+      <a href="https://wa.me/{{ $waNumber }}" class="block w-full text-center py-3 rounded-lg bg-accent text-[#1C140C] font-bold">Reservasi via WA</a>
+    </div>
+
+    <nav class="space-y-2" aria-label="Mobile main menu">
+      <a href="{{ route('home') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light">Beranda</a>
+
+      <div class="border-t border-gray-100 dark:border-white/6 pt-2">
+        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="profile">
+          Profile
         </button>
-    </div>
+        <div class="hidden pl-4 mt-1" data-panel="profile">
+          <a href="{{ route('about') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Tentang BHS</a>
+          <a href="{{ route('facilities') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Fasilitas</a>
+          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Publikasi Media</a>
+          <a href="{{ route('testimonials') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Testimoni</a>
+        </div>
+      </div>
 
-    <!-- Navigation -->
-    <div class="py-6">
-        <p class="px-6 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider">Navigasi</p>
+      <div class="pt-2 border-t border-gray-100 dark:border-white/6">
+        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="event">
+          Event
+        </button>
+        <div class="hidden pl-4 mt-1" data-panel="event">
+          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Galatama</a>
+          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Fishing Community</a>
+        </div>
+      </div>
 
-        <nav class="space-y-1">
-            @php
-                $mobileLinks = [
-                    'Home' => route('home'),
-                    'Tentang Kami' => route('about'),
-                    'Fasilitas' => route('facilities'),
-                    'Harga' => route('pricing'),
-                    'Testimoni' => route('testimonials'),
-                    'Blog' => route('blog.index'),
-                    'Kontak' => route('contact'),
-                ];
-            @endphp
-            @foreach ($mobileLinks as $label => $url)
-                <a href="{{ $url }}" class="block px-6 py-3 text-gray-700 font-medium hover:bg-gray-200 transition-colors duration-300">
-                    {{ $label }}
-                </a>
-            @endforeach
-        </nav>
-    </div>
+      <div class="pt-2 border-t border-gray-100 dark:border-white/6">
+        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="paket">
+          Paket Layanan
+        </button>
+        <div class="hidden pl-4 mt-1" data-panel="paket">
+          @foreach (['Wisata Kolam Pemancingan','Villa Kayu','Hotel BHS','Resto & Cafe','Convention Hall'] as $svc)
+            <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">{{ $svc }}</a>
+          @endforeach
+        </div>
+      </div>
 
-    <!-- CTA Section -->
-    <div class="p-6 border-t border-gray-200 mt-6">
-        <p class="text-sm font-bold text-gray-700 mb-3">Ingin Memancing?</p>
-        <p class="text-sm text-gray-600 mb-6 leading-relaxed">
-            Datang ke Balong Hardi untuk pengalaman memancing terbaik dengan fasilitas lengkap dan aman.
-        </p>
-        <a href="{{ route('home') }}#kontak"
-           class="w-full mb-3 inline-flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-white bg-green-800 hover:bg-green-900 shadow-lg transition-colors duration-300">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-            </svg>
-            Isi Form Reservasi
-        </a>
-        <!-- <a href="https://wa.me/{{ $waNumber }}"
-           target="_blank"
-           class="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-green-800 border border-green-800 hover:bg-green-50 transition-colors duration-300">
-            Chat WhatsApp
-        </a> -->
-    </div>
+      <div class="pt-2 border-t border-gray-100 dark:border-white/6 space-y-1">
+        <a href="{{ route('gallery') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Gallery</a>
+        <a href="{{ route('contact') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Kontak Kami</a>
+      </div>
+    </nav>
 
-    <!-- Footer Info -->
-    <div class="p-6 border-t border-gray-200 mt-6 text-center text-xs text-gray-500">
-        <p class="font-medium">{{ $contact->operational_hours ?? 'Buka Setiap Hari' }}</p>
-        <p class="mt-2 font-bold text-gray-700">Balong Hardi Sumedang</p>
+    <div class="mt-6 text-sm text-gray-500 dark:text-gray-400">
+      WA: <a href="https://wa.me/{{ $waNumber }}" class="text-accent font-semibold">{{ $waNumber }}</a>
     </div>
+  </div>
 </div>
+
+<script>
+(function () {
+  const mobileMenu = document.getElementById('mobileMenu');
+  const open = () => mobileMenu.classList.remove('translate-x-full');
+  const close = () => mobileMenu.classList.add('translate-x-full');
+
+  window.addEventListener('toggleMobileMenu', function () {
+    if (mobileMenu.classList.contains('translate-x-full')) open(); else close();
+  });
+
+  document.getElementById('closeMobileMenu')?.addEventListener('click', close);
+
+  document.querySelectorAll('[data-collapse]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const key = btn.getAttribute('data-collapse');
+      const panel = mobileMenu.querySelector(`[data-panel="${key}"]`);
+      if (!panel) return;
+      panel.classList.toggle('hidden');
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    const isOpen = !mobileMenu.classList.contains('translate-x-full');
+    if (!isOpen) return;
+    const inside = mobileMenu.contains(e.target) || document.getElementById('mobileMenuBtn')?.contains(e.target);
+    if (!inside) close();
+  });
+})();
+</script>
+
+<style>
+  #mobileMenu { will-change: transform; }
+  .translate-x-full { transform: translateX(100%); }
+</style>
