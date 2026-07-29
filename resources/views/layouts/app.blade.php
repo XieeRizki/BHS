@@ -7,6 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Balong Hardi Sumedang - Tempat Pemancingan')</title>
 
+    <!-- Anti-flash: set class 'dark' SEBELUM Tailwind CDN & body render -->
+    <script>
+        (function () {
+            const saved = localStorage.getItem('bhs-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = saved ? saved === 'dark' : prefersDark;
+            if (isDark) document.documentElement.classList.add('dark');
+        })();
+    </script>
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- AOS CSS -->
@@ -15,22 +25,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class', // toggle via class="dark" di <html>
             theme: {
                 extend: {
                     colors: {
-                        primary: '#15803D',
-                        'primary-dark': '#166534',
-                        'primary-light': '#22C55E',
-                        secondary: '#1F2937',
-                        'secondary-light': '#374151',
-                        accent: '#FEF3C7',
-                        'accent-dark': '#FCD34D',
-                        dark: '#111827',
-                        light: '#F9FAFB',
+                        // ============ COKLAT KEEMASAN ============
+                        primary: '#8B5E34',         // Coklat kayu (dominan)
+                        'primary-dark': '#5C3B1E',  // Coklat lebih gelap (hover/dark bg)
+                        'primary-light': '#A9744A', // Coklat terang
+                        accent: '#C9952C',          // Gold accent (badge, harga, ikon)
+                        'accent-dark': '#8B6A1F',
+                        secondary: '#2B1B0E',        // Teks utama (dark brown, ganti hitam)
+                        'secondary-light': '#4A3520',
+                        dark: '#1C140C',             // Background mode gelap
+                        light: '#FAF6EE',            // Background mode terang (krem hangat)
+                        navbar: '#6B5A45',
+                        gray: {
+                            50: '#FAF8F4',
+                            100: '#F3EAD8',
+                            200: '#E7DAC0',
+                            300: '#D8C6A3',
+                            400: '#B79E7C',
+                            500: '#8F7A5C',
+                            600: '#6B5A45',
+                            700: '#4A3520',
+                            800: '#2E2216',
+                            900: '#1C140C',
+                        }
                     },
                     fontFamily: {
                         poppins: ['Poppins', 'sans-serif'],
                         inter: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 4px 12px rgba(43, 27, 14, 0.08)',
+                        'card-hover': '0 8px 24px rgba(43, 27, 14, 0.14)',
                     }
                 }
             }
@@ -41,9 +70,13 @@
         * { font-family: 'Poppins', sans-serif; }
 
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #15803D; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #166534; }
+        ::-webkit-scrollbar-track { background: #F3EAD8; }
+        ::-webkit-scrollbar-thumb { background: #8B5E34; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5C3B1E; }
+
+        html.dark ::-webkit-scrollbar-track { background: #2E2216; }
+        html.dark ::-webkit-scrollbar-thumb { background: #A9744A; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #C9952C; }
 
         .container-max { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
@@ -51,7 +84,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(28, 20, 12, 0.6);
             z-index: 39;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -69,30 +102,35 @@
             height: 100vh;
             width: 80%;
             max-width: 300px;
-            background: white;
+            background: #FAF6EE;
             z-index: 40;
             transition: right 0.3s ease-in-out;
             overflow-y: auto;
         }
+        html.dark .mobile-menu { background: #1C140C; }
         .mobile-menu.active { right: 0; }
 
         .card-modern {
             background: white;
             border-radius: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(43, 27, 14, 0.08);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        html.dark .card-modern {
+            background: #2B1B0E;
+            border-color: rgba(255, 255, 255, 0.06);
+        }
         .card-modern:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(43, 27, 14, 0.16);
             transform: translateY(-8px);
         }
 
         .gradient-primary,
         .bg-gradient-primary {
-            background: linear-gradient(135deg, #15803D 0%, #22C55E 100%);
+            background: linear-gradient(135deg, #8B5E34 0%, #C9952C 100%);
         }
 
-        /* 
+        /*
             Animasi gelombang di hero: looping terus-menerus, gak bergantung
             sama scroll event (jadi dijamin selalu keliatan gerak).
             Trik loop-nya: svg lebar-nya 200% dari container (2x pattern wave
@@ -121,7 +159,7 @@
 
     @yield('css')
 </head>
-<body class="bg-white">
+<body class="bg-white dark:bg-dark transition-colors duration-300">
     {{-- $contact diambil sekali di sini, dipass ke navbar/mobile-menu/footer
          biar gak query Contact::first() berkali-kali di tiap komponen --}}
     @php
@@ -139,13 +177,11 @@
 
     <x-footer :contact="$contact" />
 
-    {{-- Tombol WhatsApp mengambang (fixed bottom-right), muncul di semua halaman.
-         Terinspirasi dari tombol "Hubungi Konsultan" di bangunciptasolusi.com,
-         tapi pake warna ijo biar nyatu sama tema Balong Hardi. --}}
+    {{-- Tombol WhatsApp mengambang (fixed bottom-right), muncul di semua halaman. --}}
     <a
         href="https://wa.me/62895385703917{{ $contact->whatsapp ?? '' }}"
         target="_blank"
-        class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 inline-flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-primary text-white font-semibold text-sm shadow-lg hover:bg-primary-dark hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 inline-flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-primary dark:bg-accent text-white dark:text-dark font-semibold text-sm shadow-lg hover:bg-primary-dark dark:hover:bg-accent-dark hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     >
         <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
@@ -177,6 +213,18 @@
         });
     </script>
 
+    <!-- Dark/Light Mode Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.getElementById('themeToggleBtn');
+            btn?.addEventListener('click', function () {
+                const html = document.documentElement;
+                const isDark = html.classList.toggle('dark');
+                localStorage.setItem('bhs-theme', isDark ? 'dark' : 'light');
+            });
+        });
+    </script>
+
     <!-- AOS JS & Init -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -191,15 +239,10 @@
             });
 
             // Efek Parallax Ringan untuk Hero Banner
-            // (Animasi gelombang sekarang jalan sendiri lewat CSS keyframe
-            // di atas -- .wave-move -- gak perlu JS/scroll listener lagi,
-            // jadi dijamin selalu bergerak dan lebih ringan buat browser.)
             window.addEventListener('scroll', function () {
                 const scrolled = window.scrollY;
-
                 const parallaxImg = document.querySelector('.parallax-img');
                 if (parallaxImg) {
-                    // Gambar akan bergeser ke bawah sedikit demi sedikit saat di-scroll
                     parallaxImg.style.transform = 'translateY(' + (scrolled * 0.4) + 'px)';
                 }
             });
