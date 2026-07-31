@@ -10,7 +10,7 @@
             <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1920&q=80"
                  alt="Hero Background"
                  class="absolute inset-0 w-full h-full object-cover opacity-70">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#1C140C]/85 via-[#1C140C]/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/85 via-[#0A0A0A]/60 to-transparent"></div>
         </div>
 
         <div class="container-max relative z-10 w-full py-24 md:py-32">
@@ -21,12 +21,12 @@
                     Selamat Datang di Balong Hardi Sumedang
                 </h1>
 
-                <p class="text-lg md:text-xl text-[#F3EAD8] mb-8">
+                <p class="text-lg md:text-xl text-[#EDEDED] mb-8">
                     Nikmati pengalaman memancing & rekreasi keluarga dengan nuansa coklat-keemasan — asri, nyaman, dan penuh layanan.
                 </p>
 
                 <div class="flex justify-center md:justify-start gap-4">
-                    <a href="#kontak" class="inline-flex items-center gap-3 px-7 py-3 rounded-xl bg-accent text-[#1C140C] font-bold shadow-lg hover:brightness-95 transition">
+                    <a href="#kontak" class="inline-flex items-center gap-3 px-7 py-3 rounded-xl bg-accent text-[#0A0A0A] font-bold shadow-lg hover:brightness-95 transition">
                         Reservasi Sekarang
                     </a>
                     <a href="#fasilitas" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/10 transition">
@@ -37,8 +37,8 @@
         </div>
 
         {{-- decorative gold glows --}}
-        <div class="absolute -top-32 -right-24 w-96 h-96 rounded-full blur-3xl opacity-30" style="background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(140,94,52,0.12));"></div>
-        <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full blur-3xl opacity-20" style="background: linear-gradient(135deg, rgba(212,175,55,0.14), rgba(139,94,52,0.08));"></div>
+        <div class="absolute -top-32 -right-24 w-96 h-96 rounded-full blur-3xl opacity-30" style="background: linear-gradient(135deg, rgba(201,162,39,0.25), rgba(26,26,26,0.15));"></div>
+        <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full blur-3xl opacity-20" style="background: linear-gradient(135deg, rgba(166,132,30,0.18), rgba(10,10,10,0.1));"></div>
     </section>
 
     {{-- TENTANG --}}
@@ -56,7 +56,7 @@
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     Balong Hardi Sumedang hadir memberikan pengalaman memancing premium dengan fasilitas lengkap: kolam galatama, villa kayu, resto & penginapan — dibalut nuansa coklat-keemasan.
                 </p>
-                <a href="#fasilitas" class="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-br from-primary to-accent text-[#1C140C] font-semibold rounded-lg shadow-md hover:brightness-95 transition">Lihat Fasilitas</a>
+                <a href="#fasilitas" class="inline-flex items-center gap-2 px-5 py-3 bg-accent text-[#0A0A0A] font-semibold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition">Lihat Fasilitas</a>
             </div>
         </div>
     </section>
@@ -70,16 +70,16 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="relative lg:col-span-2 h-[420px] rounded-2xl overflow-hidden shadow-lg flex items-end p-8 bg-gray-100 dark:bg-[#2B1B0E]">
+                <div class="relative lg:col-span-2 h-[420px] rounded-2xl overflow-hidden shadow-lg flex items-end p-8 bg-gray-100 dark:bg-[#161616]">
                     <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80"
                          alt="Kolam Pemancingan" class="absolute inset-0 w-full h-full object-cover opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="relative z-10 text-white">
                         <div class="flex items-center gap-3 mb-3">
-                            <div class="w-12 h-12 rounded-lg bg-accent flex items-center justify-center text-[#1C140C] font-bold">🎣</div>
+                            <div class="w-12 h-12 rounded-lg bg-accent flex items-center justify-center text-[#0A0A0A] font-bold">🎣</div>
                             <div>
                                 <h4 class="text-2xl font-bold">Kolam Pemancingan Utama</h4>
-                                <p class="text-sm text-[#F3EAD8]">Kolam luas untuk lomba & rekreasi.</p>
+                                <p class="text-sm text-[#EDEDED]">Kolam luas untuk lomba & rekreasi.</p>
                             </div>
                         </div>
                         <p class="text-gray-200 max-w-xl">Area terawat, bibit ikan pilihan, dan fasilitas pendukung untuk event komunitas & keluarga.</p>
@@ -87,16 +87,16 @@
                 </div>
 
                 <div class="flex flex-col justify-between gap-4">
-                    <div class="flex items-center gap-4 bg-white dark:bg-[#2B1B0E] rounded-xl p-4 border border-gray-100 dark:border-white/6 shadow-sm">
-                        <div class="w-16 h-16 rounded-lg bg-primary/20 dark:bg-primary/10 flex items-center justify-center text-2xl flex-shrink-0">🏡</div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-[#161616] rounded-xl p-4 border border-gray-100 dark:border-white/6 shadow-sm">
+                        <div class="w-16 h-16 rounded-lg bg-accent/10 dark:bg-accent/10 flex items-center justify-center text-2xl flex-shrink-0">🏡</div>
                         <div>
                             <h4 class="font-bold text-secondary dark:text-light">Villa Kayu Estetik</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-300">Penginapan nyaman untuk keluarga.</p>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 bg-white dark:bg-[#2B1B0E] rounded-xl p-4 border border-gray-100 dark:border-white/6 shadow-sm">
-                        <div class="w-16 h-16 rounded-lg bg-primary/20 dark:bg-primary/10 flex items-center justify-center text-2xl flex-shrink-0">🍽️</div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-[#161616] rounded-xl p-4 border border-gray-100 dark:border-white/6 shadow-sm">
+                        <div class="w-16 h-16 rounded-lg bg-accent/10 dark:bg-accent/10 flex items-center justify-center text-2xl flex-shrink-0">🍽️</div>
                         <div>
                             <h4 class="font-bold text-secondary dark:text-light">Resto & Cafe</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-300">Menu lokal & kopi spesial.</p>
@@ -106,7 +106,7 @@
             </div>
 
             <div class="mt-8 text-center">
-                <a href="#paket-layanan" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-br from-primary to-accent text-[#1C140C] font-bold rounded-lg shadow-md hover:brightness-95 transition">
+                <a href="#paket-layanan" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition">
                     Lihat Paket Layanan
                 </a>
             </div>
@@ -124,7 +124,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @for ($i = 0; $i < 3; $i++)
                     <div class="card-modern overflow-hidden" data-aos="fade-up" data-aos-delay="{{ $i * 80 }}">
-                        <div class="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#3a2b1d] flex items-center justify-center text-4xl">🎣</div>
+                        <div class="relative h-40 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#212121] flex items-center justify-center text-4xl">🎣</div>
                         <div class="p-6">
                             <p class="text-sm text-accent font-bold mb-2 uppercase">Galatama</p>
                             <h4 class="text-lg font-bold text-secondary dark:text-light mb-1">Galatama {{ $i+1 }}</h4>
@@ -148,7 +148,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @for ($i = 0; $i < 3; $i++)
                     <div class="card-modern overflow-hidden" data-aos="fade-up" data-aos-delay="{{ $i * 80 }}">
-                        <div class="relative h-44 overflow-hidden bg-gray-200 dark:bg-[#3a2b1d]">
+                        <div class="relative h-44 overflow-hidden bg-gray-200 dark:bg-[#212121]">
                             <img src="https://picsum.photos/800/480?random={{ 400 + $i }}" class="w-full h-full object-cover">
                         </div>
                         <div class="p-6">
@@ -165,7 +165,7 @@
     {{-- PAKET LAYANAN --}}
     <section id="paket-layanan" class="py-16 bg-gradient-to-br from-primary to-accent text-white">
         <div class="container-max text-center">
-            <p class="text-[#1C140C] font-bold uppercase tracking-wider mb-2">Paket Layanan</p>
+            <p class="text-[#0A0A0A] font-bold uppercase tracking-wider mb-2">Paket Layanan</p>
             <h3 class="text-2xl md:text-3xl font-bold mb-6">Dapatkan Paket Diskon Spesial Sekarang</h3>
 
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -194,7 +194,7 @@
             <div class="flex gap-6 overflow-x-auto pb-4" id="testiTrack" style="scrollbar-width:none;">
                 <div class="card-modern p-6 shrink-0 w-[80%] sm:w-[48%] lg:w-[32%]">
                     <div class="mb-4 flex items-center gap-3">
-                        <div class="text-yellow-400">★★★★★</div>
+                        <div class="text-accent">★★★★★</div>
                         <div class="font-bold text-secondary dark:text-light">Andi</div>
                     </div>
                     <p class="text-gray-700 dark:text-gray-200 italic">"Tempatnya asri, pelayanan ramah. Recomended!"</p>
@@ -202,7 +202,7 @@
 
                 <div class="card-modern p-6 shrink-0 w-[80%] sm:w-[48%] lg:w-[32%]">
                     <div class="mb-4 flex items-center gap-3">
-                        <div class="text-yellow-400">★★★★☆</div>
+                        <div class="text-accent">★★★★☆</div>
                         <div class="font-bold text-secondary dark:text-light">Budi</div>
                     </div>
                     <p class="text-gray-700 dark:text-gray-200 italic">"Anak-anak senang, fasilitas lengkap."</p>
@@ -217,41 +217,41 @@
             <span class="text-accent font-bold uppercase tracking-wider text-sm">Reservasi Sekarang</span>
             <h2 class="text-3xl font-bold text-secondary dark:text-light mt-2 mb-6">Hubungi Kami untuk Info & Pemesanan</h2>
 
-            <div class="bg-light dark:bg-[#2B1B0E] p-8 rounded-2xl shadow-md border border-gray-100 dark:border-white/6 mb-6">
+            <div class="bg-light dark:bg-[#161616] p-8 rounded-2xl shadow-md border border-gray-100 dark:border-white/6 mb-6">
                 <form id="waContactForm" class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">
-                        <input type="text" id="waName" placeholder="Nama Lengkap" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#3a2b1d] text-secondary dark:text-light">
-                        <input type="date" id="waDate" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#3a2b1d] text-secondary dark:text-light">
+                        <input type="text" id="waName" placeholder="Nama Lengkap" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#212121] text-secondary dark:text-light">
+                        <input type="date" id="waDate" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#212121] text-secondary dark:text-light">
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
-                        <input type="number" id="waGuests" min="1" value="1" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#3a2b1d] text-secondary dark:text-light">
-                        <select id="waPackage" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#3a2b1d] text-secondary dark:text-light">
+                        <input type="number" id="waGuests" min="1" value="1" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#212121] text-secondary dark:text-light">
+                        <select id="waPackage" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#212121] text-secondary dark:text-light">
                             <option value="">-- Pilih paket --</option>
                             <option value="Paket Reguler">Paket Reguler - Rp50.000</option>
                             <option value="Paket VIP">Paket VIP - Rp100.000</option>
                         </select>
                     </div>
 
-                    <textarea id="waMessage" rows="3" placeholder="Catatan tambahan (opsional)" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#3a2b1d] text-secondary dark:text-light"></textarea>
+                    <textarea id="waMessage" rows="3" placeholder="Catatan tambahan (opsional)" class="w-full px-3 py-2 border rounded-lg bg-white dark:bg-[#212121] text-secondary dark:text-light"></textarea>
 
                     <div class="flex items-center justify-between">
                         <p class="text-xs text-gray-500 dark:text-gray-300">* Ini simulasi frontend — data tidak dikirim ke server</p>
-                        <button type="submit" class="px-6 py-2.5 bg-accent text-[#1C140C] rounded-lg font-bold">Kirim Reservasi</button>
+                        <button type="submit" class="px-6 py-2.5 bg-accent text-[#0A0A0A] rounded-lg font-bold">Kirim Reservasi</button>
                     </div>
                 </form>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#2E2216]">
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#212121]">
                     <div class="font-bold text-secondary dark:text-light mb-1">Telepon</div>
                     <div class="text-gray-700 dark:text-gray-200">(022) 1234-567</div>
                 </div>
-                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#2E2216]">
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#212121]">
                     <div class="font-bold text-secondary dark:text-light mb-1">WhatsApp</div>
                     <div class="text-gray-700 dark:text-gray-200">+62895385703917</div>
                 </div>
-                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#2E2216]">
+                <div class="p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#212121]">
                     <div class="font-bold text-secondary dark:text-light mb-1">Alamat</div>
                     <div class="text-gray-700 dark:text-gray-200">Jl. Contoh No.1, Sumedang</div>
                 </div>
@@ -271,8 +271,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const name = document.getElementById('waName').value || 'Pengunjung';
         form.innerHTML = `
             <div class="text-center py-8">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                 </div>

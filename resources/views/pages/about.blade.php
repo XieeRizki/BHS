@@ -5,7 +5,7 @@
 @section('content')
 
     @if ($about)
-        <section class="py-12 md:py-16 bg-white">
+        <section class="py-12 md:py-16 bg-white dark:bg-dark transition-colors">
             <div class="container-max">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
                     <div>
@@ -22,7 +22,7 @@
                     <div>
                         <x-section-title badge="Tentang Kami" :title="$about->title" align="left" />
 
-                        <div class="text-lg text-gray-600 mb-8 leading-relaxed space-y-4 -mt-12">
+                        <div class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed space-y-4 -mt-12">
                             @foreach (preg_split('/\n\s*\n/', trim($about->description)) as $paragraph)
                                 <p>{{ trim($paragraph) }}</p>
                             @endforeach
@@ -38,9 +38,9 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <h4 class="font-bold text-secondary text-lg">{{ $benefit->title }}</h4>
+                                            <h4 class="font-bold text-secondary dark:text-light text-lg">{{ $benefit->title }}</h4>
                                             @if ($benefit->description)
-                                                <p class="text-gray-600 text-sm">{{ $benefit->description }}</p>
+                                                <p class="text-gray-600 dark:text-gray-300 text-sm">{{ $benefit->description }}</p>
                                             @endif
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
             </div>
         </section>
     @else
-        <div class="py-16 text-center text-gray-500">Konten belum tersedia.</div>
+        <div class="py-16 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-dark transition-colors">Konten belum tersedia.</div>
     @endif
 
 @endsection

@@ -8,10 +8,7 @@
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
       <a href="{{ route('home') }}" class="flex items-center gap-3">
-        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 group"
-             style="background: linear-gradient(135deg,#8B5E34,#FFD700);">
-          <img src="{{ asset('images/logow.png') }}" alt="Logo" class="w-10 h-10 object-contain" />
-        </div>
+        <img src="{{ asset('images/logow.png') }}" alt="Logo" class="w-14 h-14 md:w-16 md:h-16 object-contain" />
         <div class="hidden sm:flex flex-col leading-tight">
           <span class="text-base font-extrabold text-secondary dark:text-light">BALONG HARDI</span>
           <small class="text-xs text-gray-500 dark:text-gray-400">Pemancingan Sumedang</small>

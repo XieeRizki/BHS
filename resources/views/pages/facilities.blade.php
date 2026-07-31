@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section class="py-12 md:py-16 bg-light">
+    <section class="py-12 md:py-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
             <x-section-title
                 badge="Fasilitas Kami"
@@ -30,7 +30,7 @@
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             >
                         @else
-                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 text-6xl">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#161616] dark:to-[#212121] text-6xl">
                                 {{ $featured->icon ?? '🎣' }}
                             </div>
                         @endif
@@ -55,8 +55,8 @@
                     {{-- ================= LIST KECIL (4 ITEM) ================= --}}
                     <div class="flex flex-col justify-between h-auto lg:h-[460px] gap-4">
                         @foreach ($others as $facility)
-                            <a href="{{ route('facility.show', $facility) }}" class="group flex items-center gap-4 bg-white rounded-xl border border-gray-100 p-4 hover:shadow-lg hover:border-primary/30 transition-all" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                                <div class="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                            <a href="{{ route('facility.show', $facility) }}" class="group flex items-center gap-4 bg-white dark:bg-[#161616] rounded-xl p-4 shadow-sm hover:shadow-lg dark:hover:shadow-black/40 transition-all" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                                <div class="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#212121]">
                                     @if ($facility->image)
                                         <img
                                             src="{{ asset('storage/' . $facility->image) }}"
@@ -64,22 +64,22 @@
                                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                                         >
                                     @else
-                                        <div class="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-gray-100 to-gray-200">
+                                        <div class="w-full h-full flex items-center justify-center text-3xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-[#161616] dark:to-[#212121]">
                                             {{ $facility->icon ?? '🎣' }}
                                         </div>
                                     @endif
                                 </div>
 
                                 <div class="min-w-0 flex-1">
-                                    <h4 class="font-semibold text-base text-secondary truncate group-hover:text-primary transition-colors">
+                                    <h4 class="font-semibold text-base text-secondary dark:text-light truncate group-hover:text-primary dark:group-hover:text-accent transition-colors">
                                         {{ $facility->name }}
                                     </h4>
-                                    <p class="text-sm text-gray-500 line-clamp-1 mt-0.5">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">
                                         {{ $facility->description }}
                                     </p>
                                 </div>
 
-                                <i class="fas fa-chevron-right text-gray-300 group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0"></i>
+                                <i class="fas fa-chevron-right text-gray-300 dark:text-gray-500 group-hover:text-primary dark:group-hover:text-accent group-hover:translate-x-1 transition-all flex-shrink-0"></i>
                             </a>
                         @endforeach
                     </div>
@@ -93,7 +93,7 @@
                 @endif
 
             @else
-                <p class="text-center text-gray-500">Belum ada fasilitas yang ditambahkan.</p>
+                <p class="text-center text-gray-500 dark:text-gray-400">Belum ada fasilitas yang ditambahkan.</p>
             @endif
         </div>
     </section>

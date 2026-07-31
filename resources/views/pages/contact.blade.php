@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section id="kontak" class="py-12 md:py-16 bg-light">
+    <section id="kontak" class="py-12 md:py-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
             <x-section-title
                 badge="Hubungi Kami"
@@ -20,30 +20,30 @@
                         {{-- Row 1: Nama & Tanggal --}}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-secondary mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
                                 <input type="text" id="waName" required placeholder="Nama Anda"
-                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all duration-300 font-medium">
+                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-secondary mb-2">Tanggal Reservasi <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Tanggal Reservasi <span class="text-red-500">*</span></label>
                                 <input type="date" id="waDate" required min="{{ now()->format('Y-m-d') }}"
-                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all duration-300 font-medium">
+                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium [color-scheme:light] dark:[color-scheme:dark]">
                             </div>
                         </div>
 
                         {{-- Row 2: Jumlah Orang & Paket --}}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-secondary mb-2">Jumlah Orang <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Jumlah Orang <span class="text-red-500">*</span></label>
                                 <input type="number" id="waGuests" min="1" value="1" required
-                                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all duration-300 font-medium">
+                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-secondary mb-2">Jenis Paket <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Jenis Paket <span class="text-red-500">*</span></label>
                                 <select id="waPackage" required
-                                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all duration-300 font-medium">
+                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                                     <option value="">-- Pilih paket --</option>
                                     @foreach ($packages as $package)
                                         <option value="{{ $package->name }} ({{ $package->formatted_price }})">{{ $package->name }} - {{ $package->formatted_price }} /orang</option>
@@ -55,12 +55,12 @@
 
                         {{-- Row 3: Catatan Tambahan --}}
                         <div>
-                            <label class="block text-sm font-bold text-secondary mb-2">Catatan Tambahan</label>
+                            <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Catatan Tambahan</label>
                             <textarea id="waMessage" rows="4" placeholder="Cth: Sewa alat pancing lengkap, butuh pemandu, dll"
-                                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all duration-300 font-medium resize-none"></textarea>
+                                      class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium resize-none"></textarea>
                         </div>
 
-                        <p class="text-xs text-gray-500">* Tim kami akan merespons dalam 1x24 jam kerja</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">* Tim kami akan merespons dalam 1x24 jam kerja</p>
 
                         <button type="submit"
                                 class="w-full py-3.5 px-6 bg-gradient-to-r from-primary to-primary-dark text-white font-bold text-sm rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 group">
@@ -74,22 +74,22 @@
                 <div class="space-y-4">
                     @if ($contact?->phone)
                         <x-contact-card icon="phone" title="Telepon">
-                            <p class="text-gray-600 font-medium">{{ $contact->phone }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $contact->phone }}</p>
                         </x-contact-card>
                     @endif
 
                     @if ($contact?->whatsapp)
                         <x-contact-card icon="whatsapp" title="WhatsApp">
-                            <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary hover:text-primary-dark transition-colors duration-300 font-bold">
+                            <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
                                 +{{ $contact->whatsapp }}
                             </a>
-                            <p class="text-gray-600 text-sm mt-1 font-medium">Respons cepat 24/7</p>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 font-medium">Respons cepat 24/7</p>
                         </x-contact-card>
                     @endif
 
                     @if ($contact?->email)
                         <x-contact-card icon="envelope" title="Email">
-                            <a href="mailto:{{ $contact->email }}" class="text-gray-600 hover:text-primary transition-colors duration-300 font-medium break-all">
+                            <a href="mailto:{{ $contact->email }}" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors duration-300 font-medium break-all">
                                 {{ $contact->email }}
                             </a>
                         </x-contact-card>
@@ -97,13 +97,13 @@
 
                     @if ($location?->address)
                         <x-contact-card icon="map-pin" title="Alamat">
-                            <p class="text-gray-600 font-medium">{{ $location->address }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $location->address }}</p>
                         </x-contact-card>
                     @endif
 
                     @if ($contact?->operational_hours)
                         <x-contact-card icon="clock" title="Jam Operasional">
-                            <p class="text-gray-600 font-bold">{{ $contact->operational_hours }}</p>
+                            <p class="text-gray-600 dark:text-gray-300 font-bold">{{ $contact->operational_hours }}</p>
                         </x-contact-card>
                     @endif
                 </div>
@@ -111,7 +111,7 @@
         </div>
     </section>
 
-    <section class="pb-12 md:pb-16 bg-light">
+    <section class="pb-12 md:pb-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
             <div class="rounded-2xl overflow-hidden shadow-lg">
                 <x-map :location="$location" />
@@ -179,13 +179,13 @@
                 .then(data => {
                     form.innerHTML = `
                         <div class="text-center py-8">
-                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <h4 class="text-lg font-bold text-secondary mb-2">Reservasi Berhasil Dikirim!</h4>
-                            <p class="text-gray-600 text-sm">Terima kasih, <b>${name}</b>. Tim kami akan menghubungi Anda dalam 1x24 jam kerja untuk konfirmasi.</p>
+                            <h4 class="text-lg font-bold text-secondary dark:text-light mb-2">Reservasi Berhasil Dikirim!</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">Terima kasih, <b>${name}</b>. Tim kami akan menghubungi Anda dalam 1x24 jam kerja untuk konfirmasi.</p>
                         </div>
                     `;
                 })

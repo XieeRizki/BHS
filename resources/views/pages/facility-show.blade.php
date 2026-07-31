@@ -11,7 +11,7 @@
         :backUrl="route('home') . '#fasilitas'"
         backLabel="Kembali ke Fasilitas"
     >
-        <p class="text-lg text-gray-700 leading-relaxed">
+        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             {{ $facility->description }}
         </p>
 

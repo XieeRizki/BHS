@@ -41,7 +41,7 @@
             @endswitch
         </div>
         <div>
-            <h4 class="text-base font-bold text-secondary mb-1">{{ $title }}</h4>
+            <h4 class="text-base font-bold text-secondary dark:text-light mb-1">{{ $title }}</h4>
             {{ $slot }}
         </div>
     </div>

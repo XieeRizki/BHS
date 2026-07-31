@@ -29,28 +29,30 @@
             theme: {
                 extend: {
                     colors: {
-                        // Brown + Gold dominant palette
-                        primary: '#8B5E34',
-                        'primary-dark': '#5C3B1E',
-                        'primary-light': '#A9744A',
-                        accent: '#FFD700',
-                        'accent-dark': '#D4AF37',
-                        secondary: '#2B1B0E',
-                        'secondary-light': '#4A3520',
-                        dark: '#1C140C',
-                        light: '#FAF6EE',
-                        navbar: '#6B5A45',
+                        // Black + White base, gold sebagai aksen tipis
+                        primary: '#1A1A1A',
+                        'primary-dark': '#000000',
+                        'primary-light': '#3D3D3D',
+                        accent: '#C9A227',
+                        'accent-dark': '#A6841E',
+                        secondary: '#141414',
+                        'secondary-light': '#2A2A2A',
+                        dark: '#0A0A0A',
+                        'dark-surface': '#161616',
+                        'dark-elevated': '#212121',
+                        light: '#FAFAFA',
+                        navbar: '#141414',
                         gray: {
-                            50: '#FAF8F4',
-                            100: '#F3EAD8',
-                            200: '#E7DAC0',
-                            300: '#D8C6A3',
-                            400: '#B79E7C',
-                            500: '#8F7A5C',
-                            600: '#6B5A45',
-                            700: '#4A3520',
-                            800: '#2E2216',
-                            900: '#1C140C',
+                            50: '#FAFAFA',
+                            100: '#F0F0F0',
+                            200: '#E0E0E0',
+                            300: '#C7C7C7',
+                            400: '#A0A0A0',
+                            500: '#787878',
+                            600: '#525252',
+                            700: '#3A3A3A',
+                            800: '#242424',
+                            900: '#141414',
                         }
                     },
                     fontFamily: {
@@ -71,14 +73,14 @@
 
         /* Light scroll */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #F3EAD8; }
-        ::-webkit-scrollbar-thumb { background: #8B5E34; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #5C3B1E; }
+        ::-webkit-scrollbar-track { background: #F0F0F0; }
+        ::-webkit-scrollbar-thumb { background: #1A1A1A; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #000000; }
 
-        /* Dark scroll (near-black) */
-        html.dark ::-webkit-scrollbar-track { background: #0b0b0b; }
-        html.dark ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        html.dark ::-webkit-scrollbar-thumb:hover { background: #555; }
+        /* Dark scroll (netral abu-abu gelap, konsisten sama base hitam-putih) */
+        html.dark ::-webkit-scrollbar-track { background: #0A0A0A; }
+        html.dark ::-webkit-scrollbar-thumb { background: #3A3A3A; border-radius: 10px; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #525252; }
 
         .container-max { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
 
@@ -101,13 +103,17 @@
             height: 100vh;
             width: 80%;
             max-width: 300px;
-            background: #FAF6EE;
+            background: #FAFAFA;
             z-index: 40;
             transition: right 0.3s ease-in-out, transform 0.25s ease-in-out;
             overflow-y: auto;
         }
-        /* dark mode: make mobile menu truly dark */
-        html.dark .mobile-menu { background: #0b0b0b; color: #E6E6E6; }
+        /* dark mode: surface layer sedikit lebih terang dari bg, biar "ngambang" di atas bg, hairline emas tipis sebagai satu-satunya aksen warna */
+        html.dark .mobile-menu {
+            background: #161616;
+            color: #FAFAFA;
+            border-left: 1px solid rgba(201, 162, 39, 0.10);
+        }
         .mobile-menu.active { right: 0; }
 
         .card-modern {
@@ -117,43 +123,54 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             color: inherit;
         }
-        /* dark: near-black for cards (override brown) */
+        /* dark: surface layer sedikit lebih terang dari bg page, biar berasa "ngambang", hairline emas tipis */
         html.dark .card-modern {
-            background: #0b0b0b;
-            border-color: rgba(255, 255, 255, 0.04);
-            color: #E6E6E6;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            background: #161616;
+            border-color: rgba(201, 162, 39, 0.10);
+            color: #FAFAFA;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.55);
         }
         .card-modern:hover {
             box-shadow: 0 20px 40px rgba(43, 27, 14, 0.16);
             transform: translateY(-8px);
         }
+        html.dark .card-modern:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+        }
 
         .gradient-primary,
         .bg-gradient-primary {
-            background: linear-gradient(135deg, #8B5E34 0%, #FFD700 100%);
+            background: linear-gradient(135deg, #1A1A1A 0%, #C9A227 100%);
         }
 
-        /* QUICK DARK OVERRIDES: force near-black where light classes are used without dark: variant */
-        html.dark .bg-light { background-color: #0b0b0b !important; }
-        html.dark .bg-white { background-color: #0b0b0b !important; color: #E6E6E6 !important; }
-        html.dark .bg-gray-100 { background-color: #0f0f0f !important; color: #E6E6E6 !important; }
-        html.dark .bg-gray-200 { background-color: #151314 !important; color: #E6E6E6 !important; }
-        html.dark .bg-gray-800 { background-color: #0b0b0b !important; color: #E6E6E6 !important; }
+        /* DARK MODE SURFACE SYSTEM
+           3 layer kegelapan netral (bg hitam -> surface -> elevated), murni grayscale,
+           supaya ada depth dan gak keliatan "item polos" nge-blok semua elemen.
+           Emas HANYA muncul di aksen (gradient CTA, hairline border, tombol), bukan di surface. */
+        html.dark .bg-light { background-color: #0A0A0A !important; }
+        html.dark .bg-white { background-color: #161616 !important; color: #FAFAFA !important; }
+        html.dark .bg-gray-100 { background-color: #161616 !important; color: #FAFAFA !important; }
+        html.dark .bg-gray-200 { background-color: #212121 !important; color: #FAFAFA !important; }
+        html.dark .bg-gray-800 { background-color: #161616 !important; color: #FAFAFA !important; }
 
-        /* make gradient backgrounds dark in dark mode */
-        html.dark .bg-gradient-to-br.from-primary,
-        html.dark .bg-gradient-to-br {
-            background: #0b0b0b !important;
+        /* gradient section (mis. bg-gray-50 to-gray-100) di dark mode jadi gradient surface->elevated netral, bukan solid flat */
+        html.dark .bg-gradient-to-br.from-gray-50 {
+            background: linear-gradient(135deg, #161616 0%, #212121 100%) !important;
+        }
+
+        /* gradient hero/paket (from-primary to-accent) TETAP pakai gradient hitam->emas bahkan di dark mode,
+           karena itu section aksen/CTA yang memang harus stand out & kontras, bukan surface netral. */
+        html.dark .bg-gradient-to-br.from-primary {
+            background: linear-gradient(135deg, #1A1A1A 0%, #C9A227 100%) !important;
         }
 
         /* Buttons / accent contrast in dark mode */
-        html.dark .bg-accent { background-color: #D4AF37 !important; color: #1C140C !important; }
+        html.dark .bg-accent { background-color: #A6841E !important; color: #0A0A0A !important; }
 
-        /* Navbar dark override */
+        /* Navbar dark override -> surface layer + hairline emas tipis sebagai satu-satunya sentuhan warna */
         html.dark nav, html.dark .navbar {
-            background: #0b0b0b !important;
-            border-color: rgba(255,255,255,0.04) !important;
+            background: #161616 !important;
+            border-color: rgba(201, 162, 39, 0.12) !important;
         }
     </style>
 
@@ -185,7 +202,7 @@
     <a
         href="https://wa.me/{{ $contact->whatsapp }}"
         target="_blank"
-        class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 inline-flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-accent text-[#1C140C] font-semibold text-sm shadow-lg hover:bg-accent-dark hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+        class="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-40 inline-flex items-center gap-2 pl-4 pr-5 py-3 rounded-full bg-accent text-[#0A0A0A] font-semibold text-sm shadow-lg hover:bg-accent-dark hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     >
         <svg class="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
