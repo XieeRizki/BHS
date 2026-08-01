@@ -87,7 +87,7 @@
             </div>
           </li>
 
-          <li><a href="{{ route('gallery') }}" class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">Gallery</a></li>
+          <li><a href="{{ route('home') }}" class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">Informasi</a></li>
           <li><a href="{{ route('contact') }}" class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">Kontak</a></li>
         </ul>
       </div>
