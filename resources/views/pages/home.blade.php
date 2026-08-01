@@ -76,11 +76,6 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="relative z-10 text-white">
                         <div class="flex items-center gap-3 mb-3">
-                            <div class="w-12 h-12 rounded-lg bg-accent flex items-center justify-center text-[#0A0A0A] flex-shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M2 12s3.5-6 10-6c3.5 0 6.5 1.9 8 3.5.6-1 1.3-1.9 2-2.5-.2 1.6-.2 3.4 0 5 -.7-.6-1.4-1.5-2-2.5-1.5 1.6-4.5 3.5-8 3.5s-8-3-8-3zm10 3c1.5 0 2.7-.9 3.3-2H8.7c.6 1.1 1.8 2 3.3 2zM17 8.5a1 1 0 110 2 1 1 0 010-2z"/>
-                                </svg>
-                            </div>
                             <div>
                                 <h4 class="text-2xl font-bold">Kolam Pemancingan Utama</h4>
                                 <p class="text-sm text-[#EDEDED]">Kolam luas untuk lomba & rekreasi.</p>
