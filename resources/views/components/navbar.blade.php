@@ -10,8 +10,8 @@
       <a href="{{ route('home') }}" class="flex items-center gap-3">
         <img src="{{ asset('images/logow.png') }}" alt="Logo" class="w-14 h-14 md:w-16 md:h-16 object-contain" />
         <div class="hidden sm:flex flex-col leading-tight">
-          <span class="text-base font-extrabold text-secondary dark:text-light">BALONG HARDI</span>
-          <small class="text-xs text-gray-500 dark:text-gray-400">Pemancingan Sumedang</small>
+          <span class="text-base font-extrabold text-secondary dark:text-light">PEMANCINGAN</span>
+          <small class="text-xs text-gray-500 dark:text-gray-400">Balong Hardi Sumedang</small>
         </div>
       </a>
 
