@@ -4,7 +4,7 @@
 
 @section('content')
 
-    {{-- HERO (statis, dominan coklat-keemasan) --}}
+    {{-- HERO --}}
     <section class="relative flex items-center min-h-screen -mt-20 overflow-hidden bg-gradient-to-br from-primary to-accent text-white" style="min-height:100vh;">
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/bhs2.jpg') }}"
@@ -36,13 +36,12 @@
             </div>
         </div>
 
-        {{-- decorative gold glows --}}
         <div class="absolute -top-32 -right-24 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none" style="background: linear-gradient(135deg, rgba(201,162,39,0.25), rgba(26,26,26,0.15));"></div>
         <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none" style="background: linear-gradient(135deg, rgba(166,132,30,0.18), rgba(10,10,10,0.1));"></div>
     </section>
 
-    {{-- TENTANG --}}
-    <section class="py-16 bg-light dark:bg-dark transition-colors overflow-hidden">
+    {{-- TENTANG (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    <section class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max grid md:grid-cols-2 gap-12 items-center">
             <div class="rounded-3xl overflow-hidden shadow-xl h-96" data-aos="fade-right" data-aos-duration="800">
                 <img src="{{ asset('images/bhs2.jpg') }}"
@@ -61,8 +60,8 @@
         </div>
     </section>
 
-    {{-- FASILITAS --}}
-    <section id="fasilitas" class="py-16 bg-light dark:bg-dark transition-colors overflow-hidden">
+    {{-- FASILITAS (Light: bg-light/bg-white | Dark: dark:bg-[#161616]) --}}
+    <section id="fasilitas" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">
         <div class="container-max">
             <div class="text-center mb-10" data-aos="fade-up">
                 <p class="text-accent font-bold uppercase tracking-wider mb-2">Fasilitas Kami</p>
@@ -70,7 +69,7 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="relative lg:col-span-2 h-[420px] rounded-2xl overflow-hidden shadow-lg flex items-end p-8 bg-gray-100 dark:bg-[#161616]" data-aos="fade-right" data-aos-duration="800">
+                <div class="relative lg:col-span-2 h-[420px] rounded-2xl overflow-hidden shadow-lg flex items-end p-8 bg-gray-100 dark:bg-[#212121]" data-aos="fade-right" data-aos-duration="800">
                     <img src="{{ asset('images/bhs2.jpg') }}"
                          alt="Kolam Pemancingan" class="absolute inset-0 w-full h-full object-cover opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -86,7 +85,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 lg:h-[420px]">
-                    <div class="flex items-stretch bg-white dark:bg-[#161616] rounded-xl overflow-hidden shadow-sm dark:shadow-black/30 hover:shadow-md transition" data-aos="fade-left" data-aos-delay="100">
+                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="100">
                         <div class="w-28 sm:w-32 flex-shrink-0">
                             <img src="{{ asset('images/bhs2.jpg') }}" alt="Villa Kayu Estetik" class="w-full h-full object-cover">
                         </div>
@@ -96,7 +95,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-stretch bg-white dark:bg-[#161616] rounded-xl overflow-hidden shadow-sm dark:shadow-black/30 hover:shadow-md transition" data-aos="fade-left" data-aos-delay="200">
+                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="200">
                         <div class="w-28 sm:w-32 flex-shrink-0">
                             <img src="{{ asset('images/bhs2.jpg') }}" alt="Resto & Cafe" class="w-full h-full object-cover">
                         </div>
@@ -106,7 +105,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-stretch bg-white dark:bg-[#161616] rounded-xl overflow-hidden shadow-sm dark:shadow-black/30 hover:shadow-md transition" data-aos="fade-left" data-aos-delay="300">
+                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="300">
                         <div class="w-28 sm:w-32 flex-shrink-0">
                             <img src="{{ asset('images/bhs2.jpg') }}" alt="Area Parkir Luas" class="w-full h-full object-cover">
                         </div>
@@ -116,7 +115,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-stretch bg-white dark:bg-[#161616] rounded-xl overflow-hidden shadow-sm dark:shadow-black/30 hover:shadow-md transition" data-aos="fade-left" data-aos-delay="400">
+                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="400">
                         <div class="w-28 sm:w-32 flex-shrink-0">
                             <img src="{{ asset('images/bhs2.jpg') }}" alt="Toilet & Musholla" class="w-full h-full object-cover">
                         </div>
@@ -136,8 +135,8 @@
         </div>
     </section>
 
-    {{-- EVENT --}}
-    <section id="event" class="py-14 bg-light dark:bg-dark transition-colors overflow-hidden">
+    {{-- EVENT (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    <section id="event" class="py-14 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
             <div class="text-center mb-8" data-aos="fade-up">
                 <p class="text-accent font-bold uppercase tracking-wider mb-2">Event</p>
@@ -146,7 +145,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @for ($i = 0; $i < 3; $i++)
-                    <div class="card-modern overflow-hidden hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="{{ $i * 150 }}">
+                    <div class="bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ $i * 150 }}">
                         <div class="relative h-40 overflow-hidden bg-gray-200 dark:bg-[#212121]">
                             <img src="{{ asset('images/bhs2.jpg') }}" alt="Galatama {{ $i+1 }}" class="w-full h-full object-cover">
                         </div>
@@ -162,8 +161,8 @@
         </div>
     </section>
 
-    {{-- INFORMASI & BERITA BHS --}}
-    <section id="informasi" class="py-16 bg-white dark:bg-dark transition-colors border-b border-gray-100 dark:border-gray-800/60 overflow-hidden">
+    {{-- INFORMASI & BERITA BHS (Light: bg-light | Dark: dark:bg-[#161616]) --}}
+    <section id="informasi" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
                 <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Pembaruan Berita</span>
@@ -175,7 +174,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {{-- Berita Card 1 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Kegiatan</span>
@@ -188,7 +187,7 @@
                 </div>
 
                 {{-- Berita Card 2 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Event</span>
@@ -201,7 +200,7 @@
                 </div>
 
                 {{-- Berita Card 3 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Pengumuman</span>
@@ -216,8 +215,8 @@
         </div>
     </section>
 
-    {{-- ARTIKEL, TIPS & TRIK BHS --}}
-    <section id="artikel" class="py-16 bg-light dark:bg-dark transition-colors border-b border-gray-200/80 dark:border-gray-800/60 overflow-hidden">
+    {{-- ARTIKEL, TIPS & TRIK BHS (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    <section id="artikel" class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
                 <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Edukasi & Edu-Info</span>
@@ -229,7 +228,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {{-- Artikel Card 1 --}}
-                <div class="group bg-white dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -244,7 +243,7 @@
                 </div>
 
                 {{-- Artikel Card 2 --}}
-                <div class="group bg-white dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -259,7 +258,7 @@
                 </div>
 
                 {{-- Artikel Card 3 --}}
-                <div class="group bg-white dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative h-48 overflow-hidden">
                         <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -276,8 +275,8 @@
         </div>
     </section>
 
-    {{-- TESTIMONI --}}
-    <section id="testimoni" class="py-16 bg-white dark:bg-dark transition-colors border-b border-gray-100 dark:border-gray-800/60 overflow-hidden">
+    {{-- TESTIMONI (Light: bg-light | Dark: dark:bg-[#161616]) --}}
+    <section id="testimoni" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
                 <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Kata Mereka</span>
@@ -288,7 +287,7 @@
 
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {{-- Testi Card 1 --}}
-                <div class="bg-light dark:bg-[#161616] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-right" data-aos-delay="100">
+                <div class="bg-white dark:bg-[#212121] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-right" data-aos-delay="100">
                     <div class="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent shadow-md bg-gray-200 dark:bg-gray-800">
                         <img src="{{ asset('images/pfp.jpeg') }}" 
                              alt="Rizki R." 
@@ -307,7 +306,7 @@
                 </div>
 
                 {{-- Testi Card 2 --}}
-                <div class="bg-light dark:bg-[#161616] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-white dark:bg-[#212121] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-left" data-aos-delay="200">
                     <div class="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent shadow-md bg-gray-200 dark:bg-gray-800">
                         <img src="{{ asset('images/pfp.jpeg') }}" 
                              alt="Rizki R." 
@@ -328,8 +327,8 @@
         </div>
     </section>
 
-    {{-- LIPUTAN MEDIA --}}
-    <section id="liputan-media" class="py-16 bg-light dark:bg-dark transition-colors border-b border-gray-200/80 dark:border-gray-800 overflow-hidden">
+    {{-- LIPUTAN MEDIA (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    <section id="liputan-media" class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
                 <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Pemberitaan Nasional & Lokal</span>
@@ -343,7 +342,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {{-- Media 1 --}}
-                <div class="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
+                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="px-3 py-1 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 text-xs font-extrabold rounded-md uppercase tracking-wider">INFOJABAR</span>
@@ -363,7 +362,7 @@
                 </div>
 
                 {{-- Media 2 --}}
-                <div class="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="250">
+                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="250">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="px-3 py-1 bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-xs font-extrabold rounded-md uppercase tracking-wider">TRIBUN JABAR</span>
@@ -383,7 +382,7 @@
                 </div>
 
                 {{-- Media 3 --}}
-                <div class="bg-white dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="400">
+                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="400">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-xs font-extrabold rounded-md uppercase tracking-wider">PIKIRAN RAKYAT</span>
@@ -406,11 +405,9 @@
     </section>
 
     {{-- BANNER CTA / DISKON --}}
-    <section class="py-14 bg-white dark:bg-dark transition-colors overflow-hidden">
+    <section class="py-14 bg-light dark:bg-[#161616] transition-colors overflow-hidden">
         <div class="container-max">
             <div class="relative overflow-hidden bg-gradient-to-r from-[#0A0A0A] via-secondary to-[#1a1a1a] text-white p-8 md:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl border border-accent/20" data-aos="zoom-in-up" data-aos-duration="800">
-                
-                {{-- Decorative Glow Overlay --}}
                 <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-accent/20 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div class="relative z-10 max-w-2xl">
