@@ -331,75 +331,86 @@
     <section id="liputan-media" class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
-                <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Pemberitaan Nasional & Lokal</span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light uppercase tracking-wide">
                     LIPUTAN MEDIA
                 </h2>
-                <p class="text-sm font-medium text-gray-600 dark:text-gray-300 mt-2">
-                    Saatnya Anda & Keluarga Eksplore Dan Rasakan Pengalaman Berbeda Sekarang Juga!
+                <p class="text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mt-2">
+                    SAATNYA ANDA & KELURGA EKSPLORE SEKARANG JUGA
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {{-- Media 1 --}}
-                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="100">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 text-xs font-extrabold rounded-md uppercase tracking-wider">INFOJABAR</span>
-                            <span class="text-xs text-gray-400 font-semibold">Media Partner</span>
+            <!-- Carousel Container / Grid Media Logos -->
+            <div class="flex items-center gap-3 md:gap-6 w-full" data-aos="zoom-in" data-aos-duration="800">
+
+                <!-- Arrow Left -->
+                <button type="button" class="text-gray-400 hover:text-accent transition-colors p-1 shrink-0 hidden sm:block">
+                    <svg class="w-7 h-7 md:w-9 md:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <!-- Wrapper 5 Items Media -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-4 w-full place-items-center">
+
+                    {{-- Media 1: Info Jabar --}}
+                    <a href="https://infojabar.id" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Info Jabar" class="w-full h-full object-cover rounded-full">
                         </div>
-                        <h4 class="font-extrabold text-base text-secondary dark:text-light mb-2 leading-snug">
-                            "Balong Hardi Sumedang Jadi Ikon Wisata Pemancingan Modern Terbaik di Jawa Barat."
-                        </h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                            Apresiasi tinggi diberikan atas kelengkapan fasilitas villa, kolam terawat, hingga pelayanan ramah.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                        <span class="text-xs font-bold text-accent">Sorotan Berita</span>
-                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </div>
+                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                            INFOJABAR
+                        </span>
+                    </a>
+
+                    {{-- Media 2: Tribun Jabar --}}
+                    <a href="https://jabar.tribunnews.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Tribun Jabar" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                            TRIBUN JABAR
+                        </span>
+                    </a>
+
+                    {{-- Media 3: Pikiran Rakyat --}}
+                    <a href="https://pikiran-rakyat.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Pikiran Rakyat" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                            PIKIRAN RAKYAT
+                        </span>
+                    </a>
+
+                    {{-- Media 4: Trans7 --}}
+                    <a href="https://www.trans7.co.id" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                            <img src="{{ asset('images/bhs2.jpg') }}" alt="TRANS7" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                            TRANS7
+                        </span>
+                    </a>
+
+                    {{-- Media 5: Metro TV --}}
+                    <a href="https://www.metrotvnews.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Metro TV" class="w-full h-full object-cover rounded-full">
+                        </div>
+                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                            METRO TV
+                        </span>
+                    </a>
+
                 </div>
 
-                {{-- Media 2 --}}
-                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="250">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 text-xs font-extrabold rounded-md uppercase tracking-wider">TRIBUN JABAR</span>
-                            <span class="text-xs text-gray-400 font-semibold">Media Partner</span>
-                        </div>
-                        <h4 class="font-extrabold text-base text-secondary dark:text-light mb-2 leading-snug">
-                            "Kemeriahan Event Galatama BHS Tarik Antusias Ratusan Pemancing Seluruh Indonesia."
-                        </h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                            Kompetisi bergengsi dengan total hadiah menarik yang selalu dinantikan para angler nusantara.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                        <span class="text-xs font-bold text-accent">Sorotan Berita</span>
-                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </div>
-                </div>
+                <!-- Arrow Right -->
+                <button type="button" class="text-gray-400 hover:text-accent transition-colors p-1 shrink-0 hidden sm:block">
+                    <svg class="w-7 h-7 md:w-9 md:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
 
-                {{-- Media 3 --}}
-                <div class="bg-light dark:bg-[#161616] p-6 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex flex-col justify-between hover:-translate-y-2 transition-all duration-300" data-aos="zoom-in" data-aos-delay="400">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-xs font-extrabold rounded-md uppercase tracking-wider">PIKIRAN RAKYAT</span>
-                            <span class="text-xs text-gray-400 font-semibold">Media Partner</span>
-                        </div>
-                        <h4 class="font-extrabold text-base text-secondary dark:text-light mb-2 leading-snug">
-                            "Destinasi Keluarga Ideal: Kombinasi Kuliner Resto, Penginapan Villa, dan Pemancingan."
-                        </h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                            BHS terbukti sukses menyatukan hobi memancing dengan kenyamanan rekreasi sanak keluarga.
-                        </p>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                        <span class="text-xs font-bold text-accent">Sorotan Berita</span>
-                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
