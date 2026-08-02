@@ -5,11 +5,33 @@
 @section('content')
 
     {{-- HERO --}}
-    <section class="relative flex items-center min-h-screen -mt-20 overflow-hidden bg-gradient-to-br from-primary to-accent text-white" style="min-height:100vh;">
+    <section id="hero-slider" class="relative flex items-center min-h-screen -mt-20 overflow-hidden bg-gradient-to-br from-primary to-accent text-white" style="min-height:100vh;">
+
+        {{-- Hero Slides (3 foto, auto-geser + bisa diklik lewat tombol di bawah teks) --}}
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('images/bhs2.jpg') }}"
-                 alt="Hero Background"
-                 class="absolute inset-0 w-full h-full object-cover opacity-70">
+            {{-- Slide 1 --}}
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
+                <img src="{{ asset('images/bhs2.jpg') }}"
+                     alt="Kolam Pemancingan Balong Hardi Sumedang"
+                     class="absolute inset-0 w-full h-full object-cover opacity-70">
+            </div>
+
+            {{-- Slide 2 --}}
+            {{-- TODO backend: ganti src dengan foto villa/penginapan --}}
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="1">
+                <img src="{{ asset('images/bhs2.jpg') }}"
+                     alt="Villa & Penginapan Balong Hardi Sumedang"
+                     class="absolute inset-0 w-full h-full object-cover opacity-70">
+            </div>
+
+            {{-- Slide 3 --}}
+            {{-- TODO backend: ganti src dengan foto suasana resto/keluarga --}}
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="2">
+                <img src="{{ asset('images/bhs2.jpg') }}"
+                     alt="Suasana Resto & Rekreasi Keluarga"
+                     class="absolute inset-0 w-full h-full object-cover opacity-70">
+            </div>
+
             <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/85 via-[#0A0A0A]/60 to-transparent"></div>
         </div>
 
@@ -25,13 +47,30 @@
                     Nikmati pengalaman memancing & rekreasi keluarga dengan nuansa coklat-keemasan — asri, nyaman, dan penuh layanan.
                 </p>
 
-                <div class="flex justify-center md:justify-start gap-4">
+                <div class="flex justify-center md:justify-start gap-4 mb-8">
                     <a href="#kontak" class="inline-flex items-center gap-3 px-7 py-3 rounded-xl bg-accent text-[#0A0A0A] font-bold shadow-lg hover:brightness-95 transition hover:scale-105 duration-300">
                         Reservasi Sekarang
                     </a>
                     <a href="#fasilitas" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/10 transition hover:scale-105 duration-300">
                         Lihat Fasilitas
                     </a>
+                </div>
+
+                {{-- Tombol Navigasi Hero (Prev/Next) --}}
+                <div class="flex items-center justify-center md:justify-start gap-3">
+                    <button type="button" id="hero-prev" aria-label="Slide sebelumnya"
+                            class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-accent hover:text-[#0A0A0A] hover:border-accent transition-all duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+
+                    <button type="button" id="hero-next" aria-label="Slide berikutnya"
+                            class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-accent hover:text-[#0A0A0A] hover:border-accent transition-all duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -469,6 +508,61 @@ document.addEventListener('DOMContentLoaded', function () {
             easing: 'ease-out-cubic'
         });
     }
+
+    // Hero Slider: 3 slide otomatis geser + bisa diklik lewat tombol panah
+    (function () {
+        const heroSection = document.getElementById('hero-slider');
+        if (!heroSection) return;
+
+        const slides = heroSection.querySelectorAll('.hero-slide');
+        const prevBtn = document.getElementById('hero-prev');
+        const nextBtn = document.getElementById('hero-next');
+        if (!slides.length) return;
+
+        const AUTOPLAY_DELAY = 5000; // 5 detik
+        let currentIndex = 0;
+        let autoplayTimer = null;
+
+        function setActiveSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === index) ? '1' : '0';
+            });
+            currentIndex = index;
+        }
+
+        function goToNextSlide() {
+            setActiveSlide((currentIndex + 1) % slides.length);
+        }
+
+        function goToPrevSlide() {
+            setActiveSlide((currentIndex - 1 + slides.length) % slides.length);
+        }
+
+        function startAutoplay() {
+            autoplayTimer = setInterval(goToNextSlide, AUTOPLAY_DELAY);
+        }
+
+        function restartAutoplay() {
+            clearInterval(autoplayTimer);
+            startAutoplay();
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function () {
+                goToNextSlide();
+                restartAutoplay();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function () {
+                goToPrevSlide();
+                restartAutoplay();
+            });
+        }
+
+        startAutoplay();
+    })();
 });
 </script>
 @endpush
