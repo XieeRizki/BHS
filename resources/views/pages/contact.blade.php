@@ -75,18 +75,25 @@
                         </x-contact-card>
                     @endif
 
-                    @if ($contact?->phone)
+                    @if ($contact?->phone || $contact?->whatsapp)
                         <x-contact-card icon="phone" title="Telepon">
-                            <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $contact->phone }}</p>
-                        </x-contact-card>
-                    @endif
+                            <div class="space-y-3">
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Pemancingan</span>
+                                    {{-- TODO backend: idealnya pakai field nomor telepon khusus pemancingan, sementara pakai $contact->phone --}}
+                                    <a href="tel:{{ $contact->phone }}" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors duration-300 font-bold">
+                                        {{ $contact->phone }}
+                                    </a>
+                                </div>
 
-                    @if ($contact?->whatsapp)
-                        <x-contact-card icon="whatsapp" title="WhatsApp">
-                            <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
-                                +{{ $contact->whatsapp }}
-                            </a>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1 font-medium">Respons cepat 24/7</p>
+                                <div class="pt-3 border-t border-gray-100 dark:border-white/10">
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Layanan Lainnya</span>
+                                    {{-- TODO backend: idealnya pakai field nomor telepon khusus layanan lainnya, sementara pakai $contact->whatsapp --}}
+                                    <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
+                                        +{{ $contact->whatsapp }}
+                                    </a>
+                                </div>
+                            </div>
                         </x-contact-card>
                     @endif
 
@@ -100,7 +107,20 @@
 
                     @if ($contact?->operational_hours)
                         <x-contact-card icon="clock" title="Jam Operasional">
-                            <p class="text-gray-600 dark:text-gray-300 font-bold">{{ $contact->operational_hours }}</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-1.5">
+                                    <span id="jamOpStatusDot" class="w-2 h-2 rounded-full bg-gray-400"></span>
+                                    <span id="jamOpStatusText" class="text-sm font-extrabold text-gray-400">Memuat...</span>
+                                </div>
+
+                                {{-- TODO backend: idealnya jadwal ini dari field terstruktur (hari buka, jam buka-tutup, hari libur), sementara masih hardcode sesuai jadwal saat ini --}}
+                                <p class="text-gray-600 dark:text-gray-300 font-bold">
+                                    Jumat – Rabu: 12.00 – 00.00
+                                </p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm font-semibold">
+                                    Kamis: Tutup
+                                </p>
+                            </div>
                         </x-contact-card>
                     @endif
                 </div>
@@ -121,6 +141,38 @@
 @section('js')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Status Buka/Tutup Jam Operasional (real-time berdasarkan jam & hari saat ini)
+            // TODO backend: hari libur (Kamis) & jam operasional (12.00-00.00) masih hardcode di sini,
+            // idealnya ambil dari field terstruktur di database.
+            (function () {
+                const statusText = document.getElementById('jamOpStatusText');
+                const statusDot = document.getElementById('jamOpStatusDot');
+                if (!statusText || !statusDot) return;
+
+                const CLOSED_DAY = 4; // getDay(): 0=Minggu, 1=Senin, 2=Selasa, 3=Rabu, 4=Kamis, 5=Jumat, 6=Sabtu
+                const OPEN_HOUR = 12;
+                const CLOSE_HOUR = 24; // tutup tengah malam (00.00)
+
+                const now = new Date();
+                const day = now.getDay();
+                const hour = now.getHours();
+                const isOpen = day !== CLOSED_DAY && hour >= OPEN_HOUR && hour < CLOSE_HOUR;
+
+                if (isOpen) {
+                    statusText.textContent = 'Buka';
+                    statusText.classList.remove('text-gray-400', 'text-red-500');
+                    statusText.classList.add('text-green-600', 'dark:text-green-400');
+                    statusDot.classList.remove('bg-gray-400', 'bg-red-500');
+                    statusDot.classList.add('bg-green-500');
+                } else {
+                    statusText.textContent = 'Tutup';
+                    statusText.classList.remove('text-gray-400', 'text-green-600', 'dark:text-green-400');
+                    statusText.classList.add('text-red-500');
+                    statusDot.classList.remove('bg-gray-400', 'bg-green-500');
+                    statusDot.classList.add('bg-red-500');
+                }
+            })();
+
             const formReservasi = document.getElementById('waContactForm');
 
             formReservasi?.addEventListener('submit', function (e) {
