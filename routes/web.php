@@ -43,6 +43,13 @@ Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('fa
 Route::get('/harga', [FrontendPricingController::class, 'index'])->name('pricing');
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 
+// Informasi & Berita
+// TODO backend: ganti closure ini dengan controller (mis. Frontend\InformasiController@index)
+// begitu data berita/spotlight/kategori udah siap disambungkan ke database
+Route::get('/informasi', function () {
+    return view('pages.informasi');
+})->name('informasi');
+
 
 // Blog detail pakai slug (BlogPost model punya getRouteKeyName() = 'slug')
 Route::get('/blog/{blogPost}', function (BlogPost $blogPost) {
