@@ -12,51 +12,48 @@
                 subtitle="Hubungi kami untuk reservasi, informasi lebih lanjut, atau pertanyaan seputar Balong Hardi"
             />
 
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-                {{-- Form Reservasi: sama persis kayak yang di Home, submit ke DB
-                     lewat route('reservation.store') biar ke-track di admin panel --}}
+                {{-- Form Reservasi -- versi formal: Nama, No WA, Email,
+                     Pilih Layanan, Catatan. Submit ke DB lewat
+                     route('reservation.store') biar ke-track di admin. --}}
                 <div>
                     <form id="waContactForm" class="space-y-4">
-                        {{-- Row 1: Nama & Tanggal --}}
+                        <div>
+                            <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                            <input type="text" id="waName" required placeholder="Nama Anda"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
+                        </div>
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                                <input type="text" id="waName" required placeholder="Nama Anda"
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">No. WhatsApp <span class="text-red-500">*</span></label>
+                                <input type="tel" id="waPhone" required placeholder="08xxxxxxxxxx"
                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Tanggal Reservasi <span class="text-red-500">*</span></label>
-                                <input type="date" id="waDate" required min="{{ now()->format('Y-m-d') }}"
-                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium [color-scheme:light] dark:[color-scheme:dark]">
+                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Email</label>
+                                <input type="email" id="waEmail" placeholder="nama@email.com"
+                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                             </div>
                         </div>
 
-                        {{-- Row 2: Jumlah Orang & Paket --}}
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Jumlah Orang <span class="text-red-500">*</span></label>
-                                <input type="number" id="waGuests" min="1" value="1" required
-                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Jenis Paket <span class="text-red-500">*</span></label>
-                                <select id="waPackage" required
-                                        class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
-                                    <option value="">-- Pilih paket --</option>
-                                    @foreach ($packages as $package)
-                                        <option value="{{ $package->name }} ({{ $package->formatted_price }})">{{ $package->name }} - {{ $package->formatted_price }} /orang</option>
-                                    @endforeach
-                                    <option value="Paket Grup">Paket Grup (Custom)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        {{-- Row 3: Catatan Tambahan --}}
                         <div>
-                            <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Catatan Tambahan</label>
-                            <textarea id="waMessage" rows="4" placeholder="Cth: Sewa alat pancing lengkap, butuh pemandu, dll"
+                            <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Pilih Layanan <span class="text-red-500">*</span></label>
+                            <select id="waPackage" required
+                                    class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
+                                <option value="">-- Pilih layanan --</option>
+                                @foreach ($packages as $package)
+                                    <option value="{{ $package->name }} ({{ $package->formatted_price }})">{{ $package->name }} - {{ $package->formatted_price }} /orang</option>
+                                @endforeach
+                                <option value="Paket Grup">Paket Grup (Custom)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-secondary dark:text-light mb-2">Catatan</label>
+                            <textarea id="waMessage" rows="4" placeholder="Tuliskan kebutuhan Anda, misal: jumlah orang, tanggal rencana kunjungan, dll"
                                       class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light dark:placeholder:text-gray-500 rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium resize-none"></textarea>
                         </div>
 
@@ -72,6 +69,12 @@
 
                 {{-- Contact Info --}}
                 <div class="space-y-4">
+                    @if ($location?->address)
+                        <x-contact-card icon="map-pin" title="Alamat">
+                            <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $location->address }}</p>
+                        </x-contact-card>
+                    @endif
+
                     @if ($contact?->phone)
                         <x-contact-card icon="phone" title="Telepon">
                             <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $contact->phone }}</p>
@@ -92,12 +95,6 @@
                             <a href="mailto:{{ $contact->email }}" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors duration-300 font-medium break-all">
                                 {{ $contact->email }}
                             </a>
-                        </x-contact-card>
-                    @endif
-
-                    @if ($location?->address)
-                        <x-contact-card icon="map-pin" title="Alamat">
-                            <p class="text-gray-600 dark:text-gray-300 font-medium">{{ $location->address }}</p>
                         </x-contact-card>
                     @endif
 
@@ -130,12 +127,12 @@
                 e.preventDefault();
 
                 const name = document.getElementById('waName').value.trim();
-                const dateInput = document.getElementById('waDate').value;
-                const guests = document.getElementById('waGuests').value;
+                const phone = document.getElementById('waPhone').value.trim();
+                const email = document.getElementById('waEmail').value.trim();
                 const pkg = document.getElementById('waPackage').value;
                 const message = document.getElementById('waMessage').value.trim();
 
-                if (!name || !dateInput || !pkg) return;
+                if (!name || !phone || !pkg) return;
 
                 const form = this;
                 const submitBtn = form.querySelector('button[type="submit"]');
@@ -161,8 +158,8 @@
                     },
                     body: JSON.stringify({
                         name: name,
-                        reservation_date: dateInput,
-                        guests: guests,
+                        phone: phone,
+                        email: email,
                         package_name: pkg,
                         message: message,
                     }),
