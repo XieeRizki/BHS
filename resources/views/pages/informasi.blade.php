@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <section id="informasi" class="py-12 md:py-16 bg-light dark:bg-dark transition-colors">
+    <section id="informasi" class="pt-6 md:pt-8 pb-12 md:pb-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
             <x-section-title
                 badge="Informasi & Berita"
@@ -19,7 +19,7 @@
                     {{-- TODO backend: ganti @for ini dengan @foreach($berita as $item) dari controller --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         @for ($i = 0; $i < 6; $i++)
-                            <article class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($i % 2) * 100 }}">
+                            <article class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                                 <a href="#" class="block relative h-44 overflow-hidden bg-gray-200 dark:bg-[#161616]">
                                     <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita Kegiatan BHS #{{ $i + 1 }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 </a>
@@ -42,7 +42,7 @@
 
                     {{-- Pagination --}}
                     {{-- TODO backend: sambungkan ke {{ $berita->links() }} kalau pakai Laravel paginator --}}
-                    <div class="flex items-center justify-center gap-2 mt-10" data-aos="fade-up">
+                    <div class="flex items-center justify-center gap-2 mt-10">
                         <button type="button" aria-label="Halaman sebelumnya"
                                 class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-accent hover:border-accent transition-colors duration-300">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,7 +66,7 @@
                 <div class="lg:col-span-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto space-y-10 lg:pr-1">
 
                     {{-- Spotlight --}}
-                    <div data-aos="fade-up">
+                    <div>
                         <h3 class="text-lg font-extrabold text-secondary dark:text-light uppercase tracking-wide mb-4">Spotlight</h3>
                         <div class="space-y-4">
                             {{-- TODO backend: ganti @for ini dengan @foreach($spotlight as $item) --}}
@@ -88,7 +88,7 @@
                     </div>
 
                     {{-- Kategori Trending Topics --}}
-                    <div data-aos="fade-up">
+                    <div>
                         <h3 class="text-lg font-extrabold text-secondary dark:text-light uppercase tracking-wide mb-4">Kategori Trending Topics</h3>
                         {{-- TODO backend: ganti @for ini dengan @foreach($kategoriTrending as $kategori) --}}
                         <div class="flex flex-wrap gap-2">
@@ -101,7 +101,7 @@
                     </div>
 
                     {{-- Menarik Tuk Disimak --}}
-                    <div data-aos="fade-up">
+                    <div>
                         <h3 class="text-lg font-extrabold text-secondary dark:text-light uppercase tracking-wide mb-4">Menarik Tuk Disimak</h3>
                         {{-- TODO backend: ganti dengan artikel pilihan/featured dari database --}}
                         <a href="#" class="group block relative h-56 rounded-2xl overflow-hidden bg-gray-200 dark:bg-[#212121] shadow-sm hover:shadow-xl transition-all duration-300">
