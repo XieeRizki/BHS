@@ -14,17 +14,6 @@
         $contact = null;
     }
 
-    try {
-        $footerPackages = \App\Models\Package::where('is_active', true)->orderBy('order')->take(5)->get();
-    } catch (\Throwable $e) {
-        $footerPackages = collect([
-            (object) ['name' => 'Paket Pagi'],
-            (object) ['name' => 'Paket Siang'],
-            (object) ['name' => 'Paket Sore'],
-            (object) ['name' => 'Paket Grup'],
-        ]);
-    }
-
     $waNumber = $contact->whatsapp ?? '6289538570391';
     $fbUrl = $contact->facebook ?? null;
     $igUrl = $contact->instagram ?? null;
@@ -60,16 +49,12 @@
             <!-- Paket Layanan -->
             <div>
                 <h4 class="text-lg font-bold mb-6 text-light">Paket Layanan</h4>
+                {{-- TODO backend: idealnya diambil dari @forelse($footerPackages as $package), sementara disamain manual sama menu "Paket Layanan" di navbar --}}
                 <ul class="space-y-3 text-sm">
-                    @forelse ($footerPackages as $package)
-                        <li>
-                            <a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">
-                                {{ $package->name }}
-                            </a>
-                        </li>
-                    @empty
-                        <li class="text-gray-400">Belum ada paket</li>
-                    @endforelse
+                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Wisata Kolam Pemancingan</a></li>
+                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Villa Kayu</a></li>
+                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Hotel BHS</a></li>
+                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Resto & Cafe</a></li>
                 </ul>
             </div>
 

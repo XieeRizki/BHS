@@ -44,9 +44,11 @@
                             <select id="waPackage" required
                                     class="w-full px-4 py-3 border-2 border-gray-200 dark:border-white/10 dark:bg-[#161616] dark:text-light rounded-xl focus:outline-none focus:border-primary dark:focus:border-accent focus:ring-2 focus:ring-primary dark:focus:ring-accent focus:ring-opacity-20 transition-all duration-300 font-medium">
                                 <option value="">-- Pilih layanan --</option>
-                                @foreach ($packages as $package)
-                                    <option value="{{ $package->name }} ({{ $package->formatted_price }})">{{ $package->name }} - {{ $package->formatted_price }} /orang</option>
-                                @endforeach
+                                {{-- TODO backend: idealnya diambil dari @foreach($packages as $package), sementara disamain manual sama menu "Paket Layanan" di navbar --}}
+                                <option value="Wisata Kolam Pemancingan">Wisata Kolam Pemancingan</option>
+                                <option value="Villa Kayu">Villa Kayu</option>
+                                <option value="Hotel BHS">Hotel BHS</option>
+                                <option value="Resto & Cafe">Resto & Cafe</option>
                                 <option value="Paket Grup">Paket Grup (Custom)</option>
                             </select>
                         </div>

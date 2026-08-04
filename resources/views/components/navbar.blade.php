@@ -82,7 +82,6 @@
                 <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Villa Kayu</a></li>
                 <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Hotel BHS</a></li>
                 <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Resto & Cafe</a></li>
-                <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Convention Hall</a></li>
               </ul>
             </div>
           </li>
