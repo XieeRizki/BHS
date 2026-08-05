@@ -78,7 +78,7 @@
                     @endif
 
                     @if ($contact?->phone || $contact?->whatsapp)
-                        <x-contact-card icon="phone" title="Telepon">
+                        <x-contact-card icon="phone" title="Whatsapp">
                             <div class="space-y-3">
                                 <div>
                                     <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Pemancingan</span>
@@ -90,9 +90,9 @@
 
                                 <div class="pt-3 border-t border-gray-100 dark:border-white/10">
                                     <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Layanan Lainnya</span>
-                                    {{-- TODO backend: idealnya pakai field nomor telepon khusus layanan lainnya, sementara pakai $contact->whatsapp --}}
+                                    {{-- TODO backend: idealnya pakai field nomor telepon khusus layanan lainnya, sementara pakai $contact->whatsapp untuk href, teks ditampilkan hardcode format lokal --}}
                                     <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
-                                        +{{ $contact->whatsapp }}
+                                        0857-9452-4976
                                     </a>
                                 </div>
                             </div>
