@@ -14,7 +14,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-12">
 
-                {{-- ==================== KONTEN BERITA (Kiri) ==================== --}}
+                {{-- KONTEN BERITA (Kiri) --}}
                 <div class="lg:col-span-2">
                     {{-- TODO backend: ganti @for ini dengan @foreach($berita as $item) dari controller --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                {{-- ==================== SIDEBAR (Kanan) ==================== --}}
+                {{-- SIDEBAR (Kanan) --}}
                 <div id="informasi-sidebar" class="lg:col-span-1 lg:sticky lg:top-28 lg:self-start space-y-10">
 
                     {{-- Spotlight --}}
