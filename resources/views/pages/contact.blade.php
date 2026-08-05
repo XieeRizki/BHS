@@ -81,7 +81,7 @@
                         <x-contact-card icon="phone" title="Whatsapp">
                             <div class="space-y-3">
                                 <div>
-                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Pemancingan</span>
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Wisata Kolam Pemancingan</span>
                                     {{-- TODO backend: idealnya pakai field nomor telepon khusus pemancingan, sementara pakai $contact->phone --}}
                                     <a href="tel:{{ $contact->phone }}" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors duration-300 font-bold">
                                         {{ $contact->phone }}

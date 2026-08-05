@@ -11,7 +11,7 @@
         <div class="absolute inset-0 z-0">
             {{-- Slide 1 --}}
             <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
-                <img src="{{ asset('images/bhs2.jpg') }}"
+                <img src="{{ asset('images/banner1.jpeg') }}"
                      alt="Kolam Pemancingan Balong Hardi Sumedang"
                      class="absolute inset-0 w-full h-full object-cover opacity-70">
             </div>
@@ -19,7 +19,7 @@
             {{-- Slide 2 --}}
             {{-- TODO backend: ganti src dengan foto villa/penginapan --}}
             <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="1">
-                <img src="{{ asset('images/bhs2.jpg') }}"
+                <img src="{{ asset('images/banner3.jpeg') }}"
                      alt="Villa & Penginapan Balong Hardi Sumedang"
                      class="absolute inset-0 w-full h-full object-cover opacity-70">
             </div>
@@ -27,7 +27,7 @@
             {{-- Slide 3 --}}
             {{-- TODO backend: ganti src dengan foto suasana resto/keluarga --}}
             <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="2">
-                <img src="{{ asset('images/bhs2.jpg') }}"
+                <img src="{{ asset('images/banner2.jpeg') }}"
                      alt="Suasana Resto & Rekreasi Keluarga"
                      class="absolute inset-0 w-full h-full object-cover opacity-70">
             </div>
