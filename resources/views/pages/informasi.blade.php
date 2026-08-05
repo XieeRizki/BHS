@@ -63,7 +63,7 @@
                 </div>
 
                 {{-- ==================== SIDEBAR (Kanan) ==================== --}}
-                <div id="informasi-sidebar" class="lg:col-span-1 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto space-y-10">
+                <div id="informasi-sidebar" class="lg:col-span-1 lg:sticky lg:top-28 lg:self-start space-y-10">
 
                     {{-- Spotlight --}}
                     <div>
@@ -115,16 +115,5 @@
             </div>
         </div>
     </section>
-
-    <style>
-        /* Sidebar tetap bisa discroll, tapi scrollbar-nya disembunyiin biar gak keliatan */
-        #informasi-sidebar {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE/Edge lama */
-        }
-        #informasi-sidebar::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Brave */
-        }
-    </style>
 
 @endsection
