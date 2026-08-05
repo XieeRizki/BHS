@@ -89,7 +89,7 @@
                                 </div>
 
                                 <div class="pt-3 border-t border-gray-100 dark:border-white/10">
-                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Layanan Lainnya</span>
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Layanan Lainnya ( Wisata Pemancingan, Villa, Hotel, Resto & Cafe )</span>
                                     {{-- TODO backend: idealnya pakai field nomor telepon khusus layanan lainnya, sementara pakai $contact->whatsapp untuk href, teks ditampilkan hardcode format lokal --}}
                                     <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
                                         0857-9452-4976
@@ -132,6 +132,14 @@
 
     <section class="pb-12 md:pb-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
+            <div class="text-center mb-6">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent text-xs font-bold uppercase tracking-wide mb-2">
+                    Lokasi Kami
+                </span>
+                <h3 class="text-base md:text-lg font-bold text-secondary dark:text-light">
+                    Maps Menuju Lokasi
+                </h3>
+            </div>
             <div class="rounded-2xl overflow-hidden shadow-lg">
                 <x-map :location="$location" />
             </div>
