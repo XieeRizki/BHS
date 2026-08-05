@@ -22,6 +22,9 @@ use App\Http\Controllers\Frontend\PricingController as FrontendPricingController
 use App\Http\Controllers\Frontend\TestimonialController as FrontendTestimonialController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Models\BlogPost;
+//bagian baru
+use App\Http\Controllers\Frontend\InformasiController;
+use App\Http\Controllers\Admin\InformasiController as AdminInformasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,11 +47,7 @@ Route::get('/harga', [FrontendPricingController::class, 'index'])->name('pricing
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 
 // Informasi & Berita
-// TODO backend: ganti closure ini dengan controller (mis. Frontend\InformasiController@index)
-// begitu data berita/spotlight/kategori udah siap disambungkan ke database
-Route::get('/informasi', function () {
-    return view('pages.informasi');
-})->name('informasi');
+Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
 
 
 // Blog detail pakai slug (BlogPost model punya getRouteKeyName() = 'slug')
@@ -120,4 +119,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('packages', PackageController::class)->except(['show']);
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
     Route::resource('blog-posts', BlogPostController::class)->except(['show']);
+    // Route untuk menampilkan halaman form tambah informasi
+    Route::get('/informasi/create', [AdminInformasiController::class, 'create'])->name('informasi.create');
+    Route::post('/informasi', [AdminInformasiController::class, 'store'])->name('informasi.store');
 });

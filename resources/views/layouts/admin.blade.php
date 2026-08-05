@@ -371,6 +371,10 @@
                     <i class="fas fa-pen-fancy"></i> Blog
                 </a>
 
+                <a href="{{ route('admin.informasi.create') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
+                    <i class="fas fa-newspaper"></i> Informasi & Berita
+                </a>
+
                 <a href="{{ route('admin.testimonials.index') }}" class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
                     <i class="fas fa-star"></i> Testimoni
                 </a>
@@ -457,5 +461,6 @@
             });
         });
     </script>
+    @stack('scripts')
 </body>
 </html>
