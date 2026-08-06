@@ -351,7 +351,7 @@
                     <i class="fas fa-chart-line"></i> Dashboard
                 </a>
 
-                <a href="{{ route('admin.hero.index') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.hero.edit') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
                     <i class="fas fa-image"></i> Hero Banner
                 </a>
 

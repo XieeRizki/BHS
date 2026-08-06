@@ -7,30 +7,31 @@
     {{-- HERO --}}
     <section id="hero-slider" class="relative flex items-center min-h-screen -mt-20 overflow-hidden bg-gradient-to-br from-primary to-accent text-white" style="min-height:100vh;">
 
-        {{-- Hero Slides (3 foto, auto-geser + bisa diklik lewat tombol di bawah teks) --}}
+        {{-- Hero Slides (Dinamis dari Database) --}}
         <div class="absolute inset-0 z-0">
-            {{-- Slide 1 --}}
-            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
-                <img src="{{ asset('images/banner1.jpeg') }}"
-                     alt="Kolam Pemancingan Balong Hardi Sumedang"
-                     class="absolute inset-0 w-full h-full object-cover opacity-70">
-            </div>
-
-            {{-- Slide 2 --}}
-            {{-- TODO backend: ganti src dengan foto villa/penginapan --}}
-            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="1">
-                <img src="{{ asset('images/banner3.jpeg') }}"
-                     alt="Villa & Penginapan Balong Hardi Sumedang"
-                     class="absolute inset-0 w-full h-full object-cover opacity-70">
-            </div>
-
-            {{-- Slide 3 --}}
-            {{-- TODO backend: ganti src dengan foto suasana resto/keluarga --}}
-            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:0;" data-slide-index="2">
-                <img src="{{ asset('images/banner2.jpeg') }}"
-                     alt="Suasana Resto & Rekreasi Keluarga"
-                     class="absolute inset-0 w-full h-full object-cover opacity-70">
-            </div>
+            @if(isset($hero) && $hero->images && $hero->images->count() > 0)
+                @foreach($hero->images as $index => $img)
+                    <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:{{ $index === 0 ? '1' : '0' }};" data-slide-index="{{ $index }}">
+                        <img src="{{ asset('storage/' . $img->image) }}"
+                             alt="{{ $hero->title ?? 'Balong Hardi Sumedang' }}"
+                             class="absolute inset-0 w-full h-full object-cover opacity-70">
+                    </div>
+                @endforeach
+            @elseif(isset($hero) && $hero->image)
+                {{-- Fallback ke single image (Hero Banner) kalau slider kosong --}}
+                <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
+                    <img src="{{ asset('storage/' . $hero->image) }}"
+                         alt="{{ $hero->title ?? 'Balong Hardi Sumedang' }}"
+                         class="absolute inset-0 w-full h-full object-cover opacity-70">
+                </div>
+            @else
+                {{-- Default bawaan kalau database kosong --}}
+                <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
+                    <img src="{{ asset('images/banner1.jpeg') }}"
+                         alt="Kolam Pemancingan Balong Hardi Sumedang"
+                         class="absolute inset-0 w-full h-full object-cover opacity-70">
+                </div>
+            @endif
 
             <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/85 via-[#0A0A0A]/60 to-transparent"></div>
         </div>
@@ -39,18 +40,22 @@
             <div class="max-w-3xl text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
                 <span class="inline-block px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 text-sm font-semibold text-accent">Tempat Memancing Premium</span>
 
+                {{-- Judul Dinamis --}}
                 <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
-                    Selamat Datang di Balong Hardi Sumedang
+                    {{ $hero->title ?? 'Selamat Datang di Balong Hardi Sumedang' }}
                 </h1>
 
+                {{-- Subtitle Dinamis --}}
                 <p class="text-lg md:text-xl text-[#EDEDED] mb-8">
-                    Nikmati pengalaman memancing & rekreasi keluarga dengan nuansa coklat-keemasan — asri, nyaman, dan penuh layanan.
+                    {{ $hero->subtitle ?? 'Nikmati pengalaman memancing & rekreasi keluarga dengan nuansa coklat-keemasan — asri, nyaman, dan penuh layanan.' }}
                 </p>
 
                 <div class="flex justify-center md:justify-start gap-4 mb-8">
-                    <a href="#kontak" class="inline-flex items-center gap-3 px-7 py-3 rounded-xl bg-accent text-[#0A0A0A] font-bold shadow-lg hover:brightness-95 transition hover:scale-105 duration-300">
-                        Reservasi Sekarang
+                    {{-- Tombol CTA Dinamis --}}
+                    <a href="{{ $hero->button_link ?? '#kontak' }}" class="inline-flex items-center gap-3 px-7 py-3 rounded-xl bg-accent text-[#0A0A0A] font-bold shadow-lg hover:brightness-95 transition hover:scale-105 duration-300">
+                        {{ $hero->button_text ?? 'Reservasi Sekarang' }}
                     </a>
+                    
                     <a href="#fasilitas" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-white/20 bg-white/5 text-white hover:bg-white/10 transition hover:scale-105 duration-300">
                         Lihat Fasilitas
                     </a>
@@ -74,6 +79,8 @@
                 </div>
             </div>
         </div>
+
+        
 
         <div class="absolute -top-32 -right-24 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none" style="background: linear-gradient(135deg, rgba(201,162,39,0.25), rgba(26,26,26,0.15));"></div>
         <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none" style="background: linear-gradient(135deg, rgba(166,132,30,0.18), rgba(10,10,10,0.1));"></div>
@@ -316,6 +323,36 @@
 
     {{-- TESTIMONI (Light: bg-light | Dark: dark:bg-[#161616]) --}}
     <section id="testimoni" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">
+
+        <style>
+            /* Animasi Marquee Berjalan Pelan */
+            .testi-marquee-wrapper {
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+                padding: 1rem 0;
+            }
+            .testi-marquee-track {
+                display: flex;
+                width: max-content;
+                /* Ganti angka 40s jadi lebih besar kalau mau lebih lambat */
+                animation: marquee 40s linear infinite; 
+            }
+            .testi-marquee-track:hover {
+                animation-play-state: paused; /* Berhenti kalau kursor diarahin ke card */
+            }
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .testi-card-item {
+                width: 350px;
+                margin-right: 2rem;
+                flex-shrink: 0;
+            }
+        </style>
+
+
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
                 <span class="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-xs font-extrabold text-accent uppercase tracking-wider mb-2">Kata Mereka</span>
@@ -325,43 +362,38 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {{-- Testi Card 1 --}}
-                <div class="bg-white dark:bg-[#212121] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-right" data-aos-delay="100">
-                    <div class="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent shadow-md bg-gray-200 dark:bg-gray-800">
-                        <img src="{{ asset('images/pfp.jpeg') }}" 
-                             alt="Rizki R." 
-                             class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <div class="flex text-amber-400 mb-2">
-                            ★★★★★
+                @forelse ($testimonials as $testi)
+                    <div class="bg-white dark:bg-[#212121] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent shadow-md bg-gray-200 dark:bg-gray-800">
+                            @if($testi->avatar)
+                                <img src="{{ asset('storage/' . $testi->avatar) }}" alt="{{ $testi->name }}" class="w-full h-full object-cover">
+                            @else
+                                <img src="{{ asset('images/pfp.jpeg') }}" alt="Default" class="w-full h-full object-cover">
+                            @endif
                         </div>
-                        <p class="text-gray-700 dark:text-gray-200 text-sm font-medium leading-relaxed italic mb-4">
-                            "Website dan fasilitasnya keren gak ada duanya. Tempat galatama paling mantap di Sumedang. Sukses terus buat BHS!"
-                        </p>
-                        <h4 class="font-extrabold text-secondary dark:text-light text-base uppercase">RIZKI R.</h4>
-                        <p class="text-xs font-semibold text-accent">Ketua HIPMI Sumedang</p>
-                    </div>
-                </div>
-
-                {{-- Testi Card 2 --}}
-                <div class="bg-white dark:bg-[#212121] p-7 rounded-2xl border border-gray-200/80 dark:border-gray-800 shadow-sm flex items-start gap-5 hover:border-accent/40 transition-all duration-300" data-aos="fade-left" data-aos-delay="200">
-                    <div class="relative w-16 h-16 rounded-full overflow-hidden shrink-0 border-2 border-accent shadow-md bg-gray-200 dark:bg-gray-800">
-                        <img src="{{ asset('images/pfp.jpeg') }}" 
-                             alt="Rizki R." 
-                             class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <div class="flex text-amber-400 mb-2">
-                            ★★★★★
+                        <div>
+                            <div class="flex text-amber-400 mb-2">
+                                <!-- Bintang Dinamis -->
+                                {!! str_repeat('&#9733;', $testi->rating) !!}
+                                <span class="text-gray-300">{!! str_repeat('&#9733;', 5 - $testi->rating) !!}</span>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-200 text-sm font-medium leading-relaxed italic mb-4">
+                                "{{ $testi->message }}"
+                            </p>
+                            <h4 class="font-extrabold text-secondary dark:text-light text-base uppercase">{{ $testi->name }}</h4>
+                            
+                            <!-- Cek Role Jabatan (Ini yang tadi bikin error) -->
+                            @if(isset($testi->role) && $testi->role != '')
+                                <p class="text-xs font-semibold text-accent">{{ $testi->role }}</p>
+                            @endif
                         </div>
-                        <p class="text-gray-700 dark:text-gray-200 text-sm font-medium leading-relaxed italic mb-4">
-                            "Fasilitas bersih, kolam ikan sehat, spot rekreasi keluarga yang lengkap banget. Wajib bawa joran kalau ke sini!"
-                        </p>
-                        <h4 class="font-extrabold text-secondary dark:text-light text-base uppercase">RIZKI R.</h4>
-                        <p class="text-xs font-semibold text-accent">Anggota Komunitas Mancing</p>
                     </div>
-                </div>
+                @empty
+                    <!-- Muncul kalau belum ada data testimoni di database -->
+                    <div class="col-span-2 text-center text-gray-500 py-8">
+                        <p>Belum ada testimoni pengunjung.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>

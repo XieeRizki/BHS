@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hero;
+use App\Models\Testimonial;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -10,12 +12,25 @@ class HomeController extends Controller
     public function index()
     {
         // HERO & ABOUT (dummy)
-        $hero = (object)[
-            'title' => 'Selamat Datang di Balong Hardi Sumedang',
-            'subtitle' => 'Tempat pemancingan asri dengan fasilitas lengkap',
-            'image' => null,
-            'stats' => null,
-        ];
+        // $hero = (object)[
+        //     'title' => 'Selamat Datang di Balong Hardi Sumedang',
+        //     'subtitle' => 'Tempat pemancingan asri dengan fasilitas lengkap',
+        //     'image' => null,
+        //     'stats' => null,
+        // ];
+
+        $hero = Hero::with('images')->first();
+        $testimonials = Testimonial::where('is_active', true)->latest()->get();
+
+        if (!$hero) {
+            $hero = (object)[
+                'title' => 'Selamat Datang di Balong Hardi Sumedang',
+                'subtitle' => 'Tempat pemancingan asri dengan fasilitas lengkap',
+                'image' => null,
+                'images' => [],
+                'stats' => []
+            ];
+        }
 
         $about = (object)[
             'title' => 'Tentang Balong Hardi',
@@ -42,23 +57,23 @@ class HomeController extends Controller
             (object)['name' => 'Paket VIP', 'formatted_price' => 'Rp100.000'],
         ]);
 
-        // TESTIMONIALS
-        $testimonials = collect([
-            (object)[
-                'rating' => 5,
-                'message' => 'Tempatnya asri, pelayanan ramah. Recomended!',
-                'name' => 'Andi',
-                'avatar' => null,
-                'role' => 'Pengunjung',
-            ],
-            (object)[
-                'rating' => 4,
-                'message' => 'Anak-anak senang, fasilitas lengkap.',
-                'name' => 'Budi',
-                'avatar' => null,
-                'city' => 'Sumedang',
-            ],
-        ]);
+        // TESTIMONIALS DUMMY
+        // $testimonials = collect([
+        //     (object)[
+        //         'rating' => 5,
+        //         'message' => 'Tempatnya asri, pelayanan ramah. Recomended!',
+        //         'name' => 'Andi',
+        //         'avatar' => null,
+        //         'role' => 'Pengunjung',
+        //     ],
+        //     (object)[
+        //         'rating' => 4,
+        //         'message' => 'Anak-anak senang, fasilitas lengkap.',
+        //         'name' => 'Budi',
+        //         'avatar' => null,
+        //         'city' => 'Sumedang',
+        //     ],
+        // ]);
 
         // BLOG POSTS
         $blogPosts = collect([

@@ -82,8 +82,8 @@
                                         @endif
                                         <div>
                                             <p class="font-bold text-secondary">{{ $testimonial->name }}</p>
-                                            @if ($testimonial->city)
-                                                <p class="text-sm text-gray-600">{{ $testimonial->city }}</p>
+                                            @if ($testimonial->role)
+                                                <p class="text-sm text-gray-600 font-medium text-accent">{{ $testimonial->role }}</p>
                                             @endif
                                         </div>
                                     </div>

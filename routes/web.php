@@ -3,21 +3,16 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
-use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PackageController;
-use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\FacilityController as FrontendFacilityController;
 use App\Http\Controllers\Frontend\AboutController as FrontendAboutController;
-use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\PricingController as FrontendPricingController;
 use App\Http\Controllers\Frontend\TestimonialController as FrontendTestimonialController;
 use App\Http\Controllers\Frontend\ReservationController;
@@ -25,6 +20,11 @@ use App\Models\BlogPost;
 //bagian baru
 use App\Http\Controllers\Frontend\InformasiController;
 use App\Http\Controllers\Admin\InformasiController as AdminInformasiController;
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Admin\HeroController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,14 +101,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     ->name('reservations.destroy');
 
     // Singleton: cuma edit/update, gak ada index/create/destroy
-    Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
-    Route::get('/hero/edit', [HeroController::class, 'edit'])->name('hero.edit');
+    Route::get('/hero', [HeroController::class, 'edit'])->name('hero.edit');
     Route::put('/hero', [HeroController::class, 'update'])->name('hero.update');
-    Route::delete('/hero', [HeroController::class, 'destroy'])->name('hero.delete');
-
+    Route::delete('/hero/image/{id}', [HeroController::class, 'destroy'])->name('hero.image.destroy');
     Route::get('/location', [LocationController::class, 'edit'])->name('location.edit');
     Route::put('/location', [LocationController::class, 'update'])->name('location.update');
-
     Route::get('/contact', [AdminContactController::class, 'edit'])->name('contact.edit');
     Route::put('/contact', [AdminContactController::class, 'update'])->name('contact.update');
 
