@@ -80,8 +80,6 @@
             </div>
         </div>
 
-        
-
         <div class="absolute -top-32 -right-24 w-96 h-96 rounded-full blur-3xl opacity-30 pointer-events-none" style="background: linear-gradient(135deg, rgba(201,162,39,0.25), rgba(26,26,26,0.15));"></div>
         <div class="absolute -bottom-32 -left-24 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none" style="background: linear-gradient(135deg, rgba(166,132,30,0.18), rgba(10,10,10,0.1));"></div>
     </section>
@@ -335,11 +333,10 @@
             .testi-marquee-track {
                 display: flex;
                 width: max-content;
-                /* Ganti angka 40s jadi lebih besar kalau mau lebih lambat */
                 animation: marquee 40s linear infinite; 
             }
             .testi-marquee-track:hover {
-                animation-play-state: paused; /* Berhenti kalau kursor diarahin ke card */
+                animation-play-state: paused;
             }
             @keyframes marquee {
                 0% { transform: translateX(0); }
@@ -351,7 +348,6 @@
                 flex-shrink: 0;
             }
         </style>
-
 
         <div class="container-max">
             <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
@@ -373,7 +369,6 @@
                         </div>
                         <div>
                             <div class="flex text-amber-400 mb-2">
-                                <!-- Bintang Dinamis -->
                                 {!! str_repeat('&#9733;', $testi->rating) !!}
                                 <span class="text-gray-300">{!! str_repeat('&#9733;', 5 - $testi->rating) !!}</span>
                             </div>
@@ -382,14 +377,12 @@
                             </p>
                             <h4 class="font-extrabold text-secondary dark:text-light text-base uppercase">{{ $testi->name }}</h4>
                             
-                            <!-- Cek Role Jabatan (Ini yang tadi bikin error) -->
                             @if(isset($testi->role) && $testi->role != '')
                                 <p class="text-xs font-semibold text-accent">{{ $testi->role }}</p>
                             @endif
                         </div>
                     </div>
                 @empty
-                    <!-- Muncul kalau belum ada data testimoni di database -->
                     <div class="col-span-2 text-center text-gray-500 py-8">
                         <p>Belum ada testimoni pengunjung.</p>
                     </div>
@@ -398,48 +391,96 @@
         </div>
     </section>
 
-    {{-- LIPUTAN MEDIA (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
-    <section id="liputan-media" class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
+    {{-- LIPUTAN MEDIA (Full Width No Extra Padding) --}}
+    <section id="liputan-media" class="py-14 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
-            <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
+            <div class="text-center max-w-xl mx-auto mb-10" data-aos="fade-up">
                 <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light uppercase tracking-wide">
                     LIPUTAN MEDIA
                 </h2>
-                <p class="text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mt-2">
-                    SAATNYA ANDA & KELURGA EKSPLORE SEKARANG JUGA
+                <p class="text-xs md:text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mt-2">
+                    SAATNYA ANDA & KELUARGA EKSPLORE SEKARANG JUGA
                 </p>
             </div>
 
-            <!-- Carousel Container / Grid Media Logos -->
-            <div class="flex items-center gap-3 md:gap-6 w-full" data-aos="zoom-in" data-aos-duration="800">
-
-                <!-- Arrow Left -->
-                <button type="button" class="text-gray-400 hover:text-accent transition-colors p-1 shrink-0 hidden sm:block">
-                    <svg class="w-7 h-7 md:w-9 md:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Carousel Layout Mengisi Seluruh Container -->
+            <div class="flex items-center gap-2 md:gap-4 w-full" data-aos="zoom-in" data-aos-duration="800">
+                
+                <!-- Tombol Panah Kiri -->
+                <button type="button" 
+                        id="media-prev" 
+                        aria-label="Media Sebelumnya"
+                        class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/90 dark:bg-[#212121]/90 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] dark:hover:border-accent shadow-md shrink-0 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none">
+                    <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
 
-                <!-- Wrapper 5 Items Media -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-4 w-full place-items-center">
-                    @forelse ($mediaLogos as $media)
-                        <a href="{{ $media->url ?? '#' }}" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                            <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                                <img src="{{ $media->logo ? asset('storage/' . $media->logo) : asset('images/bhs2.jpg') }}"
-                                    alt="{{ $media->name }}" class="w-full h-full object-cover rounded-full">
-                            </div>
-                            <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                                {{ $media->name }}
-                            </span>
-                        </a>
-                    @empty
-                        <p class="col-span-full text-center text-gray-500 dark:text-gray-400">Belum ada liputan media.</p>
-                    @endforelse
+                <!-- Track Container (Max Width Full) -->
+                <div id="media-viewport" class="overflow-hidden w-full py-4">
+                    <div id="media-track" class="flex items-center justify-between gap-6 md:gap-10 transition-transform duration-500 ease-out">
+                        @if(isset($mediaLogos) && count($mediaLogos) > 0)
+                            @foreach ($mediaLogos as $media)
+                                <a href="{{ $media->url ?? '#' }}" 
+                                   target="_blank" 
+                                   class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                    <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                        <img src="{{ isset($media->logo) ? asset('storage/' . $media->logo) : asset('images/bhs2.jpg') }}"
+                                             alt="{{ $media->name ?? 'Media Partner' }}" 
+                                             class="w-full h-full object-contain rounded-full"
+                                             onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    </div>
+                                    <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">
+                                        {{ $media->name }}
+                                    </span>
+                                </a>
+                            @endforeach
+                        @else
+                            {{-- Data Default apabila $mediaLogos di Database kosong --}}
+                            <a href="https://infojabar.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://infojabar.id/wp-content/uploads/2021/03/logo-infojabar.png" alt="Info Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">INFOJABAR</span>
+                            </a>
+
+                            <a href="https://jabar.tribunnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://asset-1.tribunnews.com/img/logo/tribun/tribunjabar.png" alt="Tribun Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRIBUN JABAR</span>
+                            </a>
+
+                            <a href="https://pikiran-rakyat.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2020/01/pikiran-rakyat.png" alt="Pikiran Rakyat" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">PIKIRAN RAKYAT</span>
+                            </a>
+
+                            <a href="https://www.trans7.co.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/TRANS7_logo.svg" alt="TRANS7" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRANS7</span>
+                            </a>
+
+                            <a href="https://www.metrotvnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/MetroTV_2010.svg" alt="Metro TV" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">METRO TV</span>
+                            </a>
+                        @endif
+                    </div>
                 </div>
 
-                <!-- Arrow Right -->
-                <button type="button" class="text-gray-400 hover:text-accent transition-colors p-1 shrink-0 hidden sm:block">
-                    <svg class="w-7 h-7 md:w-9 md:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Tombol Panah Kanan -->
+                <button type="button" 
+                        id="media-next" 
+                        aria-label="Media Berikutnya"
+                        class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/90 dark:bg-[#212121]/90 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] dark:hover:border-accent shadow-md shrink-0 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none">
+                    <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
                     </svg>
                 </button>
@@ -495,6 +536,9 @@
 @push('js')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    // ----------------------------------------------------
+    // AOS Init
+    // ----------------------------------------------------
     if (typeof AOS !== 'undefined') {
         AOS.init({
             once: true,
@@ -503,7 +547,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Hero Slider: 3 slide otomatis geser + bisa diklik lewat tombol panah
+    // ----------------------------------------------------
+    // Hero Slider Autoplay Script
+    // ----------------------------------------------------
     (function () {
         const heroSection = document.getElementById('hero-slider');
         if (!heroSection) return;
@@ -513,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const nextBtn = document.getElementById('hero-next');
         if (!slides.length) return;
 
-        const AUTOPLAY_DELAY = 5000; // 5 detik
+        const AUTOPLAY_DELAY = 5000;
         let currentIndex = 0;
         let autoplayTimer = null;
 
@@ -556,6 +602,76 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         startAutoplay();
+    })();
+
+    // ----------------------------------------------------
+    // Infinite Slider Liputan Media Script
+    // ----------------------------------------------------
+    (function initMediaInfiniteSlider() {
+        const track = document.getElementById('media-track');
+        const prevBtn = document.getElementById('media-prev');
+        const nextBtn = document.getElementById('media-next');
+
+        if (!track || !prevBtn || !nextBtn) return;
+
+        let items = Array.from(track.querySelectorAll('.media-item'));
+        if (items.length === 0) return;
+
+        // Duplikasi item agar konten berputar tanpa jeda / tanpa batas
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            track.appendChild(clone);
+        });
+
+        let isAnimating = false;
+
+        function getShiftWidth() {
+            const firstItem = track.querySelector('.media-item');
+            if (!firstItem) return 280;
+            const style = window.getComputedStyle(track);
+            const gap = parseFloat(style.gap) || 32;
+            return firstItem.offsetWidth + gap;
+        }
+
+        function moveNext() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const shift = getShiftWidth();
+            track.style.transition = 'transform 500ms ease-out';
+            track.style.transform = `translateX(-${shift}px)`;
+
+            track.addEventListener('transitionend', function handler() {
+                track.removeEventListener('transitionend', handler);
+                track.style.transition = 'none';
+                track.appendChild(track.firstElementChild);
+                track.style.transform = 'translateX(0)';
+                void track.offsetWidth; // force reflow
+                isAnimating = false;
+            });
+        }
+
+        function movePrev() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const shift = getShiftWidth();
+            track.style.transition = 'none';
+            track.insertBefore(track.lastElementChild, track.firstElementChild);
+            track.style.transform = `translateX(-${shift}px)`;
+            void track.offsetWidth; // force reflow
+
+            track.style.transition = 'transform 500ms ease-out';
+            track.style.transform = 'translateX(0)';
+
+            track.addEventListener('transitionend', function handler() {
+                track.removeEventListener('transitionend', handler);
+                isAnimating = false;
+            });
+        }
+
+        nextBtn.addEventListener('click', moveNext);
+        prevBtn.addEventListener('click', movePrev);
     })();
 });
 </script>
