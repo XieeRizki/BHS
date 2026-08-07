@@ -355,16 +355,8 @@
                     <i class="fas fa-image"></i> Hero Banner
                 </a>
 
-                <a href="{{ route('admin.about.index') }}" class="{{ request()->routeIs('admin.about.*') ? 'active' : '' }}">
-                    <i class="fas fa-info-circle"></i> Tentang Kami
-                </a>
-
                 <a href="{{ route('admin.facility.index') }}" class="{{ request()->routeIs('admin.facility.*') ? 'active' : '' }}">
-                    <i class="fas fa-swimming-pool"></i> Fasilitas
-                </a>
-
-                <a href="{{ route('admin.packages.index') }}" class="{{ request()->routeIs('admin.packages.*') ? 'active' : '' }}">
-                    <i class="fas fa-tag"></i> Paket
+                    <i class="fas fa-swimming-pool"></i> Layanan
                 </a>
 
                 <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
