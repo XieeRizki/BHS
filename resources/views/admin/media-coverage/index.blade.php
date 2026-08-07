@@ -180,12 +180,6 @@
         padding: 3rem 1.5rem;
     }
 
-    .empty-icon {
-        font-size: 3rem;
-        color: #D1D5DB;
-        margin-bottom: 1rem;
-    }
-
     .empty-text {
         color: var(--neutral);
         font-size: 0.95rem;
@@ -416,7 +410,7 @@
         <p class="section-header-desc">Manage logo media yang meliput Balong Hardi Sumedang</p>
     </div>
     <button class="btn-create" onclick="openModal('addModal')">
-        <i class="fas fa-plus"></i> Tambah Media
+        Tambah Media
     </button>
 </div>
 
@@ -444,12 +438,12 @@
                         <td>{{ $media->order }}</td>
                         <td>
                             <span class="badge {{ $media->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $media->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
+                                {{ $media->is_active ? 'Aktif' : 'Nonaktif' }}
                             </span>
                         </td>
                         <td>
                             <div class="action-group">
-                                <button onclick="openEditMediaModal({{ $media->id }})"
+                                <button type="button" onclick="openEditMediaModal(this)"
                                     class="btn-icon btn-edit"
                                     data-media-id="{{ $media->id }}"
                                     data-name="{{ $media->name }}"
@@ -457,12 +451,12 @@
                                     data-order="{{ $media->order }}"
                                     data-is-active="{{ $media->is_active }}"
                                     data-logo="{{ $media->logo }}">
-                                    <i class="fas fa-edit"></i>
+                                    Edit
                                 </button>
                                 <form action="{{ route('admin.media-coverage.destroy', $media) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete" style="border: none; padding: 0.5rem 0.8rem;">
-                                        <i class="fas fa-trash"></i>
+                                    <button type="submit" class="btn-icon btn-delete">
+                                        Hapus
                                     </button>
                                 </form>
                             </div>
@@ -472,10 +466,9 @@
                     <tr>
                         <td colspan="6">
                             <div class="empty-container">
-                                <div class="empty-icon">📭</div>
                                 <p class="empty-text">Belum ada data media</p>
                                 <button class="btn-create" onclick="openModal('addModal')">
-                                    <i class="fas fa-plus"></i> Tambah Media
+                                    Tambah Media
                                 </button>
                             </div>
                         </td>
@@ -491,7 +484,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
-            <h2>📰 Tambah Media</h2>
+            <h2>Tambah Media</h2>
             <p>Tambahkan media baru yang meliput BHS</p>
         </div>
 
@@ -525,14 +518,15 @@
 
             <div class="form-group">
                 <div class="checkbox-wrap">
+                    <input type="hidden" name="is_active" value="0">
                     <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}>
                     <label for="is_active">Tampilkan media ini</label>
                 </div>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">Simpan</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -543,7 +537,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
-            <h2>✏️ Edit Media</h2>
+            <h2>Edit Media</h2>
             <p>Perbarui informasi media</p>
         </div>
 
@@ -579,14 +573,15 @@
 
             <div class="form-group">
                 <div class="checkbox-wrap">
+                    <input type="hidden" name="is_active" value="0">
                     <input type="checkbox" id="edit_is_active" name="is_active" value="1">
                     <label for="edit_is_active">Tampilkan media ini</label>
                 </div>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">Simpan</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -603,8 +598,7 @@
         document.body.style.overflow = 'auto';
     }
 
-    function openEditMediaModal(mediaId) {
-        const button = event.target.closest('.btn-edit');
+    function openEditMediaModal(button) {
         const data = {
             id: button.getAttribute('data-media-id'),
             name: button.getAttribute('data-name'),
@@ -614,7 +608,7 @@
             logo: button.getAttribute('data-logo')
         };
 
-        document.getElementById('editForm').action = `/admin/media-coverage/${mediaId}`;
+        document.getElementById('editForm').action = `/admin/media-coverage/${data.id}`;
         document.getElementById('edit_name').value = data.name;
         document.getElementById('edit_url').value = data.url || '';
         document.getElementById('edit_order').value = data.order || 0;
