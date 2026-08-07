@@ -1,7 +1,5 @@
 @extends('layouts.admin')
-
-@section('title', 'Reservasi')
-
+@section('title', 'Kelola Reservasi')
 @section('content')
 
 <style>
@@ -24,7 +22,7 @@
     .section-header-desc {
         font-size: 0.85rem;
         color: var(--neutral);
-        margin: 0.2rem 0 0 0;
+        margin: 0;
     }
 
     .table-card {
@@ -34,14 +32,9 @@
         overflow: hidden;
     }
 
-    .table-responsive {
-        overflow-x: auto;
-    }
+    .table-responsive { overflow-x: auto; }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+    table { width: 100%; border-collapse: collapse; }
 
     thead {
         background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%);
@@ -52,7 +45,7 @@
         padding: 0.9rem;
         text-align: left;
         font-weight: 700;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -64,129 +57,144 @@
         vertical-align: top;
     }
 
-    tbody tr:hover {
-        background: rgba(249, 115, 22, 0.03);
-    }
+    tbody tr:hover { background: rgba(249, 115, 22, 0.03); }
 
-    .name-cell {
-        font-weight: 600;
-        color: var(--secondary);
-    }
+    .name-cell { font-weight: 600; color: var(--secondary); }
+    .sub-cell { font-size: 0.78rem; color: var(--neutral); margin-top: 2px; }
+    .message-cell { max-width: 260px; color: var(--neutral); white-space: pre-line; }
 
-    .msg-cell {
-        color: var(--neutral);
-        font-size: 0.85rem;
-        max-width: 220px;
-    }
-
-    select.status-select {
-        padding: 0.4rem 0.6rem;
-        border-radius: 6px;
-        border: 1px solid var(--border);
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .btn-delete {
-        padding: 0.45rem 0.75rem;
-        border: 1px solid rgba(239, 68, 68, 0.3);
+    .badge {
+        display: inline-block;
+        padding: 0.35rem 0.7rem;
         border-radius: 5px;
-        font-weight: 600;
         font-size: 0.75rem;
-        cursor: pointer;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    .badge-pending { background: rgba(245, 158, 11, 0.15); color: #92400E; }
+    .badge-confirmed { background: rgba(16, 185, 129, 0.15); color: #047857; }
+    .badge-cancelled { background: rgba(239, 68, 68, 0.15); color: #7F1D1D; }
+
+    .status-form { display: flex; gap: 0.4rem; align-items: center; }
+
+    .status-select {
+        padding: 0.4rem 0.5rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-size: 0.8rem;
         background: white;
+    }
+
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.45rem 0.7rem;
+        border: 1px solid;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        background: rgba(239, 68, 68, 0.1);
         color: #EF4444;
-        transition: all 0.15s ease;
+        border-color: rgba(239, 68, 68, 0.2);
     }
+    .btn-icon:hover { background: rgba(239, 68, 68, 0.15); }
 
-    .btn-delete:hover {
-        background: #EF4444;
+    .btn-save-status {
+        padding: 0.4rem 0.7rem;
+        border: none;
+        border-radius: 6px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
     }
 
-    .alert {
-        padding: 1rem 1.25rem;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-        font-size: 0.85rem;
-        background: rgba(16, 185, 129, 0.1);
-        color: #047857;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-    }
+    .empty-container { text-align: center; padding: 3rem 1.5rem; }
+    .empty-icon { font-size: 3rem; color: #D1D5DB; margin-bottom: 1rem; }
+    .empty-text { color: var(--neutral); font-size: 0.95rem; margin: 0; }
 
-    .empty-state {
-        text-align: center;
-        padding: 3rem 2rem;
-        color: var(--neutral);
+    @media (max-width: 768px) {
+        th, td { padding: 0.7rem; font-size: 0.8rem; }
+        .message-cell { max-width: 160px; }
     }
 </style>
 
 <div class="section-header">
     <div>
-        <h1>Reservasi</h1>
-        <p class="section-header-desc">Daftar reservasi yang masuk dari website</p>
+        <h1>Kelola Reservasi</h1>
+        <p class="section-header-desc">Daftar reservasi/pertanyaan yang masuk dari form kontak</p>
     </div>
 </div>
-
-@if (session('success'))
-    <div class="alert"><i class="fas fa-check-circle"></i> {{ session('success') }}</div>
-@endif
 
 <div class="table-card">
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Tanggal</th>
-                    <th>Orang</th>
-                    <th>Paket</th>
+                    <th>Pemesan</th>
+                    <th>Layanan</th>
                     <th>Catatan</th>
+                    <th>Tanggal</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    <th style="width: 160px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($reservations as $reservation)
+                @forelse($reservations as $reservation)
                     <tr>
-                        <td class="name-cell">{{ $reservation->name }}</td>
-                        <td>{{ $reservation->reservation_date->format('d M Y') }}</td>
-                        <td>{{ $reservation->guests }}</td>
-                        <td>{{ $reservation->package_name ?? '-' }}</td>
-                        <td class="msg-cell">{{ $reservation->message ?: '-' }}</td>
                         <td>
-                            <form action="{{ route('admin.reservations.update-status', $reservation) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <select name="status" class="status-select" onchange="this.form.submit()">
+                            <div class="name-cell">{{ $reservation->name }}</div>
+                            <div class="sub-cell">
+                                <a href="https://wa.me/{{ preg_replace('/^0/', '62', $reservation->phone) }}" target="_blank" style="color: inherit;">
+                                    <i class="fas fa-phone"></i> {{ $reservation->phone }}
+                                </a>
+                                @if($reservation->email)
+                                    <br><i class="fas fa-envelope"></i> {{ $reservation->email }}
+                                @endif
+                            </div>
+                        </td>
+                        <td>{{ $reservation->package_name }}</td>
+                        <td class="message-cell">{{ $reservation->message ?: '-' }}</td>
+                        <td class="sub-cell">{{ $reservation->created_at->format('d M Y, H:i') }}</td>
+                        <td>
+                            <span class="badge badge-{{ $reservation->status }}">{{ $reservation->status }}</span>
+                        </td>
+                        <td>
+                            <form action="{{ route('admin.reservations.update-status', $reservation) }}" method="POST" class="status-form">
+                                @csrf @method('PUT')
+                                <select name="status" class="status-select">
                                     <option value="pending" {{ $reservation->status === 'pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="confirmed" {{ $reservation->status === 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                                     <option value="cancelled" {{ $reservation->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                                 </select>
+                                <button type="submit" class="btn-save-status"><i class="fas fa-check"></i></button>
                             </form>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST" onsubmit="return confirm('Hapus reservasi ini?')">
+                            <form action="{{ route('admin.reservations.destroy', $reservation) }}" method="POST" style="margin-top: 0.4rem;" onsubmit="return confirm('Yakin hapus reservasi ini?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn-delete"><i class="fas fa-trash"></i> Hapus</button>
+                                <button type="submit" class="btn-icon"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">
-                            <div class="empty-state">Belum ada reservasi masuk.</div>
+                        <td colspan="6">
+                            <div class="empty-container">
+                                <div class="empty-icon">📭</div>
+                                <p class="empty-text">Belum ada reservasi masuk</p>
+                            </div>
                         </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-</div>
-
-<div style="margin-top: 1.5rem;">
-    {{ $reservations->links() }}
+    @if($reservations->hasPages())
+        <div style="padding: 1rem; text-align: center; border-top: 1px solid var(--border);">
+            {{ $reservations->links('pagination::bootstrap-4') }}
+        </div>
+    @endif
 </div>
 
 @endsection
