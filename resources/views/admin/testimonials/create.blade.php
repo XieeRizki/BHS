@@ -58,11 +58,11 @@
         </div>
 
         <div class="flex gap-4">
-            <button type="submit" class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-green-700 transition-all flex items-center gap-2">
-                <i class="fas fa-save"></i> Simpan Testimoni
+            <button type="submit" class="px-6 py-3 bg-primary text-white font-bold rounded-lg hover:bg-orange-600 transition-all">
+                Simpan Testimoni
             </button>
-            <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-3 bg-gray-400 text-white font-bold rounded-lg hover:bg-gray-500 transition-all flex items-center gap-2">
-                <i class="fas fa-times"></i> Batal
+            <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-3 bg-gray-400 text-white font-bold rounded-lg hover:bg-gray-500 transition-all">
+                Batal
             </a>
         </div>
     </form>

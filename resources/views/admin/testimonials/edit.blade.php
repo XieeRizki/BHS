@@ -19,6 +19,12 @@
         </div>
 
         <div class="mb-6">
+            <label class="block text-secondary font-bold mb-2">Jabatan / Keterangan (Opsional)</label>
+            <input type="text" name="role" value="{{ old('role', $testimonial->role) }}" placeholder="Contoh: Anggota Komunitas Mancing" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary">
+            @error('role') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
+
+        <div class="mb-6">
             <label class="block text-secondary font-bold mb-2">Pesan/Testimoni</label>
             <textarea name="message" rows="5" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>{{ old('message', $testimonial->message) }}</textarea>
             @error('message') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror

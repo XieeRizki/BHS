@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
@@ -44,5 +45,52 @@ class TestimonialController extends Controller
 
         return redirect()->route('admin.testimonials.index')
                          ->with('success', 'Testimoni orang penting berhasil ditambahkan!');
+    }
+
+    // Menampilkan form edit (halaman terpisah)
+    public function edit(Testimonial $testimonial)
+    {
+        return view('admin.testimonials.edit', compact('testimonial'));
+    }
+
+    // Memperbarui data testimoni
+    public function update(Request $request, Testimonial $testimonial)
+    {
+        $request->validate([
+            'name'      => 'required|string|max:255',
+            'role'      => 'nullable|string|max:255',
+            'message'   => 'required|string',
+            'rating'    => 'required|integer|min:1|max:5',
+            'avatar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $data = $request->except('avatar');
+        $data['is_active'] = $request->has('is_active');
+
+        // Ganti foto avatar jika ada file baru diunggah
+        if ($request->hasFile('avatar')) {
+            if ($testimonial->avatar) {
+                Storage::disk('public')->delete($testimonial->avatar);
+            }
+            $data['avatar'] = $request->file('avatar')->store('testimonials', 'public');
+        }
+
+        $testimonial->update($data);
+
+        return redirect()->route('admin.testimonials.index')
+                         ->with('success', 'Testimoni berhasil diperbarui!');
+    }
+
+    // Menghapus testimoni
+    public function destroy(Testimonial $testimonial)
+    {
+        if ($testimonial->avatar) {
+            Storage::disk('public')->delete($testimonial->avatar);
+        }
+
+        $testimonial->delete();
+
+        return redirect()->route('admin.testimonials.index')
+                         ->with('success', 'Testimoni berhasil dihapus!');
     }
 }

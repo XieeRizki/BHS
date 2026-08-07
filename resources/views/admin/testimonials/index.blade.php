@@ -167,12 +167,6 @@
         padding: 3rem 1.5rem;
     }
 
-    .empty-icon {
-        font-size: 3rem;
-        color: #D1D5DB;
-        margin-bottom: 1rem;
-    }
-
     .empty-text {
         color: var(--neutral);
         font-size: 0.95rem;
@@ -446,7 +440,7 @@
         <p class="section-header-desc">Manage semua testimoni pelanggan</p>
     </div>
     <button class="btn-create" onclick="openModal('addModal')">
-        <i class="fas fa-plus"></i> Tambah Testimoni
+        Tambah Testimoni
     </button>
 </div>
 
@@ -475,7 +469,7 @@
                         </td>
                         <td>
                             <span class="badge {{ $testimonial->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $testimonial->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
+                                {{ $testimonial->is_active ? 'Aktif' : 'Nonaktif' }}
                             </span>
                         </td>
                         <td>
@@ -489,12 +483,12 @@
                                     data-rating="{{ $testimonial->rating }}" 
                                     data-is-active="{{ $testimonial->is_active }}" 
                                     data-avatar="{{ $testimonial->avatar }}">
-                                    <i class="fas fa-edit"></i>
+                                    Edit
                                 </button>
                                 <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn-icon btn-delete" style="border: none; padding: 0.5rem 0.8rem;">
-                                        <i class="fas fa-trash"></i>
+                                        Hapus
                                     </button>
                                 </form>
                             </div>
@@ -504,10 +498,9 @@
                     <tr>
                         <td colspan="4">
                             <div class="empty-container">
-                                <div class="empty-icon">📭</div>
                                 <p class="empty-text">Belum ada testimoni</p>
                                 <button class="btn-create" onclick="openModal('addModal')">
-                                    <i class="fas fa-plus"></i> Tambah Testimoni
+                                    Tambah Testimoni
                                 </button>
                             </div>
                         </td>
@@ -528,7 +521,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
-            <h2>➕ Tambah Testimoni</h2>
+            <h2>Tambah Testimoni</h2>
             <p>Tambahkan testimoni pelanggan baru</p>
         </div>
 
@@ -580,10 +573,10 @@
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-save">
-                    <i class="fas fa-save"></i> Simpan
+                    Simpan
                 </button>
                 <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')">
-                    <i class="fas fa-times"></i> Batal
+                    Batal
                 </button>
             </div>
         </form>
@@ -595,7 +588,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
-            <h2>✏️ Edit Testimoni</h2>
+            <h2>Edit Testimoni</h2>
             <p>Perbarui informasi testimoni</p>
         </div>
 
@@ -649,10 +642,10 @@
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-save">
-                    <i class="fas fa-save"></i> Simpan
+                    Simpan
                 </button>
                 <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">
-                    <i class="fas fa-times"></i> Batal
+                    Batal
                 </button>
             </div>
         </form>
