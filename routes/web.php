@@ -24,6 +24,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MediaCoverageController;
 use App\Http\Controllers\Admin\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -108,7 +109,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::put('/location', [LocationController::class, 'update'])->name('location.update');
     Route::get('/contact', [AdminContactController::class, 'edit'])->name('contact.edit');
     Route::put('/contact', [AdminContactController::class, 'update'])->name('contact.update');
-
+    Route::get('/informasi/create', [AdminInformasiController::class, 'create'])->name('informasi.create');
+    Route::post('/informasi', [AdminInformasiController::class, 'store'])->name('informasi.store');
+    
     // Resource penuh, tapi tanpa 'show' (gak dipakai di admin)
     Route::resource('about', AboutController::class)->except(['show']);
     Route::resource('facility', FacilityController::class)->except(['show']);
@@ -116,7 +119,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('packages', PackageController::class)->except(['show']);
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
     Route::resource('blog-posts', BlogPostController::class)->except(['show']);
-    // Route untuk menampilkan halaman form tambah informasi
-    Route::get('/informasi/create', [AdminInformasiController::class, 'create'])->name('informasi.create');
-    Route::post('/informasi', [AdminInformasiController::class, 'store'])->name('informasi.store');
+    Route::resource('media-coverage', MediaCoverageController::class)
+    ->except(['show', 'create', 'edit']);
 });

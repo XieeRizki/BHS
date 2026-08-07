@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hero;
+use App\Models\MediaCoverage;
 use App\Models\Testimonial;
 use Carbon\Carbon;
 
@@ -121,11 +122,21 @@ class HomeController extends Controller
             (object)['name' => 'Meeting Room & Convention Hall', 'icon' => '🏛️'],
         ]);
 
-        $mediaLogos = collect([
-            (object)['name' => 'InfoJabar', 'logo' => null],
-            (object)['name' => 'Tribun Jabar', 'logo' => null],
-            (object)['name' => 'Pikiran Rakyat', 'logo' => null],
-        ]);
+        try {
+            $mediaLogos = MediaCoverage::active()->ordered()->get();
+
+            if ($mediaLogos->isEmpty()) {
+                throw new \Exception('No media coverage data');
+            }
+            } catch (\Throwable $e) {
+                $mediaLogos = collect([
+                    (object)['name' => 'InfoJabar', 'logo' => null, 'url' => 'https://infojabar.id'],
+                    (object)['name' => 'Tribun Jabar', 'logo' => null, 'url' => 'https://jabar.tribunnews.com'],
+                    (object)['name' => 'Pikiran Rakyat', 'logo' => null, 'url' => 'https://pikiran-rakyat.com'],
+                    (object)['name' => 'Trans7', 'logo' => null, 'url' => 'https://www.trans7.co.id'],
+                    (object)['name' => 'Metro TV', 'logo' => null, 'url' => 'https://www.metrotvnews.com'],
+                ]);
+            }
 
         $homeEvents = collect([
             (object)['title' => 'Galatama Mingguan BHS', 'category' => 'Galatama', 'date' => '2026-08-01', 'description' => 'Keterangan event BHS'],

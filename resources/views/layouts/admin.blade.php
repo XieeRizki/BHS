@@ -375,6 +375,10 @@
                     <i class="fas fa-newspaper"></i> Informasi & Berita
                 </a>
 
+                <a href="{{ route('admin.media-coverage.index') }}" class="{{ request()->routeIs('admin.media-coverage.*') ? 'active' : '' }}">
+                    <i class="fas fa-newspaper"></i> Liputan Media
+                </a>
+
                 <a href="{{ route('admin.testimonials.index') }}" class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
                     <i class="fas fa-star"></i> Testimoni
                 </a>

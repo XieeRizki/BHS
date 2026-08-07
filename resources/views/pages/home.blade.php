@@ -422,57 +422,19 @@
 
                 <!-- Wrapper 5 Items Media -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-4 w-full place-items-center">
-
-                    {{-- Media 1: Info Jabar --}}
-                    <a href="https://infojabar.id" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Info Jabar" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                            INFOJABAR
-                        </span>
-                    </a>
-
-                    {{-- Media 2: Tribun Jabar --}}
-                    <a href="https://jabar.tribunnews.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Tribun Jabar" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                            TRIBUN JABAR
-                        </span>
-                    </a>
-
-                    {{-- Media 3: Pikiran Rakyat --}}
-                    <a href="https://pikiran-rakyat.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Pikiran Rakyat" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                            PIKIRAN RAKYAT
-                        </span>
-                    </a>
-
-                    {{-- Media 4: Trans7 --}}
-                    <a href="https://www.trans7.co.id" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="TRANS7" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                            TRANS7
-                        </span>
-                    </a>
-
-                    {{-- Media 5: Metro TV --}}
-                    <a href="https://www.metrotvnews.com" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
-                        <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Metro TV" class="w-full h-full object-cover rounded-full">
-                        </div>
-                        <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
-                            METRO TV
-                        </span>
-                    </a>
-
+                    @forelse ($mediaLogos as $media)
+                        <a href="{{ $media->url ?? '#' }}" target="_blank" class="group flex flex-col items-center gap-3 hover:scale-105 transition-transform duration-300">
+                            <div class="w-20 h-20 md:w-28 md:h-28 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#212121] shrink-0 p-1.5 shadow-sm">
+                                <img src="{{ $media->logo ? asset('storage/' . $media->logo) : asset('images/bhs2.jpg') }}"
+                                    alt="{{ $media->name }}" class="w-full h-full object-cover rounded-full">
+                            </div>
+                            <span class="font-extrabold text-xs md:text-base text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors text-center">
+                                {{ $media->name }}
+                            </span>
+                        </a>
+                    @empty
+                        <p class="col-span-full text-center text-gray-500 dark:text-gray-400">Belum ada liputan media.</p>
+                    @endforelse
                 </div>
 
                 <!-- Arrow Right -->
