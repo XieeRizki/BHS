@@ -75,6 +75,18 @@
         background: var(--bg-light);
     }
 
+    .hero-card-image-placeholder {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
     .hero-card-content {
         padding: 1.25rem;
     }
@@ -133,10 +145,6 @@
         text-decoration: none;
         text-align: center;
         transition: all 0.15s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.4rem;
     }
 
     .btn-edit {
@@ -167,12 +175,6 @@
         border-radius: 10px;
     }
 
-    .empty-state-icon {
-        font-size: 3rem;
-        color: var(--border);
-        margin-bottom: 1rem;
-    }
-
     .empty-state-title {
         font-size: 1.1rem;
         font-weight: 700;
@@ -190,9 +192,6 @@
         padding: 1rem 1.25rem;
         border-radius: 6px;
         margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
     }
 
     .alert-success {
@@ -223,15 +222,13 @@
 <!-- Alert Messages -->
 @if (session('success'))
     <div class="alert alert-success">
-        <i class="fas fa-check-circle"></i>
-        <span>{{ session('success') }}</span>
+        {{ session('success') }}
     </div>
 @endif
 
 @if (session('error'))
     <div class="alert alert-error">
-        <i class="fas fa-exclamation-circle"></i>
-        <span>{{ session('error') }}</span>
+        {{ session('error') }}
     </div>
 @endif
 
@@ -242,7 +239,7 @@
         <p>Atur banner utama yang ditampilkan di halaman depan website</p>
     </div>
     <a href="{{ route('admin.hero.edit') }}" class="btn-primary">
-        <i class="fas fa-edit"></i> Edit Hero Banner
+        Edit Hero Banner
     </a>
 </div>
 
@@ -253,8 +250,8 @@
             @if($hero->image)
                 <img src="{{ asset('storage/' . $hero->image) }}" alt="{{ $hero->title }}" class="hero-card-image">
             @else
-                <div class="hero-card-image" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); display: flex; align-items: center; justify-content: center; color: #9ca3af;">
-                    <i class="fas fa-image" style="font-size: 2rem;"></i>
+                <div class="hero-card-image-placeholder">
+                    Belum ada gambar
                 </div>
             @endif
 
@@ -264,14 +261,10 @@
 
                 <div class="hero-card-meta">
                     @if($hero->button_text)
-                        <span class="meta-badge">
-                            <i class="fas fa-hand-pointer"></i> CTA: {{ $hero->button_text }}
-                        </span>
+                        <span class="meta-badge">CTA: {{ $hero->button_text }}</span>
                     @endif
                     @if($hero->images && $hero->images->count() > 0)
-                        <span class="meta-badge">
-                            <i class="fas fa-images"></i> {{ $hero->images->count() }} Slide
-                        </span>
+                        <span class="meta-badge">{{ $hero->images->count() }} Slide</span>
                     @endif
                 </div>
 
@@ -280,14 +273,12 @@
                      dan tambahin juga input-nya di form edit.blade.php --}}
 
                 <div class="hero-card-actions">
-                    <a href="{{ route('admin.hero.edit') }}" class="btn-edit">
-                        <i class="fas fa-pencil-alt"></i> Edit
-                    </a>
+                    <a href="{{ route('admin.hero.edit') }}" class="btn-edit">Edit</a>
                     <form action="{{ route('admin.hero.delete') }}" method="POST" style="flex: 1; display: flex;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-delete" onclick="return confirm('Yakin ingin menghapus hero banner ini?')">
-                            <i class="fas fa-trash"></i> Hapus
+                            Hapus
                         </button>
                     </form>
                 </div>
@@ -297,22 +288,15 @@
 @else
     <!-- Empty State -->
     <div class="empty-state">
-        <div class="empty-state-icon">
-            <i class="fas fa-inbox"></i>
-        </div>
         <h3 class="empty-state-title">Belum Ada Hero Banner</h3>
         <p class="empty-state-text">Buat hero banner pertama Anda untuk menampilkan konten utama di halaman depan website.</p>
-        <a href="{{ route('admin.hero.edit') }}" class="btn-primary">
-            <i class="fas fa-plus"></i> Buat Hero Banner
-        </a>
+        <a href="{{ route('admin.hero.edit') }}" class="btn-primary">Buat Hero Banner</a>
     </div>
 @endif
 
 <!-- Info Box -->
 <div style="margin-top: 2rem; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; padding: 1.25rem;">
-    <h4 style="margin: 0 0 0.75rem 0; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem;">
-        <i class="fas fa-info-circle" style="color: #3b82f6;"></i> Informasi
-    </h4>
+    <h4 style="margin: 0 0 0.75rem 0; color: var(--secondary);">Informasi</h4>
     <ul style="margin: 0; padding-left: 1.5rem; color: var(--neutral); font-size: 0.9rem;">
         <li>Hero banner adalah konten utama yang pertama kali dilihat pengunjung</li>
         <li>Gunakan gambar berkualitas tinggi dengan ukuran minimal 1920x600px</li>

@@ -101,17 +101,20 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/reservations/{reservation}', [AdminReservationController::class, 'destroy'])
     ->name('reservations.destroy');
 
-    // Singleton: cuma edit/update, gak ada index/create/destroy
-    Route::get('/hero', [HeroController::class, 'edit'])->name('hero.edit');
+    // Singleton: index (preview) -> edit (form) -> update / delete
+    Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
+    Route::get('/hero/edit', [HeroController::class, 'edit'])->name('hero.edit');
     Route::put('/hero', [HeroController::class, 'update'])->name('hero.update');
-    Route::delete('/hero/image/{id}', [HeroController::class, 'destroy'])->name('hero.image.destroy');
+    Route::delete('/hero', [HeroController::class, 'destroy'])->name('hero.delete');
+    Route::delete('/hero/image/{id}', [HeroController::class, 'destroyImage'])->name('hero.image.destroy');
+
     Route::get('/location', [LocationController::class, 'edit'])->name('location.edit');
     Route::put('/location', [LocationController::class, 'update'])->name('location.update');
     Route::get('/contact', [AdminContactController::class, 'edit'])->name('contact.edit');
     Route::put('/contact', [AdminContactController::class, 'update'])->name('contact.update');
     Route::get('/informasi/create', [AdminInformasiController::class, 'create'])->name('informasi.create');
     Route::post('/informasi', [AdminInformasiController::class, 'store'])->name('informasi.store');
-    
+
     // Resource penuh, tapi tanpa 'show' (gak dipakai di admin)
     Route::resource('about', AboutController::class)->except(['show']);
     Route::resource('facility', FacilityController::class)->except(['show']);
