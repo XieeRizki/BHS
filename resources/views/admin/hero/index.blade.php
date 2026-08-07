@@ -186,28 +186,6 @@
         font-size: 0.9rem;
     }
 
-    .stats-preview {
-        background: rgba(249, 115, 22, 0.05);
-        border-top: 1px solid var(--border);
-        padding: 0.75rem 1.25rem;
-        margin-top: 0.75rem;
-        border-radius: 4px;
-    }
-
-    .stats-preview-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--neutral);
-        margin-bottom: 0.4rem;
-        text-transform: uppercase;
-    }
-
-    .stats-count {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--primary);
-    }
-
     .alert {
         padding: 1rem 1.25rem;
         border-radius: 6px;
@@ -290,29 +268,16 @@
                             <i class="fas fa-hand-pointer"></i> CTA: {{ $hero->button_text }}
                         </span>
                     @endif
-                    @if($hero->stats && count($hero->stats) > 0)
+                    @if($hero->images && $hero->images->count() > 0)
                         <span class="meta-badge">
-                            <i class="fas fa-chart-bar"></i> {{ count($hero->stats) }} Statistik
+                            <i class="fas fa-images"></i> {{ $hero->images->count() }} Slide
                         </span>
                     @endif
                 </div>
 
-                @if($hero->stats && count($hero->stats) > 0)
-                    <div class="stats-preview">
-                        <div class="stats-preview-label">📊 Statistik Preview</div>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem;">
-                            @foreach($hero->stats as $stat)
-                                <div style="padding: 0.5rem; background: white; border-radius: 4px; text-align: center; border: 1px solid var(--border);">
-                                    @if($stat->icon)
-                                        <i class="{{ $stat->icon }}" style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 0.25rem;"></i>
-                                    @endif
-                                    <div style="font-weight: 700; color: var(--secondary); font-size: 0.9rem;">{{ $stat->value }}</div>
-                                    <div style="font-size: 0.7rem; color: var(--neutral);">{{ $stat->label }}</div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
+                {{-- TODO backend: tabel hero_stats belum ada di database.
+                     Aktifkan blok ini kalau migration + model HeroStat sudah dibuat,
+                     dan tambahin juga input-nya di form edit.blade.php --}}
 
                 <div class="hero-card-actions">
                     <a href="{{ route('admin.hero.edit') }}" class="btn-edit">
@@ -351,7 +316,7 @@
     <ul style="margin: 0; padding-left: 1.5rem; color: var(--neutral); font-size: 0.9rem;">
         <li>Hero banner adalah konten utama yang pertama kali dilihat pengunjung</li>
         <li>Gunakan gambar berkualitas tinggi dengan ukuran minimal 1920x600px</li>
-        <li>Tambahkan statistik untuk meningkatkan kredibilitas bisnis Anda</li>
+        <li>Upload beberapa foto slideshow agar background berganti otomatis di halaman depan</li>
         <li>Button CTA membantu pengunjung untuk langsung melakukan aksi yang diinginkan</li>
     </ul>
 </div>
