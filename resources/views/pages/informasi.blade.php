@@ -16,6 +16,15 @@
 
                 {{-- KONTEN BERITA (Kiri) --}}
                 <div class="lg:col-span-2">
+
+                    @if($selectedCategory)
+                        <div class="flex items-center justify-between mb-6 p-3 bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-xl">
+                            <span class="text-sm text-secondary dark:text-light">
+                                Menampilkan kategori: <strong>{{ $selectedCategory->name }}</strong>
+                            </span>
+                            <a href="{{ route('informasi') }}" class="text-xs font-bold text-accent hover:underline">Reset Filter</a>
+                        </div>
+                    @endif
                     
                     @if($berita->count() > 0)
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -98,8 +107,11 @@
                         <h3 class="text-lg font-extrabold text-secondary dark:text-light uppercase tracking-wide mb-4">Kategori Trending Topics</h3>
                         <div class="flex flex-wrap gap-2">
                             @forelse ($kategoriTrending as $kategori)
-                                <!-- TODO: Arahkan href ke pencarian/filter berdasarkan kategori -->
-                                <a href="#" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-xs font-bold text-secondary dark:text-light hover:bg-accent hover:text-[#0A0A0A] hover:border-accent transition-colors duration-300">
+                                <a href="{{ route('informasi', ['kategori' => $kategori->slug]) }}"
+                                class="px-4 py-2 rounded-lg border text-xs font-bold transition-colors duration-300
+                                        {{ $selectedCategory && $selectedCategory->id === $kategori->id
+                                            ? 'bg-accent text-[#0A0A0A] border-accent'
+                                            : 'border-gray-200 dark:border-gray-700 text-secondary dark:text-light hover:bg-accent hover:text-[#0A0A0A] hover:border-accent' }}">
                                     {{ $kategori->name }}
                                 </a>
                             @empty

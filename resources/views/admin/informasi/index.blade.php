@@ -76,6 +76,10 @@
     <a href="{{ route('admin.informasi.create') }}" class="btn-create">
         <i class="fas fa-plus"></i> Tambah Konten
     </a>
+    {{-- tambahin di section-header, sejajar sama tombol "Tambah Konten" --}}
+    <button class="btn-cancel" onclick="openModal('categoryModal')" style="text-decoration:none;">
+        <i class="fas fa-tags"></i> Kelola Kategori
+    </button>
 </div>
 
 <div class="table-card">
@@ -141,5 +145,36 @@
             {{ $posts->links() }}
         </div>
     @endif
+</div>
+
+<!-- Modal Kelola Kategori -->
+<div class="modal-overlay" id="categoryModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('categoryModal')">&times;</button>
+        <div class="modal-header">
+            <h2>🏷️ Kelola Kategori</h2>
+            <p>Tambah atau hapus kategori berita/artikel</p>
+        </div>
+
+        <form action="{{ route('admin.kategori.store') }}" method="POST" style="display:flex; gap:0.5rem; margin-bottom:1.5rem;">
+            @csrf
+            <input type="text" name="name" placeholder="Nama kategori baru..." required style="flex:1;">
+            <button type="submit" class="btn-save-status" style="padding:0.65rem 1rem;"><i class="fas fa-plus"></i></button>
+        </form>
+
+        <div style="max-height:250px; overflow-y:auto;">
+            @forelse($categories as $kategori)
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid var(--border);">
+                    <span>{{ $kategori->name }} <small style="color:var(--neutral);">({{ $kategori->posts_count }} konten)</small></span>
+                    <form action="{{ route('admin.kategori.destroy', $kategori) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn-icon btn-delete" style="border:none;"><i class="fas fa-trash"></i></button>
+                    </form>
+                </div>
+            @empty
+                <p style="color:var(--neutral); font-size:0.9rem;">Belum ada kategori.</p>
+            @endforelse
+        </div>
+    </div>
 </div>
 @endsection

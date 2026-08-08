@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\MediaCoverageController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,6 +115,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/informasi/{post}/edit', [AdminInformasiController::class, 'edit'])->name('informasi.edit');
     Route::put('/informasi/{post}', [AdminInformasiController::class, 'update'])->name('informasi.update');
     Route::delete('/informasi/{post}', [AdminInformasiController::class, 'destroy'])->name('informasi.destroy');
+    Route::post('/kategori', [CategoryController::class, 'store'])->name('kategori.store');
+    Route::delete('/kategori/{kategori}', [CategoryController::class, 'destroy'])->name('kategori.destroy');
 
     // Resource penuh, tapi tanpa 'show' (gak dipakai di admin)
     Route::resource('about', AboutController::class)->except(['show']);

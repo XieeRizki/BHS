@@ -14,8 +14,9 @@ class InformasiController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('category')->latest()->paginate(15);
-        return view('admin.informasi.index', compact('posts'));
+         $posts = Post::with('category')->latest()->paginate(15);
+         $categories = Category::withCount('posts')->get();
+         return view('admin.informasi.index', compact('posts', 'categories'));
     }
 
     public function create()
