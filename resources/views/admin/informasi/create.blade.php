@@ -202,9 +202,6 @@
             <textarea name="content" class="form-control" rows="6" placeholder="Tulis isi berita selengkapnya di sini..." required></textarea>
         </div>
 
-        <!-- Hidden input untuk memastikan ini form berita biasa, bukan fitur khusus -->
-        <input type="hidden" name="is_spotlight" value="0">
-        <input type="hidden" name="is_featured" value="0">
 
         <div class="mb-4">
             <h4 class="font-bold text-gray-700 mb-2">Penempatan Khusus di Halaman Informasi</h4>

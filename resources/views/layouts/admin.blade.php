@@ -363,7 +363,7 @@
                     <i class="fas fa-pen-fancy"></i> Blog
                 </a>
 
-                <a href="{{ route('admin.informasi.create') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
                     <i class="fas fa-newspaper"></i> Informasi & Berita
                 </a>
 

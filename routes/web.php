@@ -108,8 +108,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::put('/location', [LocationController::class, 'update'])->name('location.update');
     Route::get('/contact', [AdminContactController::class, 'edit'])->name('contact.edit');
     Route::put('/contact', [AdminContactController::class, 'update'])->name('contact.update');
+    Route::get('/informasi', [AdminInformasiController::class, 'index'])->name('informasi.index');
     Route::get('/informasi/create', [AdminInformasiController::class, 'create'])->name('informasi.create');
     Route::post('/informasi', [AdminInformasiController::class, 'store'])->name('informasi.store');
+    Route::get('/informasi/{post}/edit', [AdminInformasiController::class, 'edit'])->name('informasi.edit');
+    Route::put('/informasi/{post}', [AdminInformasiController::class, 'update'])->name('informasi.update');
+    Route::delete('/informasi/{post}', [AdminInformasiController::class, 'destroy'])->name('informasi.destroy');
 
     // Resource penuh, tapi tanpa 'show' (gak dipakai di admin)
     Route::resource('about', AboutController::class)->except(['show']);

@@ -1,4 +1,5 @@
 <?php
+// app/Http/Controllers/Admin/InformasiController.php
 
 namespace App\Http\Controllers\Admin;
 
@@ -6,25 +7,29 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class InformasiController extends Controller
 {
-    // Menampilkan halaman form create
+    public function index()
+    {
+        $posts = Post::with('category')->latest()->paginate(15);
+        return view('admin.informasi.index', compact('posts'));
+    }
+
     public function create()
     {
         $categories = Category::all();
         return view('admin.informasi.create', compact('categories'));
     }
 
-    // Menyimpan data berita atau artikel baru ke database
     public function store(Request $request)
     {
-        // Validasi input, wajib memilih type berita atau artikel
         $request->validate([
             'type'        => 'required|in:berita,artikel',
             'title'       => 'required|string|max:255',
-            'category_id' => 'required|exists:t_category,id', // pastikan merujuk ke tabel t_category
+            'category_id' => 'required|exists:t_category,id',
             'content'     => 'required',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -36,19 +41,69 @@ class InformasiController extends Controller
 
         Post::create([
             'category_id'  => $request->category_id,
-            'type'         => $request->type, // Simpan tipenya (hardcode dari form)
+            'type'         => $request->type,
             'title'        => $request->title,
             'slug'         => Str::slug($request->title) . '-' . time(),
             'cover_image'  => $imagePath,
             'excerpt'      => $request->excerpt ?? Str::limit(strip_tags($request->content), 150),
             'content'      => $request->content,
             'author_name'  => 'Humas BHS',
-            'is_spotlight' => $request->has('is_spotlight') ? true : false,
-            'is_featured'  => $request->has('is_featured') ? true : false,
-            'published_at' => now(), 
+            'is_spotlight' => $request->boolean('is_spotlight'),
+            'is_featured'  => $request->boolean('is_featured'),
+            'published_at' => now(),
         ]);
 
-        return redirect()->route('admin.informasi.create')
+        return redirect()->route('admin.informasi.index')
             ->with('success', 'Konten berhasil ditambahkan!');
+    }
+
+    public function edit(Post $post)
+    {
+        $categories = Category::all();
+        return view('admin.informasi.edit', compact('post', 'categories'));
+    }
+
+    public function update(Request $request, Post $post)
+    {
+        $request->validate([
+            'type'        => 'required|in:berita,artikel',
+            'title'       => 'required|string|max:255',
+            'category_id' => 'required|exists:t_category,id',
+            'content'     => 'required',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $data = [
+            'category_id'  => $request->category_id,
+            'type'         => $request->type,
+            'title'        => $request->title,
+            'excerpt'      => $request->excerpt ?? Str::limit(strip_tags($request->content), 150),
+            'content'      => $request->content,
+            'is_spotlight' => $request->boolean('is_spotlight'),
+            'is_featured'  => $request->boolean('is_featured'),
+        ];
+
+        if ($request->hasFile('cover_image')) {
+            if ($post->cover_image) {
+                Storage::disk('public')->delete($post->cover_image);
+            }
+            $data['cover_image'] = $request->file('cover_image')->store('posts', 'public');
+        }
+
+        $post->update($data);
+
+        return redirect()->route('admin.informasi.index')
+            ->with('success', 'Konten berhasil diperbarui.');
+    }
+
+    public function destroy(Post $post)
+    {
+        if ($post->cover_image) {
+            Storage::disk('public')->delete($post->cover_image);
+        }
+        $post->delete();
+
+        return redirect()->route('admin.informasi.index')
+            ->with('success', 'Konten berhasil dihapus.');
     }
 }

@@ -33,8 +33,7 @@ class InformasiController extends Controller
         $kategoriTrending = Category::latest()->take(6)->get();
 
         // 4. MENARIK TUK DISIMAK (Kanan Bawah) - Filter khusus type 'artikel'
-        $artikelPilihan = Post::where('type', 'artikel')
-            ->where('is_featured', true)
+        $artikelPilihan = Post::where('is_featured', true)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->latest('published_at')
