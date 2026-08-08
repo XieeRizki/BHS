@@ -232,21 +232,19 @@
                         const errorMessages = Object.values(data.errors).flat().join('\n');
                         throw new Error(errorMessages);
                     }
+                    if (response.status === 419) {
+                        // Sesi/CSRF token sudah expired. Beri instruksi jelas ke user,
+                        // bukan pesan generic "Server error" biar ga membingungkan.
+                        throw new Error('Sesi Anda sudah kedaluwarsa. Silakan refresh halaman ini (F5), lalu isi & kirim ulang formnya.');
+                    }
                     if (!response.ok) throw new Error('Gagal menyimpan reservasi. Server error.');
                     return response.json();
                 })
                 .then(data => {
-                    form.innerHTML = `
-                        <div class="text-center py-8">
-                            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-bold text-secondary dark:text-light mb-2">Reservasi Berhasil Dikirim!</h4>
-                            <p class="text-gray-600 dark:text-gray-300 text-sm">Terima kasih, <b>${name}</b>. Tim kami akan menghubungi Anda dalam 1x24 jam kerja untuk konfirmasi.</p>
-                        </div>
-                    `;
+                    showReservationToast(`Terima kasih, ${name}! Reservasi Anda berhasil dikirim. Tim kami akan menghubungi Anda dalam 1x24 jam kerja.`);
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
                 })
                 .catch(error => {
                     alert(error.message);
@@ -254,6 +252,43 @@
                     submitBtn.innerHTML = originalBtnHtml;
                 });
             });
+
+            // Toast notifikasi sukses reservasi. Form tetap ada di halaman,
+            // cuma di-reset kosong lagi setelah submit berhasil.
+            function showReservationToast(message) {
+                const existing = document.getElementById('reservationToast');
+                existing?.remove();
+
+                const toast = document.createElement('div');
+                toast.id = 'reservationToast';
+                toast.className = 'fixed bottom-6 right-6 z-50 max-w-sm bg-white dark:bg-[#1c1c1c] border-2 border-green-500 rounded-xl shadow-2xl p-4 flex items-start gap-3 animate-[fadeIn_0.3s_ease-out]';
+                toast.innerHTML = `
+                    <div class="w-9 h-9 flex-shrink-0 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-bold text-secondary dark:text-light mb-0.5">Reservasi Berhasil Dikirim!</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">${message.replace(/^Terima kasih, .*?! /, '')}</p>
+                    </div>
+                    <button type="button" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 flex-shrink-0" onclick="this.closest('#reservationToast').remove()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.remove(), 6000);
+            }
         });
     </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 @endsection
