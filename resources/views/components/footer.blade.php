@@ -70,7 +70,7 @@
                 </ul>
             </div>
 
-            <!-- Sosial Media -->
+            <!-- Sosial Media, FAQ & Sitemap -->
             <div>
                 <h4 class="text-lg font-bold mb-6 text-light">Sosial Media</h4>
                 <div class="flex items-center gap-3 mb-6">
@@ -112,6 +112,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </a>
+                </div>
+
+                <!-- FAQ & Sitemap Links -->
+                <div class="pt-4 border-t border-white/10">
+                    <h5 class="text-sm font-bold mb-3 text-light uppercase tracking-wider">Bantuan & Navigasi</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{{ route('home') }}#informasi" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">FAQ (Pertanyaan Umum)</a></li>
+                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Sitemap (Peta Situs)</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

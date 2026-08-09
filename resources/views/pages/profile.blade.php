@@ -43,30 +43,7 @@
         ],
     ];
 
-    $mediaCoverages = $mediaCoverages ?? [
-        ['name' => 'Info Jabar', 'url' => '#'],
-        ['name' => 'Tribun Jabar', 'url' => '#'],
-        ['name' => 'Pikiran Rakyat', 'url' => '#'],
-    ];
 
-    $faqs = $faqs ?? [
-        [
-            'q' => 'Layanan apa saja yang ditawarkan BHS?',
-            'a' => 'Memulainya sangat mudah! Cukup hubungi kami melalui formulir kontak atau telepon, dan kami akan menjadwalkan konsultasi untuk membahas kebutuhan Anda serta bagaimana kami dapat memberikan pengalaman terbaik. Tim kami akan terus memberikan informasi selama proses berlangsung, demi memastikan kenyamanan dan kepuasan Anda.',
-        ],
-        [
-            'q' => 'Bagaimana cara melakukan reservasi di BHS?',
-            'a' => 'Reservasi bisa dilakukan langsung lewat tombol Reservasi di website atau menghubungi kami via WhatsApp. Tim kami akan membantu memilih paket dan jadwal yang sesuai.',
-        ],
-        [
-            'q' => 'Apakah tersedia paket untuk rombongan atau komunitas?',
-            'a' => 'Tersedia. BHS memiliki paket khusus untuk galatama, fishing community, hingga acara kantor atau keluarga besar dengan fasilitas kolam dan area yang bisa disesuaikan.',
-        ],
-        [
-            'q' => 'Apa saja jam operasional Balong Hardi Sumedang?',
-            'a' => 'BHS buka setiap hari, silakan cek jam operasional terbaru di halaman Kontak atau langsung tanyakan ke admin kami via WhatsApp.',
-        ],
-    ];
 @endphp
 
 {{-- Breadcrumb --}}
@@ -131,29 +108,24 @@
 <section id="tentang-bhs" class="bg-light dark:bg-dark py-16 md:py-20 scroll-mt-24">
     <div class="container-max">
         <div class="grid md:grid-cols-2 gap-10 items-center">
-            <div class="relative rounded-2xl overflow-hidden aspect-video bg-secondary/5 dark:bg-white/5 border border-gray-100 dark:border-white/6 flex items-center justify-center group {{ $profile->video_url ? 'cursor-pointer' : '' }}">
-                @if ($profile->image)
-                    <img src="{{ asset('storage/' . $profile->image) }}" alt="{{ $profile->title }}" class="absolute inset-0 w-full h-full object-cover" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                @endif
-
-                @if ($profile->video_url)
-                    <a href="{{ $profile->video_url }}" target="_blank" class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/90 flex items-center justify-center shadow-lg group-hover:scale-105 transition">
-                            <svg class="w-7 h-7 md:w-8 md:h-8 text-[#1C140C] translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7-11-7z"/></svg>
-                        </div>
-                    </a>
-                    <span class="absolute bottom-4 left-4 text-xs font-semibold text-white/80 uppercase tracking-wide">Video POV BHS</span>
-                @elseif (!$profile->image)
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/90 flex items-center justify-center shadow-lg group-hover:scale-105 transition">
-                            <svg class="w-7 h-7 md:w-8 md:h-8 text-[#1C140C] translate-x-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7-11-7z"/></svg>
-                        </div>
-                    </div>
-                    <span class="absolute bottom-4 left-4 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">Video POV BHS</span>
-                @endif
+            
+            {{-- Bagian Video (Sudah menggunakan Embed YouTube) --}}
+            <div class="relative rounded-2xl overflow-hidden aspect-video bg-secondary/5 dark:bg-white/5 border border-gray-100 dark:border-white/6 shadow-lg">
+                
+                {{-- 
+                    Embed Iframe (sementara hardcode). 
+                    YouTube otomatis menampilkan thumbnail (cover) bawaan videonya.
+                --}}
+                <iframe 
+                    class="absolute inset-0 w-full h-full" 
+                    src="https://www.youtube.com/embed/SKnz69mMaio" 
+                    title="Video POV BHS" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+                
             </div>
-
             <div>
                 <span class="text-xs font-bold tracking-widest uppercase text-accent">Tentang BHS</span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light mt-2 mb-4">{{ $profile->title }}</h2>
@@ -254,24 +226,62 @@
 
             <!-- Track Container (Max Width Full) -->
             <div id="media-viewport" class="overflow-hidden w-full py-4">
-                <div id="media-track" class="flex items-center justify-between gap-6 md:gap-10 transition-transform duration-500 ease-out">
-                    @foreach ($mediaCoverages as $media)
-                        <a href="{{ $media['url'] ?? '#' }}"
-                           target="_blank"
-                           class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
-                            <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                <img src="{{ $media['logo'] ?? asset('images/bhs2.jpg') }}"
-                                     alt="{{ $media['name'] ?? 'Media Partner' }}"
-                                     class="w-full h-full object-contain rounded-full"
-                                     onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
-                            </div>
-                            <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">
-                                {{ $media['name'] }}
-                            </span>
-                        </a>
-                    @endforeach
+                    <div id="media-track" class="flex items-center justify-between gap-6 md:gap-10 transition-transform duration-500 ease-out">
+                        @if(isset($mediaLogos) && count($mediaLogos) > 0)
+                            @foreach ($mediaLogos as $media)
+                                <a href="{{ $media->url ?? '#' }}" 
+                                   target="_blank" 
+                                   class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                    <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                        <img src="{{ isset($media->logo) ? asset('storage/' . $media->logo) : asset('images/bhs2.jpg') }}"
+                                             alt="{{ $media->name ?? 'Media Partner' }}" 
+                                             class="w-full h-full object-contain rounded-full"
+                                             onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    </div>
+                                    <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">
+                                        {{ $media->name }}
+                                    </span>
+                                </a>
+                            @endforeach
+                        @else
+                            {{-- Data Default apabila $mediaLogos di Database kosong --}}
+                            <a href="https://infojabar.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://infojabar.id/wp-content/uploads/2021/03/logo-infojabar.png" alt="Info Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">INFOJABAR</span>
+                            </a>
+
+                            <a href="https://jabar.tribunnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://asset-1.tribunnews.com/img/logo/tribun/tribunjabar.png" alt="Tribun Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRIBUN JABAR</span>
+                            </a>
+
+                            <a href="https://pikiran-rakyat.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2020/01/pikiran-rakyat.png" alt="Pikiran Rakyat" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">PIKIRAN RAKYAT</span>
+                            </a>
+
+                            <a href="https://www.trans7.co.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/TRANS7_logo.svg" alt="TRANS7" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRANS7</span>
+                            </a>
+
+                            <a href="https://www.metrotvnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
+                                <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/MetroTV_2010.svg" alt="Metro TV" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                </div>
+                                <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">METRO TV</span>
+                            </a>
+                        @endif
+                    </div>
                 </div>
-            </div>
 
             <!-- Tombol Panah Kanan -->
             <button type="button"
@@ -308,11 +318,11 @@
                             class="faq-toggle w-full flex items-center justify-between gap-4 text-left px-4 py-4 font-semibold text-secondary dark:text-light hover:bg-gray-50 dark:hover:bg-white/5 transition"
                             aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
                             data-faq="{{ $index }}">
-                        <span>{{ $faq['q'] }}</span>
+                        <span>{{ $faq->question }}</span>
                         <svg class="faq-chevron w-4 h-4 shrink-0 transition-transform {{ $index === 0 ? 'rotate-180' : '' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div class="faq-panel px-4 {{ $index === 0 ? '' : 'hidden' }} pb-4">
-                        <p class="text-sm leading-relaxed text-gray-500 dark:text-gray-400">{{ $faq['a'] }}</p>
+                        <p class="text-sm leading-relaxed text-gray-500 dark:text-gray-400">{{ $faq->answer }}</p>
                     </div>
                 </div>
             @endforeach

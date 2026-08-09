@@ -25,6 +25,9 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Admin\AwardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,9 +43,7 @@ Route::post('/reservasi', [ReservationController::class, 'store'])->name('reserv
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 
 // Profile (gabungan Tentang BHS, Infografis, Penghargaan, Liputan Media, FAQ)
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('facilities');
@@ -127,6 +128,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('packages', PackageController::class)->except(['show']);
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
     Route::resource('blog-posts', BlogPostController::class)->except(['show']);
-    Route::resource('media-coverage', MediaCoverageController::class)
-    ->except(['show', 'create', 'edit']);
+    Route::resource('media-coverage', MediaCoverageController::class)->except(['show', 'create', 'edit']);
+    Route::resource('faq', FaqController::class)->except(['show', 'create', 'edit']);
+    Route::resource('awards', AwardController::class)->except(['show', 'create', 'edit']);
 });

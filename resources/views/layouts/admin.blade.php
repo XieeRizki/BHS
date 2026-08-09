@@ -359,6 +359,14 @@
                     <i class="fas fa-swimming-pool"></i> Layanan
                 </a>
 
+                <a href="{{ route('admin.faq.index') }}" class="{{ request()->routeIs('admin.faq.*') ? 'active' : '' }}">
+                    <i class="fas fa-question-circle"></i> FAQ
+                </a>
+
+                <a href="{{ route('admin.awards.index') }}" class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
+                    <i class="fas fa-award"></i> Penghargaan
+                </a>
+
                 <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
                     <i class="fas fa-pen-fancy"></i> Blog
                 </a>
