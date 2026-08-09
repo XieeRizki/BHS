@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\FacilityController;
@@ -11,7 +10,6 @@ use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\FacilityController as FrontendFacilityController;
-use App\Http\Controllers\Frontend\AboutController as FrontendAboutController;
 use App\Http\Controllers\Frontend\PricingController as FrontendPricingController;
 use App\Http\Controllers\Frontend\TestimonialController as FrontendTestimonialController;
 use App\Models\BlogPost;
@@ -40,7 +38,12 @@ Route::post('/reservasi', [ReservationController::class, 'store'])->name('reserv
 
 // Blog: halaman daftar SEMUA artikel
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/tentang', [FrontendAboutController::class, 'index'])->name('about');
+
+// Profile (gabungan Tentang BHS, Infografis, Penghargaan, Liputan Media, FAQ)
+Route::get('/profile', function () {
+    return view('pages.profile');
+})->name('profile');
+
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('facilities');
 Route::get('/harga', [FrontendPricingController::class, 'index'])->name('pricing');
@@ -96,7 +99,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
     Route::put('/reservations/{reservation}/status', [AdminReservationController::class, 'updateStatus'])->name('reservations.update-status');
     Route::delete('/reservations/{reservation}', [AdminReservationController::class, 'destroy'])->name('reservations.destroy');
-    
+
 
     // Singleton: index (preview) -> edit (form) -> update / delete
     Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
@@ -119,7 +122,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/kategori/{kategori}', [CategoryController::class, 'destroy'])->name('kategori.destroy');
 
     // Resource penuh, tapi tanpa 'show' (gak dipakai di admin)
-    Route::resource('about', AboutController::class)->except(['show']);
     Route::resource('facility', FacilityController::class)->except(['show']);
     Route::resource('gallery', AdminGalleryController::class)->except(['show']);
     Route::resource('packages', PackageController::class)->except(['show']);

@@ -21,20 +21,24 @@
           <li><a href="{{ route('home') }}" class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">Beranda</a></li>
 
           <!-- Dropdown: Profile -->
-          <li class="relative">
+          <li class="relative flex items-center">
+            <a href="{{ route('profile') }}"
+               class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">
+              Profile
+            </a>
             <button type="button"
-                    class="menu-toggle px-4 py-2 rounded-md inline-flex items-center gap-2 text-secondary dark:text-light focus:outline-none focus:ring-2 focus:ring-accent"
+                    class="menu-toggle pl-1 pr-2 py-2 rounded-md inline-flex items-center text-secondary dark:text-light focus:outline-none focus:ring-2 focus:ring-accent"
                     aria-expanded="false"
                     aria-controls="menu-profile"
+                    aria-label="Buka submenu Profile"
                     data-menu="profile">
-              Profile
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
 
-            <div id="menu-profile" class="menu-panel absolute left-0 mt-2 w-64 bg-white dark:bg-[#2B1B0E] border border-gray-100 dark:border-white/6 rounded-lg shadow-lg hidden"
+            <div id="menu-profile" class="menu-panel absolute left-0 top-full mt-2 w-64 bg-white dark:bg-[#2B1B0E] border border-gray-100 dark:border-white/6 rounded-lg shadow-lg hidden"
                  role="menu" aria-labelledby="menu-profile">
               <ul class="flex flex-col p-2">
-                <li><a href="{{ route('about') }}" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Tentang BHS</a></li>
+                <li><a href="{{ route('profile') }}#tentang-bhs" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Tentang BHS</a></li>
                 <li><a href="{{ route('facilities') }}" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Fasilitas</a></li>
                 <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Penghargaan</a></li>
                 <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Publikasi Media</a></li>

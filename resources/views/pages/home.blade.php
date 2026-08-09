@@ -99,7 +99,7 @@
                 <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                     Balong Hardi Sumedang hadir memberikan pengalaman memancing premium dengan fasilitas lengkap: kolam galatama, villa kayu, resto & penginapan — dibalut nuansa coklat-keemasan.
                 </p>
-                <a href="{{ route('about') }}" class="inline-flex items-center gap-2 px-5 py-3 bg-accent text-[#0A0A0A] font-semibold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition hover:-translate-y-0.5">Lihat Selengkapnya</a>
+                <a href="{{ route('profile') }}" class="inline-flex items-center gap-2 px-5 py-3 bg-accent text-[#0A0A0A] font-semibold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition hover:-translate-y-0.5">Lihat Selengkapnya</a>
             </div>
         </div>
     </section>

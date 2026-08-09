@@ -26,11 +26,14 @@
       <a href="{{ route('home') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light">Beranda</a>
 
       <div class="border-t border-gray-100 dark:border-white/6 pt-2">
-        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="profile">
-          Profile
-        </button>
+        <div class="flex items-center justify-between">
+          <a href="{{ route('profile') }}" class="flex-1 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light">Profile</a>
+          <button type="button" class="p-2 mr-1 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light" aria-label="Buka submenu Profile" data-collapse="profile">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+        </div>
         <div class="hidden pl-4 mt-1" data-panel="profile">
-          <a href="{{ route('about') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Tentang BHS</a>
+          <a href="{{ route('profile') }}#tentang-bhs" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Tentang BHS</a>
           <a href="{{ route('facilities') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Fasilitas</a>
           <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Publikasi Media</a>
           <a href="{{ route('testimonials') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Testimoni</a>
