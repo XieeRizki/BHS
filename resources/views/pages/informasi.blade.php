@@ -4,6 +4,17 @@
 
 @section('content')
 
+{{-- Breadcrumb --}}
+<div class="bg-white dark:bg-[#1F160D] border-b border-gray-100 dark:border-white/6">
+    <div class="container-max py-4">
+        <nav class="text-sm text-gray-500 dark:text-gray-400" aria-label="Breadcrumb">
+            <a href="{{ route('home') }}" class="hover:text-accent transition">Beranda</a>
+            <span class="mx-2">/</span>
+            <span class="text-secondary dark:text-light font-semibold">Informasi</span>
+        </nav>
+    </div>
+</div>
+
     <section id="informasi" class="pt-6 md:pt-8 pb-12 md:pb-16 bg-light dark:bg-dark transition-colors">
         <div class="container-max">
             <x-section-title
