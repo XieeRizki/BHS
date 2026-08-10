@@ -41,7 +41,11 @@
         border-radius: 8px 8px 0 0;
         transition: all 0.2s ease;
         position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
     }
+    .tab-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
     .tab-btn:hover {
         color: var(--primary);
         background: rgba(249, 115, 22, 0.05);
@@ -130,6 +134,7 @@
         align-items: center;
         gap: 0.5rem;
     }
+    .btn-submit svg { width: 16px; height: 16px; flex-shrink: 0; }
     .btn-submit:hover {
         background-color: #ea580c; /* Warna primary lebih gelap */
     }
@@ -145,10 +150,12 @@
 <!-- Tabs -->
 <div class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('berita')">
-        <i class="fas fa-newspaper mr-2"></i> Form Berita Kegiatan
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="13" x2="8" y2="13" stroke-linecap="round"/><line x1="16" y1="17" x2="8" y2="17" stroke-linecap="round"/></svg>
+        Form Berita Kegiatan
     </button>
     <button class="tab-btn" onclick="switchTab('artikel')">
-        <i class="fas fa-star mr-2"></i> Form Artikel Spotlight
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-linejoin="round"/></svg>
+        Form Artikel Spotlight
     </button>
 </div>
 
@@ -219,7 +226,8 @@
         </div>
 
         <button type="submit" class="btn-submit mt-4">
-            <i class="fas fa-save"></i> Simpan Berita
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-8H7v8M7 3v5h8"/></svg>
+            Simpan Berita
         </button>
     </form>
 </div>
@@ -289,7 +297,8 @@
         </div>
 
         <button type="submit" class="btn-submit mt-4">
-            <i class="fas fa-star"></i> Simpan Artikel Khusus
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke-linejoin="round"/></svg>
+            Simpan Artikel Khusus
         </button>
     </form>
 </div>

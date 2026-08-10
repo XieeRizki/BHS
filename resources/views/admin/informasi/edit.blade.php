@@ -25,6 +25,7 @@
         background: var(--border); color: var(--secondary); border: none; padding: 0.75rem 1.5rem;
         border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
     }
+    .btn-submit svg, .btn-cancel svg { width: 16px; height: 16px; flex-shrink: 0; }
 </style>
 
 <div class="admin-header">
@@ -95,8 +96,14 @@
         </div>
 
         <div style="display:flex; gap:0.75rem; margin-top:1.5rem;">
-            <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Simpan Perubahan</button>
-            <a href="{{ route('admin.informasi.index') }}" class="btn-cancel"><i class="fas fa-times"></i> Batal</a>
+            <button type="submit" class="btn-submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-8H7v8M7 3v5h8"/></svg>
+                Simpan Perubahan
+            </button>
+            <a href="{{ route('admin.informasi.index') }}" class="btn-cancel">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                Batal
+            </a>
         </div>
     </form>
 </div>

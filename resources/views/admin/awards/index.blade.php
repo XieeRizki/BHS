@@ -14,6 +14,7 @@
         display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; white-space: nowrap;
     }
     .btn-create:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .btn-create svg { width: 16px; height: 16px; flex-shrink: 0; }
 
     .table-card { background: white; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; }
     .table-responsive { overflow-x: auto; }
@@ -27,27 +28,29 @@
     .title-cell { font-weight: 600; color: var(--secondary); max-width: 280px; }
     .issuer-cell { color: var(--neutral); }
 
-    .badge { display: inline-block; padding: 0.4rem 0.75rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+    .badge { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+    .badge svg { width: 12px; height: 12px; flex-shrink: 0; }
     .badge-active { background: rgba(16, 185, 129, 0.15); color: #047857; }
     .badge-inactive { background: rgba(107, 114, 128, 0.15); color: var(--neutral); }
 
     .action-group { display: flex; gap: 0.5rem; }
     .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.8rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
     .btn-edit { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border-color: rgba(59, 130, 246, 0.2); }
     .btn-edit:hover { background: rgba(59, 130, 246, 0.15); }
     .btn-delete { background: rgba(239, 68, 68, 0.1); color: #EF4444; border-color: rgba(239, 68, 68, 0.2); }
     .btn-delete:hover { background: rgba(239, 68, 68, 0.15); }
 
     .empty-container { text-align: center; padding: 3rem 1.5rem; }
-    .empty-icon { font-size: 3rem; color: #D1D5DB; margin-bottom: 1rem; }
     .empty-text { color: var(--neutral); font-size: 0.95rem; margin: 0 0 1.5rem 0; }
 
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
     .modal-overlay.active { display: flex; align-items: center; justify-content: center; }
     .modal-content { background: white; border-radius: 12px; padding: 2rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; margin: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-    .modal-header { margin-bottom: 1.5rem; }
-    .modal-header h2 { font-size: 1.25rem; font-weight: 700; color: var(--secondary); margin: 0 0 0.25rem 0; }
-    .modal-header p { font-size: 0.85rem; color: var(--neutral); margin: 0; }
+    .modal-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .modal-header svg { width: 22px; height: 22px; color: var(--primary); flex-shrink: 0; }
+    .modal-header-text h2 { font-size: 1.25rem; font-weight: 700; color: var(--secondary); margin: 0 0 0.25rem 0; }
+    .modal-header-text p { font-size: 0.85rem; color: var(--neutral); margin: 0; }
     .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: var(--neutral); cursor: pointer; width: 2rem; height: 2rem; border-radius: 6px; }
     .modal-close:hover { background: var(--border); color: var(--secondary); }
 
@@ -67,6 +70,7 @@
 
     .form-actions { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
     .btn { flex: 1; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
     .btn-save { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
     .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .btn-cancel { background: var(--border); color: var(--secondary); }
@@ -91,7 +95,8 @@
         <p class="section-header-desc">Penghargaan yang tampil di halaman Profile</p>
     </div>
     <button class="btn-create" onclick="openModal('addModal')">
-        <i class="fas fa-plus"></i> Tambah Penghargaan
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
+        Tambah Penghargaan
     </button>
 </div>
 
@@ -121,7 +126,13 @@
                         <td>{{ $award->order }}</td>
                         <td>
                             <span class="badge {{ $award->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $award->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
+                                @if($award->is_active)
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    Aktif
+                                @else
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    Nonaktif
+                                @endif
                             </span>
                         </td>
                         <td>
@@ -135,11 +146,13 @@
                                     data-order="{{ $award->order }}"
                                     data-is-active="{{ $award->is_active }}"
                                     data-image="{{ $award->image }}">
-                                    <i class="fas fa-edit"></i>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                 </button>
                                 <form action="{{ route('admin.awards.destroy', $award) }}" method="POST" onsubmit="return confirm('Yakin hapus penghargaan ini?')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn-icon btn-delete">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6h16z"/></svg>
+                                    </button>
                                 </form>
                             </div>
                         </td>
@@ -148,9 +161,11 @@
                     <tr>
                         <td colspan="7">
                             <div class="empty-container">
-                                <div class="empty-icon">🏆</div>
                                 <p class="empty-text">Belum ada penghargaan</p>
-                                <button class="btn-create" onclick="openModal('addModal')"><i class="fas fa-plus"></i> Tambah Penghargaan</button>
+                                <button class="btn-create" onclick="openModal('addModal')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
+                                    Tambah Penghargaan
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -165,8 +180,10 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
-            <h2>🏆 Tambah Penghargaan</h2>
-            <p>Tambahkan penghargaan baru</p>
+            <div class="modal-header-text">
+                <h2>Tambah Penghargaan</h2>
+                <p>Tambahkan penghargaan baru</p>
+            </div>
         </div>
         <form action="{{ route('admin.awards.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -199,8 +216,14 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-8H7v8M7 3v5h8"/></svg>
+                    Simpan
+                </button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Batal
+                </button>
             </div>
         </form>
     </div>
@@ -211,8 +234,11 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
-            <h2>✏️ Edit Penghargaan</h2>
-            <p>Perbarui data penghargaan</p>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <div class="modal-header-text">
+                <h2>Edit Penghargaan</h2>
+                <p>Perbarui data penghargaan</p>
+            </div>
         </div>
         <form action="" method="POST" id="editForm" enctype="multipart/form-data">
             @csrf @method('PUT')
@@ -245,8 +271,14 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-8H7v8M7 3v5h8"/></svg>
+                    Simpan
+                </button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    Batal
+                </button>
             </div>
         </form>
     </div>
