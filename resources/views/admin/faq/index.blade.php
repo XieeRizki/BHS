@@ -11,7 +11,7 @@
         background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white; padding: 0.7rem 1.5rem; border: none; border-radius: 8px;
         font-weight: 600; font-size: 0.9rem; cursor: pointer; text-decoration: none;
-        display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; white-space: nowrap;
+        display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; white-space: nowrap;
     }
     .btn-create:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
 
@@ -31,14 +31,13 @@
     .badge-inactive { background: rgba(107, 114, 128, 0.15); color: var(--neutral); }
 
     .action-group { display: flex; gap: 0.5rem; }
-    .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.8rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.9rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
     .btn-edit { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border-color: rgba(59, 130, 246, 0.2); }
     .btn-edit:hover { background: rgba(59, 130, 246, 0.15); }
     .btn-delete { background: rgba(239, 68, 68, 0.1); color: #EF4444; border-color: rgba(239, 68, 68, 0.2); }
     .btn-delete:hover { background: rgba(239, 68, 68, 0.15); }
 
     .empty-container { text-align: center; padding: 3rem 1.5rem; }
-    .empty-icon { font-size: 3rem; color: #D1D5DB; margin-bottom: 1rem; }
     .empty-text { color: var(--neutral); font-size: 0.95rem; margin: 0 0 1.5rem 0; }
 
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
@@ -65,7 +64,7 @@
     .checkbox-wrap label { margin: 0; font-weight: 500; font-size: 0.9rem; cursor: pointer; }
 
     .form-actions { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
-    .btn { flex: 1; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+    .btn { flex: 1; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     .btn-save { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
     .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
     .btn-cancel { background: var(--border); color: var(--secondary); }
@@ -86,9 +85,7 @@
         <h1>Kelola FAQ</h1>
         <p class="section-header-desc">Pertanyaan umum yang tampil di halaman Profile</p>
     </div>
-    <button class="btn-create" onclick="openModal('addModal')">
-        <i class="fas fa-plus"></i> Tambah FAQ
-    </button>
+    <button class="btn-create" onclick="openModal('addModal')">Tambah FAQ</button>
 </div>
 
 <div class="table-card">
@@ -111,7 +108,7 @@
                         <td>{{ $faq->order }}</td>
                         <td>
                             <span class="badge {{ $faq->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $faq->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
+                                {{ $faq->is_active ? 'Aktif' : 'Nonaktif' }}
                             </span>
                         </td>
                         <td>
@@ -123,11 +120,11 @@
                                     data-answer="{{ $faq->answer }}"
                                     data-order="{{ $faq->order }}"
                                     data-is-active="{{ $faq->is_active }}">
-                                    <i class="fas fa-edit"></i>
+                                    Edit
                                 </button>
                                 <form action="{{ route('admin.faq.destroy', $faq) }}" method="POST" onsubmit="return confirm('Yakin hapus FAQ ini?')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn-icon btn-delete">Hapus</button>
                                 </form>
                             </div>
                         </td>
@@ -136,9 +133,8 @@
                     <tr>
                         <td colspan="5">
                             <div class="empty-container">
-                                <div class="empty-icon">❓</div>
                                 <p class="empty-text">Belum ada FAQ</p>
-                                <button class="btn-create" onclick="openModal('addModal')"><i class="fas fa-plus"></i> Tambah FAQ</button>
+                                <button class="btn-create" onclick="openModal('addModal')">Tambah FAQ</button>
                             </div>
                         </td>
                     </tr>
@@ -153,7 +149,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
-            <h2>❓ Tambah FAQ</h2>
+            <h2>Tambah FAQ</h2>
             <p>Tambahkan pertanyaan & jawaban baru</p>
         </div>
         <form action="{{ route('admin.faq.store') }}" method="POST">
@@ -179,8 +175,8 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">Simpan</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -191,7 +187,7 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
-            <h2>✏️ Edit FAQ</h2>
+            <h2>Edit FAQ</h2>
             <p>Perbarui pertanyaan & jawaban</p>
         </div>
         <form action="" method="POST" id="editForm">
@@ -215,8 +211,8 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn btn-save">Simpan</button>
+                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">Batal</button>
             </div>
         </form>
     </div>
