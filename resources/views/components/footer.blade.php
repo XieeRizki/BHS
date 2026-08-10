@@ -18,6 +18,9 @@
     $fbUrl = $contact->facebook ?? null;
     $igUrl = $contact->instagram ?? null;
     $emailAddr = $contact->email ?? null;
+
+    // Halaman profile sekarang jadi rumah buat konten "Tentang" & section FAQ
+    $profileUrl = Route::has('profile') ? route('profile') : route('home');
 @endphp
 
 <footer class="relative bg-secondary dark:bg-dark text-light py-12 md:py-16 transition-colors duration-300">
@@ -62,7 +65,7 @@
             <div>
                 <h4 class="text-lg font-bold mb-6 text-light">Profil</h4>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="{{ Route::has('about') ? route('about') : route('home') . '#tentang' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Tentang</a></li>
+                    <li><a href="{{ $profileUrl }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Tentang</a></li>
                     <li><a href="{{ Route::has('facilities') ? route('facilities') : route('home') . '#fasilitas' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Fasilitas</a></li>
                     <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Penghargaan</a></li>
                     <li><a href="{{ Route::has('blog.index') ? route('blog.index') : '#' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Publikasi</a></li>
@@ -118,7 +121,7 @@
                 <div class="pt-4 border-t border-white/10">
                     <h5 class="text-sm font-bold mb-3 text-light uppercase tracking-wider">Bantuan & Navigasi</h5>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('home') }}#informasi" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">FAQ (Pertanyaan Umum)</a></li>
+                        <li><a href="{{ $profileUrl }}#faq" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">FAQ (Pertanyaan Umum)</a></li>
                         <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Sitemap (Peta Situs)</a></li>
                     </ul>
                 </div>

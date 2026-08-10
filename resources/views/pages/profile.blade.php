@@ -298,7 +298,7 @@
 </section>
 
 {{-- FAQ --}}
-<section class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6">
+<section id="faq" class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6">
     <div class="container-max grid md:grid-cols-2 gap-10">
         <div>
             <span class="text-xs font-bold tracking-widest uppercase text-accent">Pertanyaan Umum</span>
