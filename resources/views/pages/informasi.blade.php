@@ -36,6 +36,24 @@
                             <a href="{{ route('informasi') }}" class="text-xs font-bold text-accent hover:underline">Reset Filter</a>
                         </div>
                     @endif
+
+                    <div class="flex gap-2 mb-6">
+                        <a href="{{ route('informasi', array_filter(['type' => null, 'kategori' => $selectedCategory?->slug])) }}"
+                        class="px-4 py-2 rounded-lg text-xs font-bold transition-colors
+                                {{ $selectedType === 'semua' ? 'bg-accent text-[#0A0A0A]' : 'bg-white dark:bg-[#212121] text-secondary dark:text-light border border-gray-200 dark:border-gray-800' }}">
+                            Semua
+                        </a>
+                        <a href="{{ route('informasi', array_filter(['type' => 'berita', 'kategori' => $selectedCategory?->slug])) }}"
+                        class="px-4 py-2 rounded-lg text-xs font-bold transition-colors
+                                {{ $selectedType === 'berita' ? 'bg-accent text-[#0A0A0A]' : 'bg-white dark:bg-[#212121] text-secondary dark:text-light border border-gray-200 dark:border-gray-800' }}">
+                            Berita
+                        </a>
+                        <a href="{{ route('informasi', array_filter(['type' => 'artikel', 'kategori' => $selectedCategory?->slug])) }}"
+                        class="px-4 py-2 rounded-lg text-xs font-bold transition-colors
+                                {{ $selectedType === 'artikel' ? 'bg-accent text-[#0A0A0A]' : 'bg-white dark:bg-[#212121] text-secondary dark:text-light border border-gray-200 dark:border-gray-800' }}">
+                            Artikel
+                        </a>
+                    </div>
                     
                     @if($berita->count() > 0)
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -50,7 +68,11 @@
                                         @endif
                                     </a>
                                     <div class="p-5">
-                                        <span class="text-[11px] font-extrabold text-accent tracking-wider uppercase">{{ $item->category->name ?? 'Uncategorized' }}</span>
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider
+                                                     {{ $item->type === 'artikel' ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400' }}">
+                                            {{ $item->type }}
+                                        </span>
+                                        <span class="text-[11px] font-extrabold text-accent tracking-wider uppercase ml-1">{{ $item->category->name ?? 'Uncategorized' }}</span>
                                         <h3 class="font-extrabold text-secondary dark:text-light mt-1.5 mb-2 leading-snug line-clamp-2">
                                             <!-- TODO: Arahkan href ke route detail berita misal route('informasi.show', $item->slug) -->
                                             <a href="#" class="hover:text-accent transition-colors">{{ $item->title }}</a>

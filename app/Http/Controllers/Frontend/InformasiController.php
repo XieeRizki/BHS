@@ -17,11 +17,16 @@ class InformasiController extends Controller
             $selectedCategory = Category::where('slug', $request->kategori)->first();
         }
 
-        // 1. KONTEN BERITA (Kiri) — sekarang bisa difilter kategori
+        // Filter tipe: default 'semua', bisa 'berita' atau 'artikel'
+        $selectedType = $request->get('type', 'semua');
+
         $beritaQuery = Post::with('category')
-            ->where('type', 'berita')
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now());
+
+        if (in_array($selectedType, ['berita', 'artikel'])) {
+            $beritaQuery->where('type', $selectedType);
+        }
 
         if ($selectedCategory) {
             $beritaQuery->where('category_id', $selectedCategory->id);
@@ -29,7 +34,6 @@ class InformasiController extends Controller
 
         $berita = $beritaQuery->latest('published_at')->paginate(6)->withQueryString();
 
-        // 2. SPOTLIGHT, 3. TRENDING, 4. ARTIKEL PILIHAN — tetep sama, gak ikut kefilter
         $spotlight = Post::with('category')
             ->where('is_spotlight', true)
             ->whereNotNull('published_at')
@@ -44,7 +48,7 @@ class InformasiController extends Controller
             ->latest('published_at')->first();
 
         return view('pages.informasi', compact(
-            'berita', 'spotlight', 'kategoriTrending', 'artikelPilihan', 'selectedCategory'
+            'berita', 'spotlight', 'kategoriTrending', 'artikelPilihan', 'selectedCategory', 'selectedType'
         ));
     }
 }
