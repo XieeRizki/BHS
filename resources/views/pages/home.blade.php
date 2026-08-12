@@ -85,12 +85,36 @@
     </section>
 
     {{-- TENTANG (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    @php
+        // TODO backend: idealnya video_url ini kolom di tabel profile/about, sementara pakai variabel lepas dulu
+        $aboutVideoUrl = $aboutVideoUrl ?? null;
+
+        // Konversi link YouTube biasa/short jadi embed URL
+        if ($aboutVideoUrl && !str_contains($aboutVideoUrl, 'embed')) {
+            preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/))([a-zA-Z0-9_-]{11})/', $aboutVideoUrl, $ytMatch);
+            if (!empty($ytMatch[1])) {
+                $aboutVideoUrl = 'https://www.youtube.com/embed/' . $ytMatch[1];
+            }
+        }
+    @endphp
     <section class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max grid md:grid-cols-2 gap-12 items-center">
-            <div class="rounded-3xl overflow-hidden shadow-xl h-96" data-aos="fade-right" data-aos-duration="800">
+            <div class="relative rounded-3xl overflow-hidden shadow-xl h-96 group {{ $aboutVideoUrl ? 'cursor-pointer' : '' }}"
+                 data-aos="fade-right" data-aos-duration="800"
+                 @if($aboutVideoUrl) onclick="openAboutVideo()" @endif>
                 <img src="{{ asset('images/bhs2.jpg') }}"
                      alt="Tentang BHS"
-                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                     class="w-full h-full object-cover transition-transform duration-500 {{ $aboutVideoUrl ? 'group-hover:scale-105 group-hover:brightness-75' : 'hover:scale-105' }}">
+
+                @if($aboutVideoUrl)
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+                            <svg class="w-8 h-8 text-primary ml-1" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
@@ -103,6 +127,47 @@
             </div>
         </div>
     </section>
+
+    @if($aboutVideoUrl)
+        {{-- Modal Video Tentang BHS --}}
+        <div id="aboutVideoModal" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/80 px-4" onclick="closeAboutVideo(event)">
+            <div class="relative w-full max-w-3xl aspect-video" onclick="event.stopPropagation()">
+                <button onclick="closeAboutVideo()" class="absolute -top-10 right-0 text-white/80 hover:text-white transition" aria-label="Tutup video">
+                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <div class="w-full h-full rounded-xl overflow-hidden bg-black">
+                    <iframe id="aboutVideoFrame" class="w-full h-full" src="" title="Video Tentang Balong Hardi Sumedang"
+                        frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const aboutVideoSrc = "{{ $aboutVideoUrl }}";
+
+            function openAboutVideo() {
+                const modal = document.getElementById('aboutVideoModal');
+                document.getElementById('aboutVideoFrame').src = aboutVideoSrc + '?autoplay=1';
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeAboutVideo(e) {
+                const modal = document.getElementById('aboutVideoModal');
+                document.getElementById('aboutVideoFrame').src = '';
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeAboutVideo();
+            });
+        </script>
+    @endif
 
     {{-- FASILITAS (Light: bg-light/bg-white | Dark: dark:bg-[#161616]) --}}
     <section id="fasilitas" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">

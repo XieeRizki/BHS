@@ -43,6 +43,10 @@ class HomeController extends Controller
             ]),
         ];
 
+        // TODO backend: ganti link ini kalau BHS udah punya video profil/promosi sendiri.
+        // Sementara pakai video asli BHS yang ada di YouTube biar gak kosong.
+        $aboutVideoUrl = 'https://www.youtube.com/watch?v=TK3PaH0ZAyY';
+
         // FACILITIES
         $facilities = collect([
             (object)['name' => 'Kolam Pemancingan', 'description' => 'Kolam luas dan terawat', 'image' => null, 'icon' => '🎣'],
@@ -147,6 +151,7 @@ class HomeController extends Controller
         return view('pages.home', compact(
             'hero',
             'about',
+            'aboutVideoUrl',
             'facilities',
             'packages',
             'testimonials',
