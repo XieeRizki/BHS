@@ -163,39 +163,61 @@
 {{-- Penghargaan --}}
 <section class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6">
     <div class="container-max">
-        <div class="flex items-center justify-between mb-8">
-            <div>
-                <span class="text-xs font-bold tracking-widest uppercase text-accent">Penghargaan</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light mt-2">Dedikasi Keberadaan BHS</h2>
-            </div>
-            <div class="hidden sm:flex items-center gap-2">
-                <button type="button" onclick="document.getElementById('awardsTrack').scrollBy({left:-340, behavior:'smooth'})" class="p-2.5 rounded-full border border-gray-200 dark:border-white/10 text-secondary dark:text-light hover:bg-gray-50 dark:hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <button type="button" onclick="document.getElementById('awardsTrack').scrollBy({left:340, behavior:'smooth'})" class="p-2.5 rounded-full border border-gray-200 dark:border-white/10 text-secondary dark:text-light hover:bg-gray-50 dark:hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6"/></svg>
-                </button>
-            </div>
+        <div class="text-center mb-10">
+            <span class="text-xs font-bold tracking-widest uppercase text-accent">Penghargaan</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light mt-2">Dedikasi Keberadaan BHS</h2>
         </div>
 
-        <div id="awardsTrack" class="flex gap-5 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth" style="scrollbar-width:none;">
-            @foreach ($awards as $award)
-                <div class="snap-start shrink-0 w-[280px] md:w-[320px] rounded-2xl border border-gray-100 dark:border-white/6 bg-light dark:bg-dark overflow-hidden">
-                    <div class="aspect-[4/3] bg-secondary/5 dark:bg-white/5 flex items-center justify-center">
-                        @if (!empty($award['image']))
-                            <img src="{{ asset('storage/' . $award['image']) }}" alt="{{ $award['title'] }}" class="w-full h-full object-cover" />
-                        @else
-                            <svg class="w-10 h-10 text-gray-300 dark:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5h16v14H4z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5l16 14M20 5L4 19"/></svg>
-                        @endif
-                    </div>
-                    <div class="p-5">
-                        <p class="font-bold text-secondary dark:text-light leading-snug mb-2">{{ $award['title'] }}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ $award['issuer'] }}</p>
-                        <p class="text-sm text-gray-400 dark:text-gray-500">{{ $award['year'] }}</p>
-                    </div>
+        <div class="flex items-center gap-2 md:gap-4 w-full">
+
+            {{-- Tombol Panah Kiri --}}
+            <button type="button"
+                    id="award-prev"
+                    aria-label="Penghargaan Sebelumnya"
+                    class="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] dark:hover:border-accent shadow-md shrink-0 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none">
+                <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+
+            {{-- Viewport (1 item per tampilan) --}}
+            <div id="award-viewport" class="overflow-hidden w-full">
+                <div id="award-track" class="flex transition-transform duration-500 ease-out">
+                    @foreach ($awards as $award)
+                        <div class="award-item w-full shrink-0 px-1">
+                            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+                                <div class="aspect-[16/10] rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/6 bg-secondary/5 dark:bg-white/5 flex items-center justify-center shrink-0">
+                                    @if (!empty($award['image']))
+                                        <img src="{{ asset('storage/' . $award['image']) }}" alt="{{ $award['title'] }}" class="w-full h-full object-cover" />
+                                    @else
+                                        <svg class="w-14 h-14 text-gray-300 dark:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5h16v14H4z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5l16 14M20 5L4 19"/></svg>
+                                    @endif
+                                </div>
+                                <div>
+                                    <span class="text-xs md:text-sm font-bold uppercase tracking-wider text-accent">Sertifikat Penghargaan</span>
+                                    <p class="font-bold text-2xl md:text-3xl text-secondary dark:text-light leading-snug mt-2 mb-4">{{ $award['title'] }}</p>
+                                    <p class="text-base md:text-lg font-semibold text-secondary dark:text-light">{{ $award['issuer'] }}</p>
+                                    <p class="text-base md:text-lg text-gray-400 dark:text-gray-500">Tahun {{ $award['year'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
+
+            {{-- Tombol Panah Kanan --}}
+            <button type="button"
+                    id="award-next"
+                    aria-label="Penghargaan Berikutnya"
+                    class="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] dark:hover:border-accent shadow-md shrink-0 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none">
+                <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
+
+        {{-- Dot Indicator --}}
+        <div id="award-dots" class="flex items-center justify-center gap-2 mt-8"></div>
     </div>
 </section>
 
@@ -383,6 +405,116 @@
                 btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
             });
         });
+
+        // ----------------------------------------------------
+        // Penghargaan Carousel (1 item per tampilan)
+        // ----------------------------------------------------
+        (function initAwardCarousel() {
+            const track = document.getElementById('award-track');
+            const prevBtn = document.getElementById('award-prev');
+            const nextBtn = document.getElementById('award-next');
+            const dotsWrap = document.getElementById('award-dots');
+
+            if (!track || !prevBtn || !nextBtn) return;
+
+            const items = Array.from(track.querySelectorAll('.award-item'));
+            const total = items.length;
+            if (total === 0) return;
+
+            // Duplikasi item biar geser ke kanan/kiri bisa mulus tanpa batas
+            // (nggak snap balik ke awal, sama kayak slider Liputan Media)
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            let currentIndex = 0;
+            let isAnimating = false;
+            let queue = [];
+
+            // Bikin dot indicator sejumlah data penghargaan asli
+            const dots = [];
+            if (dotsWrap && total > 1) {
+                items.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.setAttribute('aria-label', 'Ke penghargaan ' + (i + 1));
+                    dot.className = 'h-2.5 rounded-full transition-all duration-300 ' +
+                        (i === 0 ? 'bg-accent w-6' : 'bg-gray-300 dark:bg-gray-600 w-2.5');
+                    dot.addEventListener('click', () => jumpTo(i));
+                    dotsWrap.appendChild(dot);
+                    dots.push(dot);
+                });
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.className = 'h-2.5 rounded-full transition-all duration-300 ' +
+                        (i === currentIndex ? 'bg-accent w-6' : 'bg-gray-300 dark:bg-gray-600 w-2.5');
+                });
+            }
+
+            function processQueue() {
+                if (isAnimating || queue.length === 0) return;
+                const dir = queue.shift();
+                dir === 1 ? stepNext() : stepPrev();
+            }
+
+            function stepNext() {
+                isAnimating = true;
+                track.style.transition = 'transform 500ms ease-out';
+                track.style.transform = 'translateX(-100%)';
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    track.style.transition = 'none';
+                    track.appendChild(track.firstElementChild);
+                    track.style.transform = 'translateX(0)';
+                    void track.offsetWidth; // force reflow
+                    currentIndex = (currentIndex + 1) % total;
+                    updateDots();
+                    isAnimating = false;
+                    processQueue();
+                });
+            }
+
+            function stepPrev() {
+                isAnimating = true;
+                track.style.transition = 'none';
+                track.insertBefore(track.lastElementChild, track.firstElementChild);
+                track.style.transform = 'translateX(-100%)';
+                void track.offsetWidth; // force reflow
+
+                track.style.transition = 'transform 500ms ease-out';
+                track.style.transform = 'translateX(0)';
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    currentIndex = (currentIndex - 1 + total) % total;
+                    updateDots();
+                    isAnimating = false;
+                    processQueue();
+                });
+            }
+
+            function jumpTo(targetIndex) {
+                // Cari arah terpendek (maju atau mundur) buat sampai ke dot yang diklik
+                const forwardSteps = (targetIndex - currentIndex + total) % total;
+                const backwardSteps = total - forwardSteps;
+
+                if (forwardSteps === 0) return;
+
+                if (forwardSteps <= backwardSteps) {
+                    for (let i = 0; i < forwardSteps; i++) queue.push(1);
+                } else {
+                    for (let i = 0; i < backwardSteps; i++) queue.push(-1);
+                }
+                processQueue();
+            }
+
+            nextBtn.addEventListener('click', () => { queue.push(1); processQueue(); });
+            prevBtn.addEventListener('click', () => { queue.push(-1); processQueue(); });
+        })();
 
         // ----------------------------------------------------
         // Infinite Slider Liputan Media (sama seperti di home)
