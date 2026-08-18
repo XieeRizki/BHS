@@ -348,51 +348,51 @@
 
             <nav class="sidebar-menu">
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i class="fas fa-chart-line"></i> Dashboard
+                    Dashboard
                 </a>
 
                 <a href="{{ route('admin.hero.edit') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
-                    <i class="fas fa-image"></i> Hero Banner
+                    Hero Banner
                 </a>
 
                 <a href="{{ route('admin.facility.index') }}" class="{{ request()->routeIs('admin.facility.*') ? 'active' : '' }}">
-                    <i class="fas fa-swimming-pool"></i> Layanan
+                    Layanan
                 </a>
 
                 <a href="{{ route('admin.faq.index') }}" class="{{ request()->routeIs('admin.faq.*') ? 'active' : '' }}">
-                    <i class="fas fa-question-circle"></i> FAQ
+                    FAQ
                 </a>
 
                 <a href="{{ route('admin.awards.index') }}" class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
-                    <i class="fas fa-award"></i> Penghargaan
+                    Penghargaan
                 </a>
 
                 <a href="{{ route('admin.highlights.index') }}" class="{{ request()->routeIs('admin.highlights.*') ? 'active' : '' }}">
-                    <i class="fas fa-star"></i> Highlight
+                    Highlight
                 </a>
 
                 <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
-                    <i class="fas fa-pen-fancy"></i> Blog
+                    Blog
                 </a>
 
                 <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
-                    <i class="fas fa-newspaper"></i> Informasi & Berita
+                    Informasi & Berita
                 </a>
 
                 <a href="{{ route('admin.media-coverage.index') }}" class="{{ request()->routeIs('admin.media-coverage.*') ? 'active' : '' }}">
-                    <i class="fas fa-newspaper"></i> Liputan Media
+                    Liputan Media
                 </a>
 
                 <a href="{{ route('admin.testimonials.index') }}" class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
-                    <i class="fas fa-star"></i> Testimoni
+                    Testimoni
                 </a>
 
                 <a href="{{ route('admin.reservations.index') }}"class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
-                    <i class="fas fa-calendar-check"></i> Reservasi
+                    Reservasi
                 </a>
 
                 <!-- <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
-                    <i class="fas fa-images"></i> Galeri
+                    Galeri
                 </a> -->
 
                 <div style="margin: 0.75rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
