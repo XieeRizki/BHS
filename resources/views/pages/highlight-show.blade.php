@@ -4,46 +4,6 @@
 
 @section('content')
 
-@php
-    // ================================================================
-    // DUMMY DATA — nanti diganti $highlight->services, ->galleries, ->qrCodes
-    // pas Upi udah kelar bikin migration + relasi modelnya.
-    // Struktur array ini SENGAJA dibikin mirip nama kolom hasil rencana
-    // migration kemarin biar gampang swap ke Eloquent collection.
-    // ================================================================
-
-    $services = [
-        ['icon_key' => 'coffee',     'label' => 'Sarapan Pagi'],
-        ['icon_key' => 'food-box',   'label' => 'Makan Siang'],
-        ['icon_key' => 'plate',      'label' => 'Santap Malam'],
-        ['icon_key' => 'fork-knife', 'label' => 'Kustom'],
-        ['icon_key' => 'cocktail',   'label' => 'Minuman'],
-    ];
-
-    $galleries = [
-        ['image' => 'images/bhs2.jpg', 'category' => 'tampak_depan'],
-        ['image' => 'images/bhs2.jpg', 'category' => 'interior'],
-        ['image' => 'images/bhs2.jpg', 'category' => 'interior'],
-        ['image' => 'images/bhs2.jpg', 'category' => 'fasilitas'],
-        ['image' => 'images/bhs2.jpg', 'category' => 'fasilitas'],
-        ['image' => 'images/bhs2.jpg', 'category' => 'tampak_depan'],
-    ];
-
-    $qrCodes = [
-        ['image' => 'images/bhs2.jpg', 'label' => 'ShopeeFood', 'link' => '#'],
-        ['image' => 'images/bhs2.jpg', 'label' => 'GoFood',     'link' => '#'],
-    ];
-
-    // Icon set buat section Layanan (inline SVG, konsisten sama pattern admin panel)
-    $iconPaths = [
-        'coffee'     => '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>',
-        'food-box'   => '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/>',
-        'plate'      => '<path d="M12 2a10 10 0 1 0 10 10c0-1.6-.4-3.1-1-4.4"/><path d="M12 2v10l7-3.5"/>',
-        'fork-knife' => '<path d="M3 2v7c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2V2"/><path d="M6 11v11"/><path d="M17 2v20"/><path d="M21 2c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2"/>',
-        'cocktail'   => '<path d="M8 22h8"/><path d="M12 11v11"/><path d="m19 3-7 8-7-8Z"/>',
-    ];
-@endphp
-
     <x-detail-page
         :title="$highlight->title"
         badge="Profil BHS"
@@ -60,108 +20,30 @@
         @else
             <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">{{ $highlight->short_description }}</p>
         @endif
+
+        <div class="mt-10 flex flex-wrap justify-center md:justify-start gap-4" data-aos="fade-up">
+    
+            <!-- Tombol 1: Primary (Aksen Emas/Kuning BHS) -->
+            <!-- Fokus utama buat ngarahin orang lihat harga -->
+            <a href="{{ route('pricing') }}" 
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-accent text-[#0A0A0A] font-extrabold rounded-xl shadow-[0_0_15px_rgba(201,162,39,0.4)] hover:bg-yellow-500 hover:shadow-[0_0_25px_rgba(201,162,39,0.6)] hover:-translate-y-1 transition-all duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                </svg>
+                LIHAT PAKET & HARGA
+            </a>
+
+            <!-- Tombol 2: Secondary (Outline Putih atau Elegan) -->
+            <!-- Pendukung buat yang mau langsung nanya -->
+            <a href="#kontak" 
+            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/5 border border-white/20 text-white font-bold rounded-xl backdrop-blur-sm hover:bg-white/10 hover:border-white/40 hover:-translate-y-1 transition-all duration-300">
+                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12.004 2c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.464 3.484 1.345 4.997L2 22l5.13-1.345a9.96 9.96 0 0 0 4.874 1.24h.005c5.514 0 9.997-4.483 9.997-9.997 0-2.67-1.04-5.18-2.93-7.07A9.938 9.938 0 0 0 12.004 2zm0 18.164h-.004a8.16 8.16 0 0 1-4.156-1.14l-.298-.177-3.043.798.812-2.968-.194-.305a8.166 8.166 0 0 1-1.253-4.375c0-4.514 3.674-8.188 8.192-8.188 2.187 0 4.243.853 5.79 2.402a8.13 8.13 0 0 1 2.397 5.792c0 4.514-3.674 8.161-8.243 8.161z"/>
+                </svg>
+                TANYA / RESERVASI SEKARANG
+            </a>
+        </div>
     </x-detail-page>
 
-    {{-- LAYANAN (Icon Row) --}}
-    @if(count($services))
-    <section class="py-14 bg-light dark:bg-[#161616] transition-colors border-b border-gray-200/80 dark:border-gray-800/80">
-        <div class="container-max">
-            <div class="text-center mb-10" data-aos="fade-up">
-                <span class="text-xs font-bold tracking-widest uppercase text-accent">Layanan {{ $highlight->title }}</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light mt-2">Dedikasi Keberadaan BHS</h2>
-            </div>
-
-            <div class="flex flex-wrap items-start justify-center gap-8 md:gap-12">
-                @foreach($services as $index => $service)
-                    <div class="flex flex-col items-center text-center gap-3 w-20 md:w-24" data-aos="fade-up" data-aos-delay="{{ $index * 80 }}">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 flex items-center justify-center text-primary dark:text-accent shadow-sm">
-                            <svg class="w-8 h-8 md:w-9 md:h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                {!! $iconPaths[$service['icon_key']] ?? $iconPaths['plate'] !!}
-                            </svg>
-                        </div>
-                        <span class="text-sm md:text-base font-bold text-secondary dark:text-light">{{ $service['label'] }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
-    {{-- GALERI MEDIA (Tab Filter) --}}
-    @if(count($galleries))
-    <section class="py-16 bg-white dark:bg-[#0A0A0A] transition-colors border-b border-gray-100 dark:border-gray-800/60">
-        <div class="container-max">
-            <div class="text-center max-w-xl mx-auto mb-8" data-aos="fade-up">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light uppercase tracking-wide">Galeri Media</h2>
-                <p class="text-xs md:text-sm font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300 mt-2">Saatnya Anda &amp; Keluarga Eksplore Sekarang Juga</p>
-            </div>
-
-            <div class="flex items-center justify-center gap-2 md:gap-3 mb-8 flex-wrap" id="galeri-tabs">
-                <button type="button" class="gallery-tab-btn px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition bg-accent text-[#0A0A0A]" data-category="semua">Semua</button>
-                <button type="button" class="gallery-tab-btn px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition text-gray-500 dark:text-gray-400 hover:text-accent" data-category="tampak_depan">Tampak Depan</button>
-                <button type="button" class="gallery-tab-btn px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition text-gray-500 dark:text-gray-400 hover:text-accent" data-category="interior">Interior</button>
-                <button type="button" class="gallery-tab-btn px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide transition text-gray-500 dark:text-gray-400 hover:text-accent" data-category="fasilitas">Fasilitas</button>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="galeri-grid">
-                @foreach($galleries as $index => $item)
-                    <div class="gallery-item rounded-2xl overflow-hidden aspect-[4/3] shadow-sm hover:shadow-lg transition-shadow" data-category="{{ $item['category'] }}" data-aos="zoom-in" data-aos-delay="{{ $index * 60 }}">
-                        <img src="{{ asset($item['image']) }}" alt="{{ $highlight->title }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
-    {{-- QR CODE DISKON --}}
-    @if(count($qrCodes))
-    <section class="py-14 bg-light dark:bg-[#161616] transition-colors">
-        <div class="container-max text-center" data-aos="zoom-in">
-            <span class="inline-block text-accent font-extrabold text-xs uppercase tracking-widest mb-2">Scan Barcode &amp;</span>
-            <h3 class="text-xl md:text-2xl font-black text-secondary dark:text-light uppercase tracking-wide mb-8">
-                Dapatkan Promo Spesial untuk {{ $highlight->title }}
-            </h3>
-            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-                @foreach($qrCodes as $qr)
-                    <a href="{{ $qr['link'] ?? '#' }}" target="_blank" class="flex flex-col items-center gap-3 group">
-                        <div class="w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-accent shadow-lg group-hover:scale-105 transition-transform">
-                            <img src="{{ asset($qr['image']) }}" alt="{{ $qr['label'] }}" class="w-full h-full object-cover">
-                        </div>
-                        <span class="font-bold text-secondary dark:text-light uppercase text-sm tracking-wide">{{ $qr['label'] }}</span>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    @endif
-
 @endsection
-
-@push('js')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // ----------------------------------------------------
-    // Galeri Media - Tab Filter
-    // ----------------------------------------------------
-    const tabBtns = document.querySelectorAll('.gallery-tab-btn');
-    const items = document.querySelectorAll('.gallery-item');
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            tabBtns.forEach(b => {
-                b.classList.remove('bg-accent', 'text-[#0A0A0A]');
-                b.classList.add('text-gray-500', 'dark:text-gray-400');
-            });
-            this.classList.add('bg-accent', 'text-[#0A0A0A]');
-            this.classList.remove('text-gray-500', 'dark:text-gray-400');
-
-            const category = this.dataset.category;
-            items.forEach(item => {
-                item.style.display = (category === 'semua' || item.dataset.category === category) ? '' : 'none';
-            });
-        });
-    });
-});
-</script>
-@endpush
