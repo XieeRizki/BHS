@@ -56,6 +56,7 @@ Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name(
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
 
 
+// Ini pakai slug (implicit binding via getRouteKeyName() di model Highlight)
 Route::get('/tentang/{highlight}', [HighlightController::class, 'show'])->name('highlight.show');
 
 
@@ -136,5 +137,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('media-coverage', MediaCoverageController::class)->except(['show', 'create', 'edit']);
     Route::resource('faq', FaqController::class)->except(['show', 'create', 'edit']);
     Route::resource('awards', AwardController::class)->except(['show', 'create', 'edit']);
-    Route::resource('highlights', AdminHighlightController::class)->except(['show', 'create', 'edit']);
+
+    // PENTING: Highlight model pakai getRouteKeyName() = 'slug' (dipakai di route publik /tentang/{highlight}).
+    // Di admin, JS ngirim ID (angka), bukan slug, jadi binding-nya kita paksa pakai 'id'
+    // biar PUT /admin/highlights/{id} & DELETE /admin/highlights/{id} nggak 404.
+    Route::resource('highlights', AdminHighlightController::class)
+        ->except(['show', 'create', 'edit'])
+        ->parameters(['highlights' => 'highlight:id']);
 });
