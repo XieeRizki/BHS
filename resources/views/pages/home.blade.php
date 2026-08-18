@@ -90,74 +90,35 @@
 
             <div class="space-y-16">
 
-                {{-- ROW 1: HOTEL (Foto kiri - Teks kanan) --}}
-                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                    <div class="relative rounded-3xl overflow-hidden shadow-xl h-[320px] md:h-[380px] group" data-aos="fade-right" data-aos-duration="800">
-                        <img src="{{ asset('images/bhs2.jpg') }}"
-                             alt="Hotel BHS"
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                    </div>
+                @foreach($highlights as $item)
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
 
-                    <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
-                        <h3 class="text-xl md:text-2xl font-bold text-secondary dark:text-light mb-3">Tentang Hotel BHS</h3>
-                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                            Kamar hotel yang bersih dan nyaman dengan nuansa coklat-keemasan khas BHS, cocok untuk istirahat setelah seharian memancing atau berlibur bersama keluarga.
-                        </p>
-                        <a href="{{ route('profile') }}#hotel" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
-                            Selengkapnya
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                        {{-- Foto: kiri kalau index genap, kanan kalau ganjil --}}
+                        <div class="relative rounded-3xl overflow-hidden shadow-xl h-[320px] md:h-[380px] group {{ $loop->iteration % 2 === 0 ? 'md:order-2' : '' }}"
+                             data-aos="{{ $loop->iteration % 2 === 0 ? 'fade-left' : 'fade-right' }}" data-aos-duration="800">
+                            <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('images/bhs2.jpg') }}"
+                                 alt="{{ $item->title }}"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+                        </div>
 
-                {{-- ROW 2: VILLA (Teks kiri - Foto kanan) --}}
-                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                    <div class="md:order-1" data-aos="fade-right" data-aos-duration="800">
-                        <h3 class="text-xl md:text-2xl font-bold text-secondary dark:text-light mb-3">Tentang Villa BHS</h3>
-                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                            Villa kayu dengan suasana asri dan sejuk, dikelilingi pemandangan kolam serta area hijau — pilihan tepat untuk liburan keluarga yang lebih privat dan hangat.
-                        </p>
-                        <a href="{{ route('profile') }}#villa" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
-                            Selengkapnya
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
+                        {{-- Teks: kanan kalau index genap, kiri kalau ganjil --}}
+                        <div class="{{ $loop->iteration % 2 === 0 ? 'md:order-1' : '' }}"
+                             data-aos="{{ $loop->iteration % 2 === 0 ? 'fade-right' : 'fade-left' }}" data-aos-duration="800" data-aos-delay="150">
+                            <h3 class="text-xl md:text-2xl font-bold text-secondary dark:text-light mb-3">{{ $item->title }}</h3>
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                                {{ $item->short_description }}
+                            </p>
+                            <a href="{{ route('highlight.show', $item->slug) }}" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
+                                Selengkapnya
+                                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
 
-                    <div class="relative rounded-3xl overflow-hidden shadow-xl h-[320px] md:h-[380px] group md:order-2" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
-                        <img src="{{ asset('images/bhs2.jpg') }}"
-                             alt="Villa BHS"
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
                     </div>
-                </div>
-
-                {{-- ROW 3: FOOD & BEVERAGE (Foto kiri - Teks kanan) --}}
-                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-                    <div class="relative rounded-3xl overflow-hidden shadow-xl h-[320px] md:h-[380px] group" data-aos="fade-right" data-aos-duration="800">
-                        <img src="{{ asset('images/bhs2.jpg') }}"
-                             alt="Food & Beverage BHS"
-                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
-                    </div>
-
-                    <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
-                        <h3 class="text-xl md:text-2xl font-bold text-secondary dark:text-light mb-3">Tentang Food & Beverage BHS</h3>
-                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                            Aneka menu khas rumahan dan olahan ikan segar hasil kolam sendiri, disajikan hangat dengan suasana makan yang nyaman bersama keluarga dan rekan.
-                        </p>
-                        <a href="{{ route('profile') }}#food-beverage" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
-                            Selengkapnya
-                            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hero;
 use App\Models\MediaCoverage;
 use App\Models\Testimonial;
+use App\Models\Highlight;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -148,6 +149,20 @@ class HomeController extends Controller
             (object)['title' => 'Galatama Spesial Akhir Pekan', 'category' => 'Galatama', 'date' => '2026-08-03', 'description' => 'Keterangan event BHS'],
         ]);
 
+        try {
+        $highlights = Highlight::active()->ordered()->take(3)->get();
+
+        if ($highlights->isEmpty()) {
+            throw new \Exception('No highlight data');
+        }
+        } catch (\Throwable $e) {
+            $highlights = collect([
+                (object)['title' => 'Tentang Hotel BHS', 'slug' => '#', 'short_description' => 'Kamar hotel yang bersih dan nyaman dengan nuansa coklat-keemasan khas BHS, cocok untuk istirahat setelah seharian memancing atau berlibur bersama keluarga.', 'image' => null],
+                (object)['title' => 'Tentang Villa BHS', 'slug' => '#', 'short_description' => 'Villa kayu dengan suasana asri dan sejuk, dikelilingi pemandangan kolam serta area hijau — pilihan tepat untuk liburan keluarga yang lebih privat dan hangat.', 'image' => null],
+                (object)['title' => 'Tentang Food & Beverage BHS', 'slug' => '#', 'short_description' => 'Aneka menu khas rumahan dan olahan ikan segar hasil kolam sendiri, disajikan hangat dengan suasana makan yang nyaman bersama keluarga dan rekan.', 'image' => null],
+            ]);
+        }
+
         return view('pages.home', compact(
             'hero',
             'about',
@@ -160,7 +175,8 @@ class HomeController extends Controller
             'location',
             'homeServices',
             'mediaLogos',
-            'homeEvents'
+            'homeEvents',
+            'highlights'
         ));
     }
 }

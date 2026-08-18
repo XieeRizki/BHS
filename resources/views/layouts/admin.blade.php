@@ -367,6 +367,10 @@
                     <i class="fas fa-award"></i> Penghargaan
                 </a>
 
+                <a href="{{ route('admin.highlights.index') }}" class="{{ request()->routeIs('admin.highlights.*') ? 'active' : '' }}">
+                    <i class="fas fa-star"></i> Highlight
+                </a>
+
                 <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
                     <i class="fas fa-pen-fancy"></i> Blog
                 </a>

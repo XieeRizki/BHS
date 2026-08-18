@@ -28,6 +28,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Admin\AwardController;
+use App\Http\Controllers\Admin\HighlightController as AdminHighlightController;
+use App\Http\Controllers\Frontend\HighlightController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +54,9 @@ Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name(
 
 // Informasi & Berita
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
+
+
+Route::get('/tentang/{highlight}', [HighlightController::class, 'show'])->name('highlight.show');
 
 
 // Blog detail pakai slug (BlogPost model punya getRouteKeyName() = 'slug')
@@ -131,4 +136,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('media-coverage', MediaCoverageController::class)->except(['show', 'create', 'edit']);
     Route::resource('faq', FaqController::class)->except(['show', 'create', 'edit']);
     Route::resource('awards', AwardController::class)->except(['show', 'create', 'edit']);
+    Route::resource('highlights', AdminHighlightController::class)->except(['show', 'create', 'edit']);
 });
