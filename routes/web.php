@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PackageController;
-use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\FacilityController as FrontendFacilityController;
@@ -38,7 +37,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery');
 Route::post('/reservasi', [ReservationController::class, 'store'])->name('reservation.store');
 
 // Blog: halaman daftar SEMUA artikel
@@ -49,7 +47,7 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('facilities');
-Route::get('/harga', [FrontendPricingController::class, 'index'])->name('pricing');
+Route::get('/layanan', [FrontendPricingController::class, 'index'])->name('layanan.index');
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 
 // Informasi & Berita
