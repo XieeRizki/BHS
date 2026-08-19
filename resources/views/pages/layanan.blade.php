@@ -1,70 +1,533 @@
 @extends('layouts.app')
 
-@section('title', 'Paket Layanan & Harga - Balong Hardi Sumedang')
+@section('title', 'Layanan Resto & Cafe - Balong Hardi Sumedang')
 
 @section('content')
-<div class="pt-32 pb-16 bg-light dark:bg-dark min-h-screen transition-colors duration-300">
+
+@php
+    $awards = $awards ?? [
+        [
+            'title' => 'Dedikasi & Partisipasi Pengerahan Massa dalam Gebyar Vaksinasi COVID-19',
+            'issuer' => 'Kepolisian Resor Sumedang',
+            'year' => '2022',
+            'image' => null,
+        ],
+        [
+            'title' => 'Apresiasi Kontribusi Pengembangan Pariwisata Lokal',
+            'issuer' => 'Dinas Pariwisata Kabupaten Sumedang',
+            'year' => '2023',
+            'image' => null,
+        ],
+        [
+            'title' => 'Penghargaan Tempat Wisata Ramah Komunitas',
+            'issuer' => 'Komunitas Mancing Jawa Barat',
+            'year' => '2024',
+            'image' => null,
+        ],
+    ];
+
+    $waNumber = $contact->whatsapp ?? '62895385703917';
+@endphp
+
+{{-- BREADCRUMB NAVIGASI --}}
+<div class="bg-white dark:bg-[#1F160D] border-b border-gray-100 dark:border-white/6 pt-6 pb-4">
     <div class="container-max">
-        
-        {{-- Header Section --}}
-        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-extrabold uppercase tracking-widest mb-4 border border-accent/20">
-                Paket Layanan
-            </span>
-            <h1 class="text-3xl md:text-5xl font-black text-secondary dark:text-light uppercase tracking-tight mb-6">
-                Pilihan Paket & Harga
+        <nav class="text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider font-bold" aria-label="Breadcrumb">
+            <a href="{{ route('home') }}" class="hover:text-accent transition">BERANDA</a>
+            <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
+            <span class="text-secondary dark:text-light font-extrabold">PAKET LAYANAN</span>
+        </nav>
+    </div>
+</div>
+
+{{-- 1. HERO TAGLINE HEADER (POSISI RATA KIRI KE TENAH PAS SESUAI SKETSA) --}}
+<section class="py-12 md:py-16 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">
+    <div class="container-max">
+        <div class="max-w-3xl text-left">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-black text-secondary dark:text-white uppercase tracking-tight leading-tight mb-4">
+                CITRA RASA SAJIAN RESTO & CAFE BALONG HARDI SUMEDANG
             </h1>
-            <p class="text-gray-600 dark:text-gray-400 text-lg">
-                Temukan paket layanan terbaik yang sesuai dengan kebutuhan rekreasi, acara keluarga, atau kegiatan komunitas Anda di Balong Hardi Sumedang.
+            <p class="text-gray-600 dark:text-gray-300 text-sm md:text-lg font-medium uppercase tracking-wider">
+                MENGHADIRKAN SANTAPAN ISTIMEWA YANG BERKESAN DI HATI
+            </p>
+        </div>
+    </div>
+</section>
+
+{{-- 2. CATEGORY FILTER ICONS (BISA DIPASANG FOTO BE) --}}
+<section class="py-12 bg-gray-50 dark:bg-[#141414] border-b border-gray-200/80 dark:border-gray-800 transition-colors">
+    <div class="container-max">
+        <div class="text-center mb-8">
+            <h2 class="text-xl md:text-2xl font-black text-secondary dark:text-white uppercase tracking-wide">
+                LAYANAN RESTO & CAFE
+            </h2>
+            <p class="text-xs font-bold text-accent uppercase tracking-widest mt-1">
+                DEDIKASI KEBERADAAN BHS
             </p>
         </div>
 
-        {{-- AREA KONTEN (Silakan isi dengan Card Pricing nanti di sini) --}}
-        <div id="pricing-content" class="mb-16">
-            
-            {{-- Placeholder / Blank State (Bisa dihapus kalau datanya sudah ada) --}}
-            <div class="bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-3xl p-12 text-center shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-24 h-24 bg-gray-100 dark:bg-[#212121] rounded-full flex items-center justify-center mx-auto mb-6">
-                    <!-- Icon Box/Package -->
-                    <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-secondary dark:text-light mb-3 uppercase tracking-wide">
-                    Konten Paket Layanan Sedang Disiapkan
-                </h3>
-                <p class="text-gray-500 dark:text-gray-400 max-w-lg mx-auto mb-8 text-sm md:text-base">
-                    Area ini sengaja dikosongkan. Nantinya semua informasi mengenai harga tiket, sewa fasilitas, dan promo VIP akan diletakkan di dalam kerangka halaman ini.
-                </p>
+        <!-- Grid 5 Ikon Layanan -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
+            @php
+                $services = [
+                    ['name' => 'SARAPAN PAGI', 'img' => 'images/bhs2.jpg'],
+                    ['name' => 'MAKAN SIANG', 'img' => 'images/bhs2.jpg'],
+                    ['name' => 'SANTAP MALAM', 'img' => 'images/bhs2.jpg'],
+                    ['name' => 'KUSTOM', 'img' => 'images/bhs2.jpg'],
+                    ['name' => 'MINUMAN', 'img' => 'images/bhs2.jpg'],
+                ];
+            @endphp
 
-                <!-- Tombol Aksi Sementara -->
-                <div class="flex items-center justify-center gap-4">
-                    <a href="{{ route('home') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-gray-300 dark:border-white/20 text-secondary dark:text-white font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-all duration-300">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                        </svg>
-                        Kembali
-                    </a>
+            @foreach ($services as $svc)
+                <button type="button" class="group p-5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 hover:border-accent dark:hover:border-accent shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
+                    <!-- Frame Foto Icon -->
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-accent/40 bg-gray-100 dark:bg-[#222] mb-3 group-hover:scale-110 transition-transform p-0.5 shrink-0">
+                        <img src="{{ asset($svc['img']) }}" alt="{{ $svc['name'] }}" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <span class="text-xs md:text-sm font-extrabold text-secondary dark:text-white uppercase tracking-wider">
+                        {{ $svc['name'] }}
+                    </span>
+                </button>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- 3. TENTANG RESTO & CAFE (TEKS DIGEDEIN & RAPI) --}}
+<section class="py-14 md:py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">
+    <div class="container-max">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            
+            <!-- Frame Foto POV Resto & Cafe BHS -->
+            <div class="relative rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl bg-gray-100 dark:bg-[#161616] group aspect-[4/3]">
+                <img src="{{ asset('images/bhs2.jpg') }}" 
+                     alt="FOTO POV RESTO & CAFE BHS" 
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5">
+                    <span class="px-3.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-xs font-extrabold text-white uppercase tracking-widest">
+                        FOTO POV RESTO & CAFE BHS
+                    </span>
+                </div>
+            </div>
+
+            <!-- Text Content Narrative (Ukuran Teks Digedein) -->
+            <div class="space-y-6">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-black text-secondary dark:text-white uppercase tracking-tight mb-2">
+                        TENTANG RESTO & CAFE
+                    </h2>
+                    <p class="text-sm md:text-base font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-wide leading-relaxed">
+                        DESKRIPSI TENTANG BHS SECARA GLOBAL DAN MEMBUAT AUDIENS TERTARIK DAN PENASARAN UNTUK SEGERA MENCARI TAHU DAN RESERVASI LEBIH LANJUT UNTUK DATANG DAN ORDER
+                    </p>
+                </div>
+
+                <div class="space-y-3 border-t border-gray-200 dark:border-gray-800 pt-6">
+                    <h3 class="text-xl md:text-2xl font-black text-secondary dark:text-white uppercase tracking-wide">
+                        SELAMAT DATANG
+                    </h3>
+                    <p class="text-sm md:text-base font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-wide leading-relaxed">
+                        MEMBUAT AUDIENS TERTARIK DAN PENASARAN UNTUK SEGERA MENCARI TAHU DAN RESERVASI LEBIH LANJUT UNTUK DATANG DAN ORDER SAJIAN KULINER BALONG HARDI SUMEDANG.
+                    </p>
                 </div>
             </div>
 
         </div>
-        
     </div>
-</div>
+</section>
+
+{{-- 4. ARTIKEL TIPS & TRIK BHS (5 ITEM, SHOW 3, INFINITE LOOP SLIDER KANAN-KIRI) --}}
+<section class="py-14 md:py-18 bg-gray-50 dark:bg-[#141414] border-b border-gray-200/80 dark:border-gray-800 transition-colors">
+    <div class="container-max">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="text-2xl md:text-3xl font-black text-secondary dark:text-white uppercase tracking-wide">
+                ARTIKEL TIPS & TRIK BHS
+            </h2>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">
+                KETERANGAN AKTIVITAS & KEGIATAN BHS
+            </p>
+        </div>
+
+        <!-- Slider Container dengan Segitiga Kanan-Kiri -->
+        <div class="relative flex items-center gap-2 md:gap-4">
+            
+            <!-- Tombol Panah/Segitiga Kiri -->
+            <button type="button" id="article-prev" class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] shadow-md shrink-0 transition-all z-10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+
+            <!-- Viewport Slider -->
+            <div id="article-viewport" class="overflow-hidden w-full py-4">
+                <div id="article-track" class="flex gap-6 transition-transform duration-500 ease-out">
+                    @for ($a = 1; $a <= 5; $a++)
+                        <div class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                            <div>
+                                <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
+                                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Tips BHS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <span class="absolute top-3 left-3 px-3 py-1 bg-accent text-[#0A0A0A] text-[10px] font-black uppercase rounded-md tracking-wider">
+                                        KELAS LAYANAN
+                                    </span>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="text-base md:text-lg font-black text-secondary dark:text-white uppercase tracking-tight mb-2 group-hover:text-accent transition-colors">
+                                        NAMA LAYANAN #{{ $a }}
+                                    </h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                        Informasi kegiatan, tips rekreasi, serta rekomendasi santapan kuliner favorit Balong Hardi Sumedang.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="px-6 pb-6 pt-0">
+                                <a href="{{ route('informasi') }}" class="inline-flex items-center gap-2 text-xs font-black text-accent uppercase tracking-widest hover:underline">
+                                    <span>LIHAT DETAIL</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+
+            <!-- Tombol Panah/Segitiga Kanan -->
+            <button type="button" id="article-next" class="flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] shadow-md shrink-0 transition-all z-10">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+
+        </div>
+    </div>
+</section>
+
+{{-- PENGHARGAAN (PERSIS PROFILE.BLADE.PHP) --}}
+<section class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-b border-gray-100 dark:border-white/6">
+    <div class="container-max">
+        <div class="text-center mb-10">
+            <span class="text-xs font-bold tracking-widest uppercase text-accent">Penghargaan</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light mt-2">Dedikasi Keberadaan BHS</h2>
+        </div>
+
+        <div class="flex items-center gap-2 md:gap-4 w-full">
+
+            <button type="button" id="award-prev" aria-label="Penghargaan Sebelumnya" class="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] shadow-md shrink-0 transition-all duration-300">
+                <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+
+            <div id="award-viewport" class="overflow-hidden w-full">
+                <div id="award-track" class="flex transition-transform duration-500 ease-out">
+                    @foreach ($awards as $award)
+                        <div class="award-item w-full shrink-0 px-1">
+                            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+                                <div class="aspect-[16/10] rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-white/6 bg-secondary/5 dark:bg-white/5 flex items-center justify-center shrink-0">
+                                    @if (!empty($award['image']))
+                                        <img src="{{ asset('storage/' . $award['image']) }}" alt="{{ $award['title'] }}" class="w-full h-full object-cover" />
+                                    @else
+                                        <svg class="w-14 h-14 text-gray-300 dark:text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5h16v14H4z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5l16 14M20 5L4 19"/></svg>
+                                    @endif
+                                </div>
+                                <div>
+                                    <span class="text-xs md:text-sm font-bold uppercase tracking-wider text-accent">Sertifikat Penghargaan</span>
+                                    <p class="font-bold text-2xl md:text-3xl text-secondary dark:text-light leading-snug mt-2 mb-4">{{ $award['title'] }}</p>
+                                    <p class="text-base md:text-lg font-semibold text-secondary dark:text-light">{{ $award['issuer'] }}</p>
+                                    <p class="text-base md:text-lg text-gray-400 dark:text-gray-500">Tahun {{ $award['year'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <button type="button" id="award-next" aria-label="Penghargaan Berikutnya" class="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-accent hover:text-[#0A0A0A] hover:border-accent dark:hover:bg-accent dark:hover:text-[#0A0A0A] shadow-md shrink-0 transition-all duration-300">
+                <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+
+        <div id="award-dots" class="flex items-center justify-center gap-2 mt-8"></div>
+    </div>
+</section>
+
+{{-- 5. GALERI MEDIA (5 FOTO, FOTO TALL DI TENGAH-TENGAH) --}}
+<section class="py-14 md:py-20 bg-gray-50 dark:bg-[#141414] border-b border-gray-200/80 dark:border-gray-800 transition-colors">
+    <div class="container-max">
+        <div class="text-center max-w-xl mx-auto mb-8">
+            <h2 class="text-2xl md:text-3xl font-black text-secondary dark:text-white uppercase tracking-wide">
+                GALERI MEDIA
+            </h2>
+            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">
+                SAATNYA ANDA & KELUARGA EKSPLORE SEKARANG JUGA
+            </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-10">
+            <button type="button" class="px-5 py-2 rounded-full bg-accent text-[#0A0A0A] text-xs font-black uppercase tracking-wider shadow-sm">
+                SEMUA
+            </button>
+            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">
+                TAMPAK DEPAN
+            </button>
+            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">
+                INTERIOR
+            </button>
+            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">
+                FASILITAS
+            </button>
+        </div>
+
+        <!-- Grid 5 Foto (Foto Utama/Gede di Kolom TENGAH) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+            
+            <!-- KOLOM KIRI (2 Foto Bertumpuk) -->
+            <div class="grid grid-cols-1 gap-4 md:gap-6 order-1">
+                <!-- Foto 1 -->
+                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <!-- Foto 2 -->
+                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+
+            <!-- KOLOM TENGAH (FOTO UTAMA GEDE - ATAS SAMPAI BAWAH DI DESKTOP) -->
+            <div class="order-2 relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video md:aspect-auto h-full min-h-[220px] md:min-h-[420px]">
+                <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS Utama Center" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- KOLOM KANAN (2 Foto Bertumpuk) -->
+            <div class="grid grid-cols-1 gap-4 md:gap-6 order-3">
+                <!-- Foto 4 -->
+                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <!-- Foto 5 -->
+                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- SCAN BARCODE & ORDER (HANYA FOTO PURE) --}}
+<section class="py-14 md:py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">
+    <div class="container-max text-center max-w-3xl mx-auto">
+        <span class="text-xs font-extrabold text-accent uppercase tracking-widest block mb-2">SCAN BARCODE & ORDER</span>
+        <h2 class="text-2xl md:text-4xl font-black text-secondary dark:text-white tracking-tight leading-tight mb-8">
+            Get 40% extra on first order through ShopeeFood & GoFood
+        </h2>
+
+        <!-- Grid 2 Card Foto QR Code Murni -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-12">
+            
+            {{-- Foto QR ShopeeFood --}}
+            <div class="p-3 rounded-3xl border-2 border-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/10 shadow-lg">
+                <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="QR Code ShopeeFood" class="w-full h-full object-cover rounded-xl">
+                </div>
+            </div>
+
+            {{-- Foto QR GoFood --}}
+            <div class="p-3 rounded-3xl border-2 border-amber-500/40 bg-amber-50/20 dark:bg-amber-950/10 shadow-lg">
+                <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
+                    <img src="{{ asset('images/bhs2.jpg') }}" alt="QR Code GoFood" class="w-full h-full object-cover rounded-xl">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- PENAWARAN TERBATAS / CTA --}}
+<section class="py-14 bg-light dark:bg-[#161616] transition-colors overflow-hidden">
+    <div class="container-max">
+        <div class="relative overflow-hidden bg-gradient-to-br from-amber-50/80 via-white to-amber-100/50 dark:from-[#1C140C] dark:via-[#121212] dark:to-[#0A0A0A] p-8 md:p-12 rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl dark:shadow-2xl border border-accent/40">
+            <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-accent/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-xl text-center lg:text-left">
+                <h3 class="text-xl md:text-2xl font-black text-secondary dark:text-white uppercase tracking-wide leading-snug">
+                    DAPATKAN PAKET DISKON SPECIAL DAN INFORMASINYA SEKARANG JUGA
+                </h3>
+            </div>
+
+            <div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center">
+                <a href="https://wa.me/{{ $waNumber }}?text=Halo%20Admin%20BHS,%20saya%20ingin%20tanya%20paket%20diskon%20special%20Resto"
+                   target="_blank"
+                   class="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-accent text-[#0A0A0A] font-extrabold rounded-2xl hover:bg-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 uppercase tracking-wider text-xs md:text-sm shadow-xl">
+                    <svg class="w-5 h-5 shrink-0 fill-current text-[#0A0A0A]" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.882-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                    <span>KONTAK WA</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 @endsection
 
 @push('js')
 <script>
-    // Inisialisasi AOS jika diperlukan khusus di halaman ini
     document.addEventListener('DOMContentLoaded', function () {
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                once: true,
-                duration: 800,
-                easing: 'ease-out-cubic'
+        
+        // ----------------------------------------------------
+        // Infinite Loop Slider Artikel Tips & Trik
+        // ----------------------------------------------------
+        (function initArticleInfiniteSlider() {
+            const track = document.getElementById('article-track');
+            const prevBtn = document.getElementById('article-prev');
+            const nextBtn = document.getElementById('article-next');
+
+            if (!track || !prevBtn || !nextBtn) return;
+
+            let items = Array.from(track.querySelectorAll('.article-item'));
+            if (items.length === 0) return;
+
+            // Duplikasi item agar berputar terus tanpa mentok
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
             });
-        }
+
+            let isAnimating = false;
+
+            function getShiftWidth() {
+                const firstItem = track.querySelector('.article-item');
+                if (!firstItem) return 300;
+                const style = window.getComputedStyle(track);
+                const gap = parseFloat(style.gap) || 24;
+                return firstItem.offsetWidth + gap;
+            }
+
+            function moveNext() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                const shift = getShiftWidth();
+                track.style.transition = 'transform 400ms ease-out';
+                track.style.transform = `translateX(-${shift}px)`;
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    track.style.transition = 'none';
+                    track.appendChild(track.firstElementChild);
+                    track.style.transform = 'translateX(0)';
+                    void track.offsetWidth;
+                    isAnimating = false;
+                });
+            }
+
+            function movePrev() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                const shift = getShiftWidth();
+                track.style.transition = 'none';
+                track.insertBefore(track.lastElementChild, track.firstElementChild);
+                track.style.transform = `translateX(-${shift}px)`;
+                void track.offsetWidth;
+
+                track.style.transition = 'transform 400ms ease-out';
+                track.style.transform = 'translateX(0)';
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    isAnimating = false;
+                });
+            }
+
+            nextBtn.addEventListener('click', moveNext);
+            prevBtn.addEventListener('click', movePrev);
+        })();
+
+        // ----------------------------------------------------
+        // Carousel Slider Penghargaan
+        // ----------------------------------------------------
+        (function initAwardCarousel() {
+            const track = document.getElementById('award-track');
+            const prevBtn = document.getElementById('award-prev');
+            const nextBtn = document.getElementById('award-next');
+            const dotsWrap = document.getElementById('award-dots');
+
+            if (!track || !prevBtn || !nextBtn) return;
+
+            const items = Array.from(track.querySelectorAll('.award-item'));
+            const total = items.length;
+            if (total === 0) return;
+
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            let currentIndex = 0;
+            let isAnimating = false;
+            let queue = [];
+
+            const dots = [];
+            if (dotsWrap && total > 1) {
+                items.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'h-2.5 rounded-full transition-all duration-300 ' +
+                        (i === 0 ? 'bg-accent w-6' : 'bg-gray-300 dark:bg-gray-600 w-2.5');
+                    dotsWrap.appendChild(dot);
+                    dots.push(dot);
+                });
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.className = 'h-2.5 rounded-full transition-all duration-300 ' +
+                        (i === currentIndex ? 'bg-accent w-6' : 'bg-gray-300 dark:bg-gray-600 w-2.5');
+                });
+            }
+
+            function processQueue() {
+                if (isAnimating || queue.length === 0) return;
+                const dir = queue.shift();
+                dir === 1 ? stepNext() : stepPrev();
+            }
+
+            function stepNext() {
+                isAnimating = true;
+                track.style.transition = 'transform 500ms ease-out';
+                track.style.transform = 'translateX(-100%)';
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    track.style.transition = 'none';
+                    track.appendChild(track.firstElementChild);
+                    track.style.transform = 'translateX(0)';
+                    void track.offsetWidth;
+                    currentIndex = (currentIndex + 1) % total;
+                    updateDots();
+                    isAnimating = false;
+                    processQueue();
+                });
+            }
+
+            function stepPrev() {
+                isAnimating = true;
+                track.style.transition = 'none';
+                track.insertBefore(track.lastElementChild, track.firstElementChild);
+                track.style.transform = 'translateX(-100%)';
+                void track.offsetWidth;
+
+                track.style.transition = 'transform 500ms ease-out';
+                track.style.transform = 'translateX(0)';
+
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    currentIndex = (currentIndex - 1 + total) % total;
+                    updateDots();
+                    isAnimating = false;
+                    processQueue();
+                });
+            }
+
+            nextBtn.addEventListener('click', () => { queue.push(1); processQueue(); });
+            prevBtn.addEventListener('click', () => { queue.push(-1); processQueue(); });
+        })();
     });
 </script>
 @endpush
