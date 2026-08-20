@@ -1,31 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Layanan Resto & Cafe - Balong Hardi Sumedang')
+@section('title', 'Layanan ' . $highlight->title . ' - Balong Hardi Sumedang')
 
 @section('content')
 
 @php
-    $awards = $awards ?? [
-        [
-            'title' => 'Dedikasi & Partisipasi Pengerahan Massa dalam Gebyar Vaksinasi COVID-19',
-            'issuer' => 'Kepolisian Resor Sumedang',
-            'year' => '2022',
-            'image' => null,
-        ],
-        [
-            'title' => 'Apresiasi Kontribusi Pengembangan Pariwisata Lokal',
-            'issuer' => 'Dinas Pariwisata Kabupaten Sumedang',
-            'year' => '2023',
-            'image' => null,
-        ],
-        [
-            'title' => 'Penghargaan Tempat Wisata Ramah Komunitas',
-            'issuer' => 'Komunitas Mancing Jawa Barat',
-            'year' => '2024',
-            'image' => null,
-        ],
-    ];
-
     $waNumber = $contact->whatsapp ?? '62895385703917';
 @endphp
 
@@ -35,7 +14,7 @@
         <nav class="text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider font-bold" aria-label="Breadcrumb">
             <a href="{{ route('home') }}" class="hover:text-accent transition">BERANDA</a>
             <span class="mx-2 text-gray-300 dark:text-gray-600">/</span>
-            <span class="text-secondary dark:text-light font-extrabold">PAKET LAYANAN</span>
+            <span class="text-secondary dark:text-light font-extrabold">{{ strtoupper($highlight->title) }}</span>
         </nav>
     </div>
 </div>
@@ -45,10 +24,10 @@
     <div class="container-max">
         <div class="max-w-3xl text-left">
             <h1 class="text-2xl md:text-4xl lg:text-5xl font-black text-secondary dark:text-white uppercase tracking-tight leading-tight mb-4">
-                CITRA RASA SAJIAN RESTO & CAFE BALONG HARDI SUMEDANG
+                {{ $highlight->title }}
             </h1>
             <p class="text-gray-600 dark:text-gray-300 text-sm md:text-lg font-medium uppercase tracking-wider">
-                MENGHADIRKAN SANTAPAN ISTIMEWA YANG BERKESAN DI HATI
+                {{ $highlight->hero_subtitle }}
             </p>
         </div>
     </div>
@@ -59,30 +38,25 @@
     <div class="container-max">
         <div class="text-center mb-8">
             <h2 class="text-xl md:text-2xl font-black text-secondary dark:text-white uppercase tracking-wide">
-                LAYANAN RESTO & CAFE
+                LAYANAN {{ strtoupper($highlight->title) }}
             </h2>
             <p class="text-xs font-bold text-accent uppercase tracking-widest mt-1">
-                DEDIKASI KEBERADAAN BHS
+                {{ $highlight->section_subtitle ?? 'DEDIKASI KEBERADAAN BHS' }}
             </p>
         </div>
 
         <!-- Grid 5 Ikon Layanan -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
             @php
-                $services = [
-                    ['name' => 'SARAPAN PAGI', 'img' => 'images/bhs2.jpg'],
-                    ['name' => 'MAKAN SIANG', 'img' => 'images/bhs2.jpg'],
-                    ['name' => 'SANTAP MALAM', 'img' => 'images/bhs2.jpg'],
-                    ['name' => 'KUSTOM', 'img' => 'images/bhs2.jpg'],
-                    ['name' => 'MINUMAN', 'img' => 'images/bhs2.jpg'],
+                $services = $highlight->services ?? [
+                    ['name' => 'Layanan Unggulan', 'img' => 'images/bhs2.jpg'],
                 ];
             @endphp
 
             @foreach ($services as $svc)
                 <button type="button" class="group p-5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 hover:border-accent dark:hover:border-accent shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-                    <!-- Frame Foto Icon -->
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-accent/40 bg-gray-100 dark:bg-[#222] mb-3 group-hover:scale-110 transition-transform p-0.5 shrink-0">
-                        <img src="{{ asset($svc['img']) }}" alt="{{ $svc['name'] }}" class="w-full h-full object-cover rounded-full">
+                        <img src="{{ !empty($svc['image']) ? asset('storage/'.$svc['image']) : asset('images/bhs2.jpg') }}" alt="{{ $svc['name'] }}" class="w-full h-full object-cover rounded-full">
                     </div>
                     <span class="text-xs md:text-sm font-extrabold text-secondary dark:text-white uppercase tracking-wider">
                         {{ $svc['name'] }}
@@ -93,20 +67,20 @@
     </div>
 </section>
 
-{{-- 3. TENTANG RESTO & CAFE (TEKS DIGEDEIN & RAPI) --}}
+{{-- 3. TENTANG UNIT (TEKS DIGEDEIN & RAPI) --}}
 <section class="py-14 md:py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">
     <div class="container-max">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             
-            <!-- Frame Foto POV Resto & Cafe BHS -->
+            <!-- Frame Foto POV Unit -->
             <div class="relative rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xl bg-gray-100 dark:bg-[#161616] group aspect-[4/3]">
-                <img src="{{ asset('images/bhs2.jpg') }}" 
-                     alt="FOTO POV RESTO & CAFE BHS" 
+                <img src="{{ $highlight->image ? asset('storage/'.$highlight->image) : asset('images/bhs2.jpg') }}" 
+                     alt="{{ $highlight->title }}" 
                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                 <div class="absolute bottom-5 left-5 right-5">
                     <span class="px-3.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-xs font-extrabold text-white uppercase tracking-widest">
-                        FOTO POV RESTO & CAFE BHS
+                        {{ strtoupper($highlight->title) }}
                     </span>
                 </div>
             </div>
@@ -115,10 +89,10 @@
             <div class="space-y-6">
                 <div>
                     <h2 class="text-3xl md:text-4xl font-black text-secondary dark:text-white uppercase tracking-tight mb-2">
-                        TENTANG RESTO & CAFE
+                        TENTANG {{ strtoupper($highlight->title) }}
                     </h2>
                     <p class="text-sm md:text-base font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-wide leading-relaxed">
-                        DESKRIPSI TENTANG BHS SECARA GLOBAL DAN MEMBUAT AUDIENS TERTARIK DAN PENASARAN UNTUK SEGERA MENCARI TAHU DAN RESERVASI LEBIH LANJUT UNTUK DATANG DAN ORDER
+                        {{ $highlight->content ?? $highlight->short_description }}
                     </p>
                 </div>
 
@@ -127,7 +101,7 @@
                         SELAMAT DATANG
                     </h3>
                     <p class="text-sm md:text-base font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-wide leading-relaxed">
-                        MEMBUAT AUDIENS TERTARIK DAN PENASARAN UNTUK SEGERA MENCARI TAHU DAN RESERVASI LEBIH LANJUT UNTUK DATANG DAN ORDER SAJIAN KULINER BALONG HARDI SUMEDANG.
+                        {{ $highlight->hero_subtitle }}
                     </p>
                 </div>
             </div>
@@ -159,21 +133,21 @@
             <!-- Viewport Slider -->
             <div id="article-viewport" class="overflow-hidden w-full py-4">
                 <div id="article-track" class="flex gap-6 transition-transform duration-500 ease-out">
-                    @for ($a = 1; $a <= 5; $a++)
+                    @forelse ($articles as $item)
                         <div class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                             <div>
                                 <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Tips BHS" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ $item->cover_image ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                     <span class="absolute top-3 left-3 px-3 py-1 bg-accent text-[#0A0A0A] text-[10px] font-black uppercase rounded-md tracking-wider">
-                                        KELAS LAYANAN
+                                        {{ $item->type }}
                                     </span>
                                 </div>
                                 <div class="p-6">
                                     <h3 class="text-base md:text-lg font-black text-secondary dark:text-white uppercase tracking-tight mb-2 group-hover:text-accent transition-colors">
-                                        NAMA LAYANAN #{{ $a }}
+                                        {{ $item->title }}
                                     </h3>
                                     <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                                        Informasi kegiatan, tips rekreasi, serta rekomendasi santapan kuliner favorit Balong Hardi Sumedang.
+                                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 100) }}
                                     </p>
                                 </div>
                             </div>
@@ -184,7 +158,9 @@
                                 </a>
                             </div>
                         </div>
-                    @endfor
+                    @empty
+                        <p class="text-sm text-gray-500 italic px-1">Belum ada artikel.</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -273,37 +249,34 @@
         </div>
 
         <!-- Grid 5 Foto (Foto Utama/Gede di Kolom TENGAH) -->
+        @php
+            $galleryImages = $highlight->gallery ?? [];
+            // fallback biar tetep ada gambar kalau galeri masih kosong
+            if (empty($galleryImages)) {
+                $galleryImages = array_fill(0, 5, null);
+            }
+        @endphp
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
-            
-            <!-- KOLOM KIRI (2 Foto Bertumpuk) -->
             <div class="grid grid-cols-1 gap-4 md:gap-6 order-1">
-                <!-- Foto 1 -->
-                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <!-- Foto 2 -->
-                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
+                @foreach (array_slice($galleryImages, 0, 2) as $img)
+                    <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                        <img src="{{ $img ? asset('storage/'.$img) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $highlight->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                @endforeach
             </div>
 
-            <!-- KOLOM TENGAH (FOTO UTAMA GEDE - ATAS SAMPAI BAWAH DI DESKTOP) -->
             <div class="order-2 relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video md:aspect-auto h-full min-h-[220px] md:min-h-[420px]">
-                <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS Utama Center" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <img src="{{ ($galleryImages[2] ?? null) ? asset('storage/'.$galleryImages[2]) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $highlight->title }} Utama" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
 
-            <!-- KOLOM KANAN (2 Foto Bertumpuk) -->
             <div class="grid grid-cols-1 gap-4 md:gap-6 order-3">
-                <!-- Foto 4 -->
-                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <!-- Foto 5 -->
-                <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="Galeri BHS 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
+                @foreach (array_slice($galleryImages, 3, 2) as $img)
+                    <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
+                        <img src="{{ $img ? asset('storage/'.$img) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $highlight->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                @endforeach
             </div>
-
         </div>
     </div>
 </section>
@@ -318,21 +291,21 @@
 
         <!-- Grid 2 Card Foto QR Code Murni -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-12">
-            
-            {{-- Foto QR ShopeeFood --}}
-            <div class="p-3 rounded-3xl border-2 border-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/10 shadow-lg">
-                <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="QR Code ShopeeFood" class="w-full h-full object-cover rounded-xl">
+            @if($highlight->qr_shopeefood)
+                <div class="p-3 rounded-3xl border-2 border-emerald-500/40 bg-emerald-50/20 dark:bg-emerald-950/10 shadow-lg">
+                    <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
+                        <img src="{{ asset('storage/'.$highlight->qr_shopeefood) }}" alt="QR Code ShopeeFood" class="w-full h-full object-cover rounded-xl">
+                    </div>
                 </div>
-            </div>
+            @endif
 
-            {{-- Foto QR GoFood --}}
-            <div class="p-3 rounded-3xl border-2 border-amber-500/40 bg-amber-50/20 dark:bg-amber-950/10 shadow-lg">
-                <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
-                    <img src="{{ asset('images/bhs2.jpg') }}" alt="QR Code GoFood" class="w-full h-full object-cover rounded-xl">
+            @if($highlight->qr_gofood)
+                <div class="p-3 rounded-3xl border-2 border-amber-500/40 bg-amber-50/20 dark:bg-amber-950/10 shadow-lg">
+                    <div class="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-2xl overflow-hidden">
+                        <img src="{{ asset('storage/'.$highlight->qr_gofood) }}" alt="QR Code GoFood" class="w-full h-full object-cover rounded-xl">
+                    </div>
                 </div>
-            </div>
-
+            @endif
         </div>
     </div>
 </section>
@@ -350,7 +323,7 @@
             </div>
 
             <div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center">
-                <a href="https://wa.me/{{ $waNumber }}?text=Halo%20Admin%20BHS,%20saya%20ingin%20tanya%20paket%20diskon%20special%20Resto"
+                <a href="https://wa.me/{{ $contact->whatsapp }}?text={{ urlencode('Halo Admin BHS, saya ingin tanya paket diskon special ' . $highlight->title) }}"
                    target="_blank"
                    class="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-accent text-[#0A0A0A] font-extrabold rounded-2xl hover:bg-yellow-500 hover:scale-105 active:scale-95 transition-all duration-300 uppercase tracking-wider text-xs md:text-sm shadow-xl">
                     <svg class="w-5 h-5 shrink-0 fill-current text-[#0A0A0A]" viewBox="0 0 24 24">

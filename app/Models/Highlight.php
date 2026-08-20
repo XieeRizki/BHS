@@ -8,9 +8,20 @@ use Illuminate\Support\Str;
 
 class Highlight extends Model
 {
-    protected $fillable = ['title', 'slug', 'short_description', 'content', 'image', 'order', 'is_active'];
+    
+    protected $fillable = [
+        'title', 'slug', 'hero_subtitle', 'section_subtitle',
+        'short_description', 'content', 'services', 'gallery',
+        'qr_shopeefood', 'qr_gofood', 'qr_badge_text', 'qr_title',
+        'cta_title', 'cta_subtitle',
+        'image', 'order', 'is_active',
+    ];
 
-    protected $casts = ['is_active' => 'boolean'];
+    protected $casts = [
+        'is_active' => 'boolean',
+        'services' => 'array',
+        'gallery' => 'array',
+    ];
 
     protected static function boot()
     {
