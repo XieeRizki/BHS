@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Kelola Highlight')
+@section('title', 'Kelola Layanan')
 @section('content')
 
 <style>
@@ -55,11 +55,11 @@
 
 <div class="section-header">
     <div>
-        <h1>Kelola Highlight</h1>
+        <h1>Kelola Layanan</h1>
         <p class="section-header-desc">Konten "Unit & Layanan" (Hotel, Villa, Food & Beverage, dst) yang tampil di homepage</p>
     </div>
-    <a href="{{ route('admin.highlights.create') }}" class="btn-create">
-        <i class="fas fa-plus"></i> Tambah Highlight
+    <a href="{{ route('admin.layanan.create') }}" class="btn-create">
+        <i class="fas fa-plus"></i> Tambah Layanan
     </a>
 </div>
 
@@ -77,7 +77,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($highlights as $item)
+                @forelse($layanans as $item)
                     <tr>
                         <td class="image-cell">
                             <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}">
@@ -95,13 +95,13 @@
                         </td>
                         <td>
                             <div class="action-group">
-                                <a href="{{ route('highlight.show', $item->slug) }}" target="_blank" class="btn-icon btn-view" title="Lihat halaman detail">
+                                <a href="{{ route('layanan.show', $item->slug) }}" target="_blank" class="btn-icon btn-view" title="Lihat halaman detail">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.highlights.edit', $item) }}" class="btn-icon btn-edit">
+                                <a href="{{ route('admin.layanan.edit', $item) }}" class="btn-icon btn-edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.highlights.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus highlight ini? Semua foto terkait (gambar utama, galeri, QR, icon) akan ikut terhapus.')">
+                                <form action="{{ route('admin.layanan.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus layanan ini? Semua foto terkait (gambar utama, galeri, QR, icon) akan ikut terhapus.')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
                                 </form>
@@ -113,8 +113,8 @@
                         <td colspan="6">
                             <div class="empty-container">
                                 <div class="empty-icon">✨</div>
-                                <p class="empty-text">Belum ada highlight</p>
-                                <a href="{{ route('admin.highlights.create') }}" class="btn-create"><i class="fas fa-plus"></i> Tambah Highlight</a>
+                                <p class="empty-text">Belum ada layanan</p>
+                                <a href="{{ route('admin.layanan.create') }}" class="btn-create"><i class="fas fa-plus"></i> Tambah Layanan</a>
                             </div>
                         </td>
                     </tr>

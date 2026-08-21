@@ -90,7 +90,7 @@
 
             <div class="space-y-16">
 
-                @foreach($highlights as $item)
+                @foreach($layanans as $item)
                     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
 
                         {{-- Foto: kiri kalau index genap, kanan kalau ganjil --}}
@@ -109,7 +109,7 @@
                             <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                                 {{ $item->short_description }}
                             </p>
-                            <a href="{{ route('highlight.show', $item->slug) }}" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
+                            <a href="{{ route('layanan.show', $item->slug) }}" class="inline-flex items-center gap-2 font-bold text-accent hover:text-accent-dark transition group">
                                 Selengkapnya
                                 <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>

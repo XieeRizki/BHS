@@ -1,7 +1,7 @@
 @php
-    $isEdit = isset($highlight);
-    $existingServices = $isEdit ? ($highlight->services ?? []) : [];
-    $existingGallery = $isEdit ? ($highlight->gallery ?? []) : [];
+    $isEdit = isset($layanan);
+    $existingServices = $isEdit ? ($layanan->services ?? []) : [];
+    $existingGallery = $isEdit ? ($layanan->gallery ?? []) : [];
 @endphp
 
 <style>
@@ -57,10 +57,10 @@
 
     <div class="form-group">
         <label for="title">Judul <span class="required">*</span></label>
-        <input type="text" id="title" name="title" value="{{ old('title', $highlight->title ?? '') }}" placeholder="Contoh: Tentang Hotel BHS" required>
+        <input type="text" id="title" name="title" value="{{ old('title', $layanan->title ?? '') }}" placeholder="Contoh: Tentang Hotel BHS" required>
         @error('title')<div class="form-error">{{ $message }}</div>@enderror
         @if($isEdit)
-            <div class="form-hint">URL saat ini: /layanan/{{ $highlight->slug }} (slug tidak berubah otomatis saat judul diedit)</div>
+            <div class="form-hint">URL saat ini: /layanan/{{ $layanan->slug }} (slug tidak berubah otomatis saat judul diedit)</div>
         @else
             <div class="form-hint">URL detail otomatis dibuat dari judul ini (slug)</div>
         @endif
@@ -69,34 +69,34 @@
     <div class="form-row">
         <div class="form-group">
             <label for="hero_subtitle">Subjudul Hero</label>
-            <input type="text" id="hero_subtitle" name="hero_subtitle" value="{{ old('hero_subtitle', $highlight->hero_subtitle ?? '') }}" placeholder="Tampil di bawah judul besar & section Selamat Datang">
+            <input type="text" id="hero_subtitle" name="hero_subtitle" value="{{ old('hero_subtitle', $layanan->hero_subtitle ?? '') }}" placeholder="Tampil di bawah judul besar & section Selamat Datang">
         </div>
         <div class="form-group">
             <label for="section_subtitle">Subjudul Section Layanan</label>
-            <input type="text" id="section_subtitle" name="section_subtitle" value="{{ old('section_subtitle', $highlight->section_subtitle ?? '') }}" placeholder="Contoh: DEDIKASI KEBERADAAN BHS">
+            <input type="text" id="section_subtitle" name="section_subtitle" value="{{ old('section_subtitle', $layanan->section_subtitle ?? '') }}" placeholder="Contoh: DEDIKASI KEBERADAAN BHS">
         </div>
     </div>
 
     <div class="form-group">
         <label for="short_description">Deskripsi Singkat (tampil di card homepage)</label>
-        <textarea id="short_description" name="short_description" style="min-height: 70px;">{{ old('short_description', $highlight->short_description ?? '') }}</textarea>
+        <textarea id="short_description" name="short_description" style="min-height: 70px;">{{ old('short_description', $layanan->short_description ?? '') }}</textarea>
         @error('short_description')<div class="form-error">{{ $message }}</div>@enderror
     </div>
 
     <div class="form-group">
         <label for="content">Isi Lengkap (paragraf section "Tentang" di halaman detail)</label>
-        <textarea id="content" name="content" style="min-height: 140px;" placeholder="Pisahkan tiap paragraf dengan baris kosong (Enter 2x).">{{ old('content', $highlight->content ?? '') }}</textarea>
+        <textarea id="content" name="content" style="min-height: 140px;" placeholder="Pisahkan tiap paragraf dengan baris kosong (Enter 2x).">{{ old('content', $layanan->content ?? '') }}</textarea>
     </div>
 
     <div class="form-row">
         <div class="form-group">
             <label for="order">Urutan Tampil</label>
-            <input type="number" id="order" name="order" value="{{ old('order', $highlight->order ?? 0) }}">
+            <input type="number" id="order" name="order" value="{{ old('order', $layanan->order ?? 0) }}">
         </div>
         <div class="form-group" style="display: flex; align-items: flex-end; padding-bottom: 0.65rem;">
             <div class="checkbox-wrap">
-                <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $highlight->is_active ?? true) ? 'checked' : '' }}>
-                <label for="is_active">Tampilkan highlight ini</label>
+                <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $layanan->is_active ?? true) ? 'checked' : '' }}>
+                <label for="is_active">Tampilkan layanan ini</label>
             </div>
         </div>
     </div>
@@ -106,9 +106,9 @@
 <div class="form-section">
     <h2>Gambar Utama</h2>
     <div class="form-group">
-        @if($isEdit && $highlight->image)
+        @if($isEdit && $layanan->image)
             <div class="current-image">
-                <img src="{{ asset('storage/' . $highlight->image) }}" alt="{{ $highlight->title }}">
+                <img src="{{ asset('storage/' . $layanan->image) }}" alt="{{ $layanan->title }}">
             </div>
         @endif
         <label for="image">{{ $isEdit ? 'Ganti Gambar' : 'Upload Gambar' }}</label>
@@ -142,7 +142,7 @@
             @foreach($existingGallery as $index => $img)
                 <div class="gallery-item">
                     <img src="{{ asset('storage/' . $img) }}" alt="Galeri {{ $index + 1 }}">
-                    <button type="button" class="gallery-remove-btn" onclick="removeGalleryImage({{ $highlight->id }}, {{ $index }}, this)" title="Hapus foto ini">
+                    <button type="button" class="gallery-remove-btn" onclick="removeGalleryImage({{ $layanan->id }}, {{ $index }}, this)" title="Hapus foto ini">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -164,15 +164,15 @@
 
     <div class="form-row">
         <div class="form-group">
-            @if($isEdit && $highlight->qr_shopeefood)
-                <div class="current-image"><img src="{{ asset('storage/' . $highlight->qr_shopeefood) }}" alt="QR ShopeeFood"></div>
+            @if($isEdit && $layanan->qr_shopeefood)
+                <div class="current-image"><img src="{{ asset('storage/' . $layanan->qr_shopeefood) }}" alt="QR ShopeeFood"></div>
             @endif
             <label for="qr_shopeefood">QR Code ShopeeFood</label>
             <input type="file" id="qr_shopeefood" name="qr_shopeefood" accept="image/*">
         </div>
         <div class="form-group">
-            @if($isEdit && $highlight->qr_gofood)
-                <div class="current-image"><img src="{{ asset('storage/' . $highlight->qr_gofood) }}" alt="QR GoFood"></div>
+            @if($isEdit && $layanan->qr_gofood)
+                <div class="current-image"><img src="{{ asset('storage/' . $layanan->qr_gofood) }}" alt="QR GoFood"></div>
             @endif
             <label for="qr_gofood">QR Code GoFood</label>
             <input type="file" id="qr_gofood" name="qr_gofood" accept="image/*">
@@ -182,11 +182,11 @@
     <div class="form-row">
         <div class="form-group">
             <label for="qr_badge_text">Badge Text</label>
-            <input type="text" id="qr_badge_text" name="qr_badge_text" value="{{ old('qr_badge_text', $highlight->qr_badge_text ?? '') }}" placeholder="SCAN BARCODE & ORDER">
+            <input type="text" id="qr_badge_text" name="qr_badge_text" value="{{ old('qr_badge_text', $layanan->qr_badge_text ?? '') }}" placeholder="SCAN BARCODE & ORDER">
         </div>
         <div class="form-group">
             <label for="qr_title">Judul Section</label>
-            <input type="text" id="qr_title" name="qr_title" value="{{ old('qr_title', $highlight->qr_title ?? '') }}" placeholder="Get 40% extra on first order...">
+            <input type="text" id="qr_title" name="qr_title" value="{{ old('qr_title', $layanan->qr_title ?? '') }}" placeholder="Get 40% extra on first order...">
         </div>
     </div>
 </div>
@@ -196,25 +196,25 @@
     <h2>Call-to-Action (Bawah Halaman)</h2>
     <div class="form-group">
         <label for="cta_title">Judul CTA</label>
-        <input type="text" id="cta_title" name="cta_title" value="{{ old('cta_title', $highlight->cta_title ?? '') }}" placeholder="DAPATKAN PAKET DISKON SPECIAL DAN INFORMASINYA SEKARANG JUGA">
+        <input type="text" id="cta_title" name="cta_title" value="{{ old('cta_title', $layanan->cta_title ?? '') }}" placeholder="DAPATKAN PAKET DISKON SPECIAL DAN INFORMASINYA SEKARANG JUGA">
     </div>
     <div class="form-group">
         <label for="cta_subtitle">Subjudul CTA (opsional)</label>
-        <input type="text" id="cta_subtitle" name="cta_subtitle" value="{{ old('cta_subtitle', $highlight->cta_subtitle ?? '') }}">
+        <input type="text" id="cta_subtitle" name="cta_subtitle" value="{{ old('cta_subtitle', $layanan->cta_subtitle ?? '') }}">
     </div>
 </div>
 
 <div class="btn-submit-row">
-    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> {{ $isEdit ? 'Simpan Perubahan' : 'Simpan Highlight' }}</button>
-    <a href="{{ route('admin.highlights.index') }}" class="btn btn-cancel"><i class="fas fa-times"></i> Batal</a>
+    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> {{ $isEdit ? 'Simpan Perubahan' : 'Simpan Layanan' }}</button>
+    <a href="{{ route('admin.layanan.index') }}" class="btn btn-cancel"><i class="fas fa-times"></i> Batal</a>
 </div>
 
 @if($isEdit)
 <script>
-    function removeGalleryImage(highlightId, index, btnEl) {
+    function removeGalleryImage(layananId, index, btnEl) {
         if (!confirm('Hapus foto ini dari galeri?')) return;
 
-        fetch(`/admin/highlights/${highlightId}/gallery/${index}`, {
+        fetch(`/admin/layanan/${layananId}/gallery/${index}`, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,

@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Highlight;
+use App\Models\Layanan; // <-- Sudah diubah pakai model Layanan
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class HighlightController extends Controller
+class LayananController extends Controller
 {
     public function index()
     {
-        $highlights = Highlight::ordered()->get();
-        return view('admin.highlights.index', compact('highlights'));
+        // Ubah variabel jadi $layanans
+        $layanans = Layanan::ordered()->get();
+        // Return view ke folder admin.layanan
+        return view('admin.layanan.index', compact('layanans'));
     }
 
     public function create()
     {
-        return view('admin.highlights.create');
+        return view('admin.layanan.create');
     }
 
     public function store(Request $request)
@@ -42,21 +44,22 @@ class HighlightController extends Controller
             'service_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
+        // Path penyimpanan gambar diubah ke folder 'layanan' biar rapi
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('highlights', 'public');
+            $validated['image'] = $request->file('image')->store('layanan', 'public');
         }
 
         if ($request->hasFile('qr_shopeefood')) {
-            $validated['qr_shopeefood'] = $request->file('qr_shopeefood')->store('highlights/qr', 'public');
+            $validated['qr_shopeefood'] = $request->file('qr_shopeefood')->store('layanan/qr', 'public');
         }
 
         if ($request->hasFile('qr_gofood')) {
-            $validated['qr_gofood'] = $request->file('qr_gofood')->store('highlights/qr', 'public');
+            $validated['qr_gofood'] = $request->file('qr_gofood')->store('layanan/qr', 'public');
         }
 
         if ($request->hasFile('gallery')) {
             $validated['gallery'] = collect($request->file('gallery'))
-                ->map(fn($file) => $file->store('highlights/gallery', 'public'))
+                ->map(fn($file) => $file->store('layanan/gallery', 'public'))
                 ->values()->toArray();
         }
 
@@ -71,17 +74,18 @@ class HighlightController extends Controller
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? 0;
 
-        Highlight::create($validated);
+        Layanan::create($validated);
 
-        return redirect()->route('admin.highlights.index')->with('success', 'Konten berhasil ditambahkan.');
+        return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil ditambahkan.');
     }
 
-    public function edit(Highlight $highlight)
+    // Parameter diganti jadi Layanan $layanan
+    public function edit(Layanan $layanan)
     {
-        return view('admin.highlights.edit', compact('highlight'));
+        return view('admin.layanan.edit', compact('layanan'));
     }
 
-    public function update(Request $request, Highlight $highlight)
+    public function update(Request $request, Layanan $layanan)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -104,104 +108,98 @@ class HighlightController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($highlight->image) {
-                Storage::disk('public')->delete($highlight->image);
+            if ($layanan->image) {
+                Storage::disk('public')->delete($layanan->image);
             }
-            $validated['image'] = $request->file('image')->store('highlights', 'public');
+            $validated['image'] = $request->file('image')->store('layanan', 'public');
         }
 
         if ($request->hasFile('qr_shopeefood')) {
-            if ($highlight->qr_shopeefood) {
-                Storage::disk('public')->delete($highlight->qr_shopeefood);
+            if ($layanan->qr_shopeefood) {
+                Storage::disk('public')->delete($layanan->qr_shopeefood);
             }
-            $validated['qr_shopeefood'] = $request->file('qr_shopeefood')->store('highlights/qr', 'public');
+            $validated['qr_shopeefood'] = $request->file('qr_shopeefood')->store('layanan/qr', 'public');
         }
 
         if ($request->hasFile('qr_gofood')) {
-            if ($highlight->qr_gofood) {
-                Storage::disk('public')->delete($highlight->qr_gofood);
+            if ($layanan->qr_gofood) {
+                Storage::disk('public')->delete($layanan->qr_gofood);
             }
-            $validated['qr_gofood'] = $request->file('qr_gofood')->store('highlights/qr', 'public');
+            $validated['qr_gofood'] = $request->file('qr_gofood')->store('layanan/qr', 'public');
         }
 
-        // Foto galeri baru DITAMBAHIN ke yang lama, bukan replace semua
         if ($request->hasFile('gallery')) {
             $newImages = collect($request->file('gallery'))
-                ->map(fn($file) => $file->store('highlights/gallery', 'public'))
+                ->map(fn($file) => $file->store('layanan/gallery', 'public'))
                 ->values()->toArray();
-            $validated['gallery'] = array_merge($highlight->gallery ?? [], $newImages);
+            $validated['gallery'] = array_merge($layanan->gallery ?? [], $newImages);
         }
 
         if ($request->filled('services_lines')) {
             $validated['services'] = $this->buildServicesData(
                 $request->input('services_lines', []),
                 $request->file('service_images', []),
-                $highlight
+                $layanan
             );
         }
 
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? 0;
 
-        $highlight->update($validated);
+        $layanan->update($validated);
 
-        return redirect()->route('admin.highlights.index')->with('success', 'Konten berhasil diperbarui.');
+        return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil diperbarui.');
     }
 
-    public function destroy(Highlight $highlight)
+    public function destroy(Layanan $layanan)
     {
-        if ($highlight->image) {
-            Storage::disk('public')->delete($highlight->image);
+        if ($layanan->image) {
+            Storage::disk('public')->delete($layanan->image);
         }
-        if ($highlight->qr_shopeefood) {
-            Storage::disk('public')->delete($highlight->qr_shopeefood);
+        if ($layanan->qr_shopeefood) {
+            Storage::disk('public')->delete($layanan->qr_shopeefood);
         }
-        if ($highlight->qr_gofood) {
-            Storage::disk('public')->delete($highlight->qr_gofood);
+        if ($layanan->qr_gofood) {
+            Storage::disk('public')->delete($layanan->qr_gofood);
         }
-        foreach ($highlight->gallery ?? [] as $img) {
+        foreach ($layanan->gallery ?? [] as $img) {
             Storage::disk('public')->delete($img);
         }
-        foreach ($highlight->services ?? [] as $svc) {
+        foreach ($layanan->services ?? [] as $svc) {
             if (!empty($svc['image'])) {
                 Storage::disk('public')->delete($svc['image']);
             }
         }
 
-        $highlight->delete();
+        $layanan->delete();
 
-        return redirect()->route('admin.highlights.index')->with('success', 'Konten berhasil dihapus.');
+        return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil dihapus.');
     }
 
-    public function destroyGalleryImage(Highlight $highlight, int $index)
+    public function destroyGalleryImage(Layanan $layanan, int $index)
     {
-        $gallery = $highlight->gallery ?? [];
+        $gallery = $layanan->gallery ?? [];
 
         if (isset($gallery[$index])) {
             Storage::disk('public')->delete($gallery[$index]);
             unset($gallery[$index]);
-            $highlight->update(['gallery' => array_values($gallery)]);
+            $layanan->update(['gallery' => array_values($gallery)]);
         }
 
         return back()->with('success', 'Foto galeri berhasil dihapus.');
     }
 
-    /**
-     * Susun array 'services' (nama + foto per-icon) dari input form.
-     * $highlight dipakai buat pertahankan foto lama kalau slot gak di-upload ulang (saat update).
-     * Nullable karena saat create belum ada $highlight sama sekali.
-     */
-    private function buildServicesData(array $names, array $serviceImages, ?Highlight $highlight): array
+    private function buildServicesData(array $names, array $serviceImages, ?Layanan $layanan): array
     {
         $names = array_values(array_filter(array_map('trim', $names)));
 
-        return collect($names)->map(function ($name, $index) use ($serviceImages, $highlight) {
+        return collect($names)->map(function ($name, $index) use ($serviceImages, $layanan) {
             $imagePath = null;
 
             if (isset($serviceImages[$index]) && $serviceImages[$index]->isValid()) {
-                $imagePath = $serviceImages[$index]->store('highlights/services', 'public');
-            } elseif ($highlight && !empty($highlight->services[$index]['image'] ?? null)) {
-                $imagePath = $highlight->services[$index]['image'];
+                $imagePath = $serviceImages[$index]->store('layanan/services', 'public');
+            } elseif ($layanan && !empty($layanan->services[$index]['image'] ?? null)) {
+                $imagePath = $layanan->services[$index]['image'];
             }
 
             return ['name' => strtoupper($name), 'image' => $imagePath];

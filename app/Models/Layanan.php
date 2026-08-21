@@ -1,12 +1,12 @@
 <?php
-// app/Models/Highlight.php
+// app/Models/Layanan.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Highlight extends Model
+class Layanan extends Model
 {
     
     protected $fillable = [
@@ -27,9 +27,9 @@ class Highlight extends Model
     {
         parent::boot();
 
-        static::creating(function ($highlight) {
-            if (empty($highlight->slug)) {
-                $highlight->slug = Str::slug($highlight->title) . '-' . uniqid();
+        static::creating(function ($layanan) {
+            if (empty($layanan->slug)) {
+                $layanan->slug = Str::slug($layanan->title) . '-' . uniqid();
             }
         });
     }
