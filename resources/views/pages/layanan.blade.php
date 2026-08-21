@@ -86,7 +86,7 @@
             <div class="space-y-6">
                 <div>
                     <h2 class="text-3xl md:text-4xl font-black text-secondary dark:text-white uppercase tracking-tight mb-2">
-                        TENTANG {{ strtoupper($layanan->title) }}
+                        {{ strtoupper($layanan->title) }}
                     </h2>
                     <p class="text-sm md:text-base font-extrabold text-gray-600 dark:text-gray-300 uppercase tracking-wide leading-relaxed">
                         {{ $layanan->content ?? $layanan->short_description }}
