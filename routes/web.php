@@ -134,6 +134,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         ->except(['show'])
         ->parameters(['layanan' => 'layanan:id']);
 
-    Route::post('/layanan/{layanan}/gallery/{index}', [AdminLayananController::class, 'destroyGalleryImage'])
-        ->name('layanan.gallery.destroy');
+    Route::post('/layanan/{layanan:id}/gallery/{index}', [AdminLayananController::class, 'destroyGalleryImage'])
+    ->name('layanan.gallery.destroy');
 });

@@ -42,6 +42,7 @@
         background: var(--danger); color: white; border: 2px solid white; font-size: 0.7rem;
         display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
+    .gallery-preview-label { font-size: 0.78rem; font-weight: 700; color: var(--neutral); margin: 0.75rem 0 0.4rem; }
 
     .btn-submit-row { display: flex; gap: 0.6rem; margin-top: 1rem; }
     .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; text-decoration: none; }
@@ -106,11 +107,9 @@
 <div class="form-section">
     <h2>Gambar Utama</h2>
     <div class="form-group">
-        @if($isEdit && $layanan->image)
-            <div class="current-image">
-                <img src="{{ asset('storage/' . $layanan->image) }}" alt="{{ $layanan->title }}">
-            </div>
-        @endif
+        <div class="current-image" id="image-preview" style="{{ ($isEdit && $layanan->image) ? '' : 'display:none;' }}">
+            <img id="image-preview-img" src="{{ ($isEdit && $layanan->image) ? asset('storage/' . $layanan->image) : '' }}" alt="Preview gambar utama">
+        </div>
         <label for="image">{{ $isEdit ? 'Ganti Gambar' : 'Upload Gambar' }}</label>
         <input type="file" id="image" name="image" accept="image/*">
         <div class="form-hint">Dipakai di hero & section "Tentang". JPG/PNG/WEBP, maks 2MB.</div>
@@ -124,11 +123,11 @@
 
     @for ($i = 0; $i < 5; $i++)
         <div class="service-row">
-            @if(!empty($existingServices[$i]['image']))
-                <img src="{{ asset('storage/' . $existingServices[$i]['image']) }}" class="service-thumb" alt="Icon {{ $i + 1 }}">
-            @endif
+            <img id="service-thumb-{{ $i }}" class="service-thumb" alt="Icon {{ $i + 1 }}"
+                 src="{{ !empty($existingServices[$i]['image']) ? asset('storage/' . $existingServices[$i]['image']) : '' }}"
+                 style="{{ !empty($existingServices[$i]['image']) ? '' : 'display:none;' }}">
             <input type="text" name="services_lines[]" value="{{ old('services_lines.' . $i, $existingServices[$i]['name'] ?? '') }}" placeholder="Nama icon {{ $i + 1 }}">
-            <input type="file" name="service_images[]" accept="image/*">
+            <input type="file" name="service_images[]" accept="image/*" data-preview-target="service-thumb-{{ $i }}">
         </div>
     @endfor
 </div>
@@ -138,7 +137,7 @@
     <h2>Galeri Foto</h2>
 
     @if($isEdit && !empty($existingGallery))
-        <div class="gallery-grid">
+        <div class="gallery-grid" id="existing-gallery">
             @foreach($existingGallery as $index => $img)
                 <div class="gallery-item">
                     <img src="{{ asset('storage/' . $img) }}" alt="Galeri {{ $index + 1 }}">
@@ -155,6 +154,9 @@
         <input type="file" id="gallery" name="gallery[]" accept="image/*" multiple>
         <div class="form-hint">Foto baru akan ditambahkan ke galeri yang sudah ada, bukan mengganti semua</div>
     </div>
+
+    <div class="gallery-preview-label" id="gallery-new-preview-label" style="display:none;">Preview foto baru</div>
+    <div class="gallery-grid" id="gallery-new-preview"></div>
 </div>
 
 {{-- ===================== SECTION 5: QR CODE ORDER ONLINE ===================== --}}
@@ -164,16 +166,16 @@
 
     <div class="form-row">
         <div class="form-group">
-            @if($isEdit && $layanan->qr_shopeefood)
-                <div class="current-image"><img src="{{ asset('storage/' . $layanan->qr_shopeefood) }}" alt="QR ShopeeFood"></div>
-            @endif
+            <div class="current-image" id="qr-shopeefood-preview" style="{{ ($isEdit && $layanan->qr_shopeefood) ? '' : 'display:none;' }}">
+                <img id="qr-shopeefood-preview-img" src="{{ ($isEdit && $layanan->qr_shopeefood) ? asset('storage/' . $layanan->qr_shopeefood) : '' }}" alt="QR ShopeeFood">
+            </div>
             <label for="qr_shopeefood">QR Code ShopeeFood</label>
             <input type="file" id="qr_shopeefood" name="qr_shopeefood" accept="image/*">
         </div>
         <div class="form-group">
-            @if($isEdit && $layanan->qr_gofood)
-                <div class="current-image"><img src="{{ asset('storage/' . $layanan->qr_gofood) }}" alt="QR GoFood"></div>
-            @endif
+            <div class="current-image" id="qr-gofood-preview" style="{{ ($isEdit && $layanan->qr_gofood) ? '' : 'display:none;' }}">
+                <img id="qr-gofood-preview-img" src="{{ ($isEdit && $layanan->qr_gofood) ? asset('storage/' . $layanan->qr_gofood) : '' }}" alt="QR GoFood">
+            </div>
             <label for="qr_gofood">QR Code GoFood</label>
             <input type="file" id="qr_gofood" name="qr_gofood" accept="image/*">
         </div>
@@ -209,8 +211,72 @@
     <a href="{{ route('admin.layanan.index') }}" class="btn btn-cancel"><i class="fas fa-times"></i> Batal</a>
 </div>
 
-@if($isEdit)
 <script>
+    // ---------- Live image preview (main image, QR codes, service icons, gallery) ----------
+    (function () {
+        const readAndRender = (file, onLoad) => {
+            const reader = new FileReader();
+            reader.onload = e => onLoad(e.target.result);
+            reader.readAsDataURL(file);
+        };
+
+        const bindSinglePreview = (inputId, imgId, wrapId) => {
+            const input = document.getElementById(inputId);
+            const img = document.getElementById(imgId);
+            const wrap = document.getElementById(wrapId);
+            if (!input || !img || !wrap) return;
+
+            input.addEventListener('change', () => {
+                const file = input.files[0];
+                if (!file) return;
+                readAndRender(file, src => {
+                    img.src = src;
+                    wrap.style.display = '';
+                });
+            });
+        };
+
+        bindSinglePreview('image', 'image-preview-img', 'image-preview');
+        bindSinglePreview('qr_shopeefood', 'qr-shopeefood-preview-img', 'qr-shopeefood-preview');
+        bindSinglePreview('qr_gofood', 'qr-gofood-preview-img', 'qr-gofood-preview');
+
+        // Service icon thumbnails
+        document.querySelectorAll('input[type="file"][data-preview-target]').forEach(input => {
+            input.addEventListener('change', () => {
+                const file = input.files[0];
+                if (!file) return;
+                const img = document.getElementById(input.dataset.previewTarget);
+                if (!img) return;
+                readAndRender(file, src => {
+                    img.src = src;
+                    img.style.display = '';
+                });
+            });
+        });
+
+        // Gallery multi-preview
+        const galleryInput = document.getElementById('gallery');
+        const galleryPreview = document.getElementById('gallery-new-preview');
+        const galleryPreviewLabel = document.getElementById('gallery-new-preview-label');
+        if (galleryInput && galleryPreview) {
+            galleryInput.addEventListener('change', () => {
+                galleryPreview.innerHTML = '';
+                const files = [...galleryInput.files];
+                galleryPreviewLabel.style.display = files.length ? '' : 'none';
+                files.forEach(file => {
+                    readAndRender(file, src => {
+                        const item = document.createElement('div');
+                        item.className = 'gallery-item';
+                        item.innerHTML = `<img src="${src}" alt="Preview foto baru">`;
+                        galleryPreview.appendChild(item);
+                    });
+                });
+            });
+        }
+    })();
+
+    @if($isEdit)
+    // ---------- AJAX gallery image delete ----------
     function removeGalleryImage(layananId, index, btnEl) {
         if (!confirm('Hapus foto ini dari galeri?')) return;
 
@@ -218,14 +284,14 @@
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
             },
-        }).then(res => {
-            if (res.ok) {
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Request failed');
                 btnEl.closest('.gallery-item').remove();
-            } else {
-                alert('Gagal menghapus foto, coba refresh halaman.');
-            }
-        });
+            })
+            .catch(() => alert('Gagal menghapus foto, coba refresh halaman.'));
     }
+    @endif
 </script>
-@endif

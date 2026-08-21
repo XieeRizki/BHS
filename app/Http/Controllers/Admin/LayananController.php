@@ -177,17 +177,19 @@ class LayananController extends Controller
     }
 
     public function destroyGalleryImage(Layanan $layanan, int $index)
-    {
-        $gallery = $layanan->gallery ?? [];
+{
+    $gallery = $layanan->gallery ?? [];
 
-        if (isset($gallery[$index])) {
-            Storage::disk('public')->delete($gallery[$index]);
-            unset($gallery[$index]);
-            $layanan->update(['gallery' => array_values($gallery)]);
-        }
-
-        return back()->with('success', 'Foto galeri berhasil dihapus.');
+    if (!array_key_exists($index, $gallery)) {
+        return response()->json(['message' => 'Foto tidak ditemukan.'], 404);
     }
+
+    Storage::disk('public')->delete($gallery[$index]);
+    unset($gallery[$index]);
+    $layanan->update(['gallery' => array_values($gallery)]);
+
+    return response()->json(['message' => 'Foto galeri berhasil dihapus.']);
+}
 
     private function buildServicesData(array $names, array $serviceImages, ?Layanan $layanan): array
     {
