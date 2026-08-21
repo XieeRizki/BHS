@@ -280,18 +280,31 @@
     function removeGalleryImage(layananId, index, btnEl) {
         if (!confirm('Hapus foto ini dari galeri?')) return;
 
-        fetch(`/admin/layanan/${layananId}/gallery/${index}`, {
+        // Gunakan URL statis yang digenerate oleh Blade untuk memastikan rute yang dituju selalu akurat
+        const url = `{{ route('admin.layanan.gallery.destroy', ['layanan' => ':layananId', 'index' => ':index']) }}`
+                        .replace(':layananId', layananId)
+                        .replace(':index', index);
+
+        fetch(url, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                 'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
         })
-            .then(res => {
-                if (!res.ok) throw new Error('Request failed');
+        .then(res => {
+            if (res.ok) {
+                // Hapus elemen secara instan dari tampilan tanpa harus refresh
                 btnEl.closest('.gallery-item').remove();
-            })
-            .catch(() => alert('Gagal menghapus foto, coba refresh halaman.'));
+            } else {
+                return res.json().then(err => { throw new Error(err.message || 'Request failed') });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Gagal menghapus foto: ' + error.message);
+        });
     }
     @endif
 </script>
