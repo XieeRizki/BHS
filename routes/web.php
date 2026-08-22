@@ -43,7 +43,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('facilities');
-Route::get('/layanan', [FrontendLayananController::class, 'index'])->name('layanan.index');
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

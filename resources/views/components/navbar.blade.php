@@ -1,6 +1,12 @@
 @php
     $contact = $contact ?? (object) ['whatsapp' => '62895385703917'];
     $waNumber = $contact->whatsapp ?? '62895385703917';
+
+    try {
+        $navLayananList = \App\Models\Layanan::active()->ordered()->get();
+    } catch (\Throwable $e) {
+        $navLayananList = collect();
+    }
 @endphp
 
 <nav class="bg-light dark:bg-dark border-b border-gray-200 dark:border-white/6 sticky top-0 z-50">
@@ -79,15 +85,49 @@
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
 
-            <div id="menu-paket" class="menu-panel absolute left-0 mt-2 w-72 bg-white dark:bg-[#2B1B0E] border border-gray-100 dark:border-white/6 rounded-lg shadow-lg hidden"
-                 role="menu" aria-labelledby="menu-paket">
-              <ul class="grid grid-cols-1 p-3 gap-1">
-                <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Wisata Kolam Pemancingan</a></li>
-                <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Villa Kayu</a></li>
-                <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Hotel BHS</a></li>
-                <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">Resto & Cafe</a></li>
-              </ul>
-            </div>
+                        @php
+                            try {
+                                $navLayananAll = \App\Models\Layanan::active()->ordered()->get();
+                            } catch (\Throwable $e) {
+                                $navLayananAll = collect();
+                            }
+                            $navLayananLimit = 5;
+                            $navLayananVisible = $navLayananAll->take($navLayananLimit);
+                            $navLayananHidden = $navLayananAll->slice($navLayananLimit);
+                        @endphp
+
+              <div id="menu-paket" class="menu-panel absolute left-0 mt-2 w-72 bg-white dark:bg-[#2B1B0E] border border-gray-100 dark:border-white/6 rounded-lg shadow-lg hidden max-h-96 overflow-y-auto"
+                  role="menu" aria-labelledby="menu-paket">
+                <ul class="grid grid-cols-1 p-3 gap-1">
+                  @forelse ($navLayananVisible as $item)
+                      <li>
+                          <a href="{{ route('layanan.show', $item->slug) }}" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">
+                              {{ $item->title }}
+                          </a>
+                      </li>
+                  @empty
+                      <li><span class="block px-3 py-2 text-sm text-gray-400 italic">Belum ada layanan</span></li>
+                  @endforelse
+
+                  @if ($navLayananHidden->isNotEmpty())
+                      <ul id="layananHiddenList" class="hidden flex-col gap-1">
+                          @foreach ($navLayananHidden as $item)
+                              <li>
+                                  <a href="{{ route('layanan.show', $item->slug) }}" class="block px-3 py-2 rounded hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">
+                                      {{ $item->title }}
+                                  </a>
+                              </li>
+                          @endforeach
+                      </ul>
+
+                      <li>
+                          <button type="button" id="toggleLayananBtn" onclick="toggleLayananList()" class="w-full text-left px-3 py-2 rounded font-bold text-accent hover:bg-gray-50 dark:hover:bg-[#3a2b1d]">
+                              Lihat Semua Layanan ({{ $navLayananHidden->count() }} lagi)
+                          </button>
+                      </li>
+                  @endif
+                </ul>
+              </div>
           </li>
 
           <li><a href="{{ route('informasi') }}" class="px-4 py-2 rounded-md text-secondary dark:text-light hover:bg-gray-100 dark:hover:bg-[#2E2216] transition">Informasi</a></li>
