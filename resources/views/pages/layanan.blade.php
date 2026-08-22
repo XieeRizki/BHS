@@ -173,7 +173,9 @@
     $videoUrl = $layanan->video_url ?? 'https://www.youtube.com/watch?v=TK3PaH0ZAyY';
     preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/', $videoUrl, $ytMatch);
     $videoId = $ytMatch[1] ?? null;
-    $bgImage = $layanan->image ? asset('storage/'.$layanan->image) : asset('images/bhs2.jpg');
+    $bgImage = $layanan->bg_image
+    ? asset('storage/'.$layanan->bg_image)
+    : ($layanan->image ? asset('storage/'.$layanan->image) : asset('images/bhs2.jpg'));
 @endphp
 <section class="relative overflow-hidden bg-cover bg-center bg-no-repeat py-20 md:py-28" style="background-image:url('{{ $bgImage }}');">
     <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/70 to-black/85"></div>

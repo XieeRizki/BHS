@@ -42,6 +42,8 @@ class LayananController extends Controller
             'services_lines' => 'nullable|array',
             'services_lines.*' => 'nullable|string|max:100',
             'service_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'video_url' => 'nullable|url|max:255',
+            'bg_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         // Path penyimpanan gambar diubah ke folder 'layanan' biar rapi
@@ -61,6 +63,10 @@ class LayananController extends Controller
             $validated['gallery'] = collect($request->file('gallery'))
                 ->map(fn($file) => $file->store('layanan/gallery', 'public'))
                 ->values()->toArray();
+        }
+
+        if ($request->hasFile('bg_image')) {
+            $validated['bg_image'] = $request->file('bg_image')->store('layanan/bg', 'public');
         }
 
         if ($request->filled('services_lines')) {
@@ -105,6 +111,8 @@ class LayananController extends Controller
             'services_lines' => 'nullable|array',
             'services_lines.*' => 'nullable|string|max:100',
             'service_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'video_url' => 'nullable|url|max:255',
+            'bg_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
@@ -143,6 +151,13 @@ class LayananController extends Controller
             );
         }
 
+        if ($request->hasFile('bg_image')) {
+            if ($layanan->bg_image) {
+                Storage::disk('public')->delete($layanan->bg_image);
+            }
+            $validated['bg_image'] = $request->file('bg_image')->store('layanan/bg', 'public');
+        }
+
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? 0;
 
@@ -169,6 +184,9 @@ class LayananController extends Controller
             if (!empty($svc['image'])) {
                 Storage::disk('public')->delete($svc['image']);
             }
+        }
+        if ($layanan->bg_image) {
+            Storage::disk('public')->delete($layanan->bg_image);
         }
 
         $layanan->delete();

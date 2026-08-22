@@ -206,10 +206,33 @@
     </div>
 </div>
 
+{{-- ===================== SECTION 7: Penghargaan ===================== --}}
+<div class="form-group">
+    <label for="video_url">Link Video Promo YouTube (Opsional)</label>
+    <input type="text" id="video_url" name="video_url" value="{{ old('video_url', $layanan->video_url ?? '') }}" placeholder="https://youtube.com/watch?v=...">
+    <div class="form-hint">Muncul di section "Penghargaan" sebagai video yang bisa diputar</div>
+    @error('video_url')<div class="form-error">{{ $message }}</div>@enderror
+</div>
+
+<div class="form-group">
+    @if($isEdit && $layanan->bg_image)
+        <div class="current-image">
+            <img src="{{ asset('storage/' . $layanan->bg_image) }}" alt="Background section video">
+        </div>
+    @endif
+    <label for="bg_image">Foto Background Section Video (Opsional)</label>
+    <input type="file" id="bg_image" name="bg_image" accept="image/*">
+    <div class="form-hint">Kalau kosong, otomatis pakai foto utama layanan ini sebagai background</div>
+    @error('bg_image')<div class="form-error">{{ $message }}</div>@enderror
+</div>
+
 <div class="btn-submit-row">
     <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> {{ $isEdit ? 'Simpan Perubahan' : 'Simpan Layanan' }}</button>
     <a href="{{ route('admin.layanan.index') }}" class="btn btn-cancel"><i class="fas fa-times"></i> Batal</a>
 </div>
+
+
+
 
 <script>
     // ---------- Live image preview (main image, QR codes, service icons, gallery) ----------

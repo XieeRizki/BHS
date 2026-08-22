@@ -10,12 +10,13 @@ class Layanan extends Model
 {
     
     protected $fillable = [
-        'title', 'slug', 'hero_subtitle', 'section_subtitle',
-        'short_description', 'content', 'services', 'gallery',
-        'qr_shopeefood', 'qr_gofood', 'qr_badge_text', 'qr_title',
-        'cta_title', 'cta_subtitle',
-        'image', 'order', 'is_active',
-    ];
+    'title', 'slug', 'hero_subtitle', 'section_subtitle',
+    'short_description', 'content', 'services', 'gallery',
+    'video_url', 'bg_image',
+    'qr_shopeefood', 'qr_gofood', 'qr_badge_text', 'qr_title',
+    'cta_title', 'cta_subtitle',
+    'image', 'order', 'is_active',
+];
 
     protected $casts = [
         'is_active' => 'boolean',
@@ -33,6 +34,19 @@ class Layanan extends Model
             }
         });
     }
+
+    public function getVideoEmbedUrlAttribute(): ?string
+{
+    if (!$this->video_url) return null;
+
+    preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/', $this->video_url, $matches);
+
+    if (isset($matches[1])) {
+        return 'https://www.youtube.com/embed/' . $matches[1];
+    }
+
+    return $this->video_url;
+}
 
     public function getRouteKeyName()
     {
