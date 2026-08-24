@@ -112,10 +112,10 @@
     <div class="container-max">
         <div class="text-center max-w-2xl mx-auto mb-10">
             <h2 class="text-2xl md:text-3xl font-black text-secondary dark:text-white uppercase tracking-wide">
-                ARTIKEL TIPS & TRIK BHS
+                {{ $layanan->showcase_title ?? 'ARTIKEL TIPS & TRIK BHS' }}
             </h2>
             <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">
-                KETERANGAN AKTIVITAS & KEGIATAN BHS
+                {{ $layanan->showcase_subtitle ?? 'KETERANGAN AKTIVITAS & KEGIATAN BHS' }}
             </p>
         </div>
 
@@ -126,33 +126,31 @@
 
             <div id="article-viewport" class="overflow-hidden w-full py-4">
                 <div id="article-track" class="flex gap-6 transition-transform duration-500 ease-out">
-                    @forelse ($articles as $item)
+                    @forelse ($layanan->showcase_items ?? [] as $item)
                         <div class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                             <div>
                                 <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                                    <img src="{{ $item->cover_image ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <span class="absolute top-3 left-3 px-3 py-1 bg-accent text-[#0A0A0A] text-[10px] font-black uppercase rounded-md tracking-wider">
-                                        {{ $item->type }}
-                                    </span>
+                                    <img src="{{ !empty($item['image']) ? asset('storage/'.$item['image']) : asset('images/bhs2.jpg') }}" alt="{{ $item['name'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    @if(!empty($item['category']))
+                                        <span class="absolute top-3 left-3 px-3 py-1 bg-accent text-[#0A0A0A] text-[10px] font-black uppercase rounded-md tracking-wider">
+                                            {{ $item['category'] }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="p-6">
-                                    <h3 class="text-base md:text-lg font-black text-secondary dark:text-white uppercase tracking-tight mb-2 group-hover:text-accent transition-colors">
-                                        {{ $item->title }}
+                                    <h3 class="text-base md:text-lg font-black text-secondary dark:text-white uppercase tracking-tight mb-2">
+                                        {{ $item['name'] }}
                                     </h3>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                                        {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 100) }}
-                                    </p>
+                                    @if(!empty($item['description']))
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                            {{ $item['description'] }}
+                                        </p>
+                                    @endif
                                 </div>
-                            </div>
-                            <div class="px-6 pb-6 pt-0">
-                                <a href="{{ route('informasi') }}" class="inline-flex items-center gap-2 text-xs font-black text-accent uppercase tracking-widest hover:underline">
-                                    <span>LIHAT DETAIL</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </a>
                             </div>
                         </div>
                     @empty
-                        <p class="text-sm text-gray-500 italic px-1">Belum ada artikel.</p>
+                        <p class="text-sm text-gray-500 italic px-1">Belum ada item ditambahkan.</p>
                     @endforelse
                 </div>
             </div>

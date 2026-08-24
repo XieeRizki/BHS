@@ -23,14 +23,10 @@ class LayananController extends Controller
             $awards = collect([]);
         }
 
-        $articles = Post::whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->latest('published_at')
-            ->take(5)
-            ->get();
+        
 
         $contact = (object)['whatsapp' => '62895385703917'];
 
-        return view('pages.layanan', compact('layanan', 'awards', 'articles', 'contact'));
+        return view('pages.layanan', compact('layanan', 'awards', 'contact'));
     }
 }

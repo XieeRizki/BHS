@@ -44,6 +44,17 @@ class LayananController extends Controller
             'service_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'video_url' => 'nullable|url|max:255',
             'bg_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'showcase_title' => 'nullable|string|max:255',
+            'showcase_subtitle' => 'nullable|string|max:255',
+            'showcase_categories' => 'nullable|array',
+            'showcase_categories.*' => 'nullable|string|max:100',
+            'showcase_names' => 'nullable|array',
+            'showcase_names.*' => 'nullable|string|max:150',
+            'showcase_descriptions' => 'nullable|array',
+            'showcase_descriptions.*' => 'nullable|string|max:300',
+            'showcase_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'showcase_keys' => 'nullable|array',
+            'showcase_keys.*' => 'nullable|string',
         ]);
 
         // Path penyimpanan gambar diubah ke folder 'layanan' biar rapi
@@ -73,6 +84,17 @@ class LayananController extends Controller
             $validated['services'] = $this->buildServicesData(
                 $request->input('services_lines', []),
                 $request->file('service_images', []),
+                null
+            );
+        }
+
+        if ($request->filled('showcase_names')) {
+            $validated['showcase_items'] = $this->buildShowcaseData(
+                $request->input('showcase_categories', []),
+                $request->input('showcase_names', []),
+                $request->input('showcase_descriptions', []),
+                $request->file('showcase_images', []),
+                $request->input('showcase_keys', []),   // ← tambahan baru
                 null
             );
         }
@@ -113,6 +135,17 @@ class LayananController extends Controller
             'service_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'video_url' => 'nullable|url|max:255',
             'bg_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'showcase_title' => 'nullable|string|max:255',
+            'showcase_subtitle' => 'nullable|string|max:255',
+            'showcase_categories' => 'nullable|array',
+            'showcase_categories.*' => 'nullable|string|max:100',
+            'showcase_names' => 'nullable|array',
+            'showcase_names.*' => 'nullable|string|max:150',
+            'showcase_descriptions' => 'nullable|array',
+            'showcase_descriptions.*' => 'nullable|string|max:300',
+            'showcase_images.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'showcase_keys' => 'nullable|array',
+            'showcase_keys.*' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
@@ -158,6 +191,18 @@ class LayananController extends Controller
             $validated['bg_image'] = $request->file('bg_image')->store('layanan/bg', 'public');
         }
 
+
+        if ($request->filled('showcase_names')) {
+            $validated['showcase_items'] = $this->buildShowcaseData(
+                $request->input('showcase_categories', []),
+                $request->input('showcase_names', []),
+                $request->input('showcase_descriptions', []),
+                $request->file('showcase_images', []),
+                $request->input('showcase_keys', []),   // ← tambahan baru
+                $layanan
+            );
+        }
+
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? 0;
 
@@ -185,6 +230,11 @@ class LayananController extends Controller
                 Storage::disk('public')->delete($svc['image']);
             }
         }
+        foreach ($layanan->showcase_items ?? [] as $item) {
+            if (!empty($item['image'])) {
+                Storage::disk('public')->delete($item['image']);
+            }
+        }
         if ($layanan->bg_image) {
             Storage::disk('public')->delete($layanan->bg_image);
         }
@@ -207,6 +257,37 @@ class LayananController extends Controller
     $layanan->update(['gallery' => array_values($gallery)]);
 
     return response()->json(['message' => 'Foto galeri berhasil dihapus.']);
+}
+
+
+private function buildShowcaseData(array $categories, array $names, array $descriptions, array $images, array $originalKeys, ?Layanan $layanan): array
+{
+    $items = [];
+
+    foreach ($names as $index => $name) {
+        $name = trim($name ?? '');
+        if ($name === '') {
+            continue; // skip blok kosong
+        }
+
+        $imagePath = null;
+        $originalKey = $originalKeys[$index] ?? '';
+
+        if (isset($images[$index]) && $images[$index]->isValid()) {
+            $imagePath = $images[$index]->store('layanan/showcase', 'public');
+        } elseif ($layanan && $originalKey !== '' && !empty($layanan->showcase_items[$originalKey]['image'] ?? null)) {
+            $imagePath = $layanan->showcase_items[$originalKey]['image'];
+        }
+
+        $items[] = [
+            'category' => trim($categories[$index] ?? ''),
+            'name' => $name,
+            'description' => trim($descriptions[$index] ?? ''),
+            'image' => $imagePath,
+        ];
+    }
+
+    return array_values($items);
 }
 
     private function buildServicesData(array $names, array $serviceImages, ?Layanan $layanan): array

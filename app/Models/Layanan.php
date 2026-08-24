@@ -12,16 +12,18 @@ class Layanan extends Model
     protected $fillable = [
     'title', 'slug', 'hero_subtitle', 'section_subtitle',
     'short_description', 'content', 'services', 'gallery',
+    'showcase_title', 'showcase_subtitle', 'showcase_items',
     'video_url', 'bg_image',
     'qr_shopeefood', 'qr_gofood', 'qr_badge_text', 'qr_title',
     'cta_title', 'cta_subtitle',
     'image', 'order', 'is_active',
-];
+    ];
 
     protected $casts = [
         'is_active' => 'boolean',
         'services' => 'array',
         'gallery' => 'array',
+        'showcase_items' => 'array',
     ];
 
     protected static function boot()
