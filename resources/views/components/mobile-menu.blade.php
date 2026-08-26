@@ -3,73 +3,114 @@
     $waNumber = $contact->whatsapp ?? '62895385703917';
 @endphp
 
-<div id="mobileMenu" class="fixed inset-y-0 right-0 w-4/5 max-w-xs bg-light dark:bg-dark shadow-2xl z-50 transform translate-x-full transition-transform">
-  <div class="p-4 border-b border-gray-200 dark:border-white/6 flex items-center justify-between">
+<div id="mobileMenu" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-200/80 dark:border-gray-800/80">
+  
+  <!-- Header Drawer -->
+  <div class="p-5 border-b border-gray-200/80 dark:border-gray-800/80 flex items-center justify-between shrink-0">
     <a href="{{ route('home') }}" class="flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full" style="background: linear-gradient(135deg,#8B5E34,#FFD700)"></div>
+      <img src="{{ asset('images/logow.png') }}" alt="Logo BHS" class="w-10 h-10 object-contain" />
       <div>
-        <div class="font-extrabold text-secondary dark:text-light">BALONG HARDI</div>
-        <div class="text-xs text-gray-500 dark:text-gray-400">Pemancingan Sumedang</div>
+        <div class="font-black text-sm text-secondary dark:text-white uppercase tracking-tight">BALONG HARDI</div>
+        <div class="text-[10px] font-extrabold text-accent uppercase tracking-widest">Pemancingan Sumedang</div>
       </div>
     </a>
-    <button id="closeMobileMenu" class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#2E2216]">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    
+    <button id="closeMobileMenu" aria-label="Tutup Menu Mobile" class="p-2 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 hover:bg-red-500/10 hover:text-red-500 transition">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
   </div>
 
-  <div class="p-4 overflow-y-auto h-full">
-    <div class="mb-4">
-      <a href="https://wa.me/{{ $waNumber }}" class="block w-full text-center py-3 rounded-lg bg-accent text-[#1C140C] font-bold">Reservasi via WA</a>
+  <!-- Body Content Drawer -->
+  <div class="p-5 overflow-y-auto flex-1 space-y-6">
+    
+    <!-- Quick Actions (WA CTA + Theme Switcher) -->
+    <div class="flex items-center gap-2">
+      <a href="https://wa.me/{{ $waNumber }}" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 bg-accent text-[#0A0A0A] font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-yellow-500 active:scale-95 transition">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.882-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span>Reservasi WA</span>
+      </a>
+
+      <button onclick="toggleTheme()" type="button" aria-label="Toggle Mode Theme" class="p-3 bg-gray-100 dark:bg-white/10 text-secondary dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-white/20 transition">
+        <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      </button>
     </div>
 
-    <nav class="space-y-2" aria-label="Mobile main menu">
-      <a href="{{ route('home') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light">Beranda</a>
+    <!-- Navigation List Mobile -->
+    <nav class="space-y-1 text-xs font-extrabold uppercase tracking-wider" aria-label="Mobile main menu">
+      
+      <!-- Beranda -->
+      <a href="{{ route('home') }}" class="block px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+        Beranda
+      </a>
 
-      <div class="border-t border-gray-100 dark:border-white/6 pt-2">
+      <!-- Profile Accordion -->
+      <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2">
         <div class="flex items-center justify-between">
-          <a href="{{ route('profile') }}" class="flex-1 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light">Profile</a>
-          <button type="button" class="p-2 mr-1 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light" aria-label="Buka submenu Profile" data-collapse="profile">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <a href="{{ route('profile') }}" class="flex-1 px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+            Profile
+          </a>
+          <button type="button" class="p-3 text-gray-500 dark:text-gray-400 hover:text-accent focus:outline-none" aria-label="Buka submenu Profile" data-collapse="profile">
+            <svg class="w-4 h-4 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </button>
         </div>
-        <div class="hidden pl-4 mt-1" data-panel="profile">
-          <a href="{{ route('profile') }}#tentang-bhs" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Tentang BHS</a>
-          <a href="{{ route('facilities') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Fasilitas</a>
-          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Publikasi Media</a>
-          <a href="{{ route('testimonials') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Testimoni</a>
+        
+        <div class="hidden pl-4 pr-2 space-y-1 mt-1 border-l-2 border-accent/30 ml-4" data-panel="profile">
+          <a href="{{ route('profile') }}#tentang-bhs" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Tentang BHS</a>
+          <a href="{{ route('facilities') }}" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Fasilitas</a>
+          <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Publikasi Media</a>
+          <a href="{{ route('testimonials') }}" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Testimoni</a>
         </div>
       </div>
 
-      <div class="pt-2 border-t border-gray-100 dark:border-white/6">
-        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="event">
-          Event
+      <!-- Event Accordion -->
+      <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2">
+        <button type="button" class="w-full text-left px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition flex items-center justify-between" data-collapse="event">
+          <span>Event</span>
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
         </button>
-        <div class="hidden pl-4 mt-1" data-panel="event">
-          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Galatama</a>
-          <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Fishing Community</a>
+        
+        <div class="hidden pl-4 pr-2 space-y-1 mt-1 border-l-2 border-accent/30 ml-4" data-panel="event">
+          <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Galatama</a>
+          <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Fishing Community</a>
         </div>
       </div>
 
-      <div class="pt-2 border-t border-gray-100 dark:border-white/6">
-        <button type="button" class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d] text-secondary dark:text-light flex items-center justify-between" data-collapse="paket">
-          Paket Layanan
+      <!-- Paket Layanan Accordion -->
+      <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2">
+        <button type="button" class="w-full text-left px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition flex items-center justify-between" data-collapse="paket">
+          <span>Paket Layanan</span>
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
         </button>
-        <div class="hidden pl-4 mt-1" data-panel="paket">
+        
+        <div class="hidden pl-4 pr-2 space-y-1 mt-1 border-l-2 border-accent/30 ml-4" data-panel="paket">
           @foreach (['Wisata Kolam Pemancingan','Villa Kayu','Hotel BHS','Resto & Cafe','Convention Hall'] as $svc)
-            <a href="#" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">{{ $svc }}</a>
+            <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">{{ $svc }}</a>
           @endforeach
         </div>
       </div>
 
-      <div class="pt-2 border-t border-gray-100 dark:border-white/6 space-y-1">
-        <a href="{{ route('contact') }}" class="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-[#3a2b1d]">Kontak Kami</a>
+      <!-- Informasi & Kontak -->
+      <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2 space-y-1">
+        <a href="{{ route('informasi') }}" class="block px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+          Informasi
+        </a>
+        <a href="{{ route('contact') }}" class="block px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+          Kontak Kami
+        </a>
       </div>
-    </nav>
 
-    <div class="mt-6 text-sm text-gray-500 dark:text-gray-400">
-      WA: <a href="https://wa.me/{{ $waNumber }}" class="text-accent font-semibold">{{ $waNumber }}</a>
+    </nav>
+  </div>
+
+  <!-- Footer Drawer Info -->
+  <div class="p-5 border-t border-gray-200/80 dark:border-gray-800/80 bg-gray-50/50 dark:bg-[#121212]/50 shrink-0">
+    <div class="text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between">
+      <span>Official Admin BHS:</span>
+      <a href="https://wa.me/{{ $waNumber }}" target="_blank" class="text-accent font-black tracking-wider hover:underline">+{{ $waNumber }}</a>
     </div>
   </div>
+
 </div>
 
 <script>
@@ -89,7 +130,12 @@
       const key = btn.getAttribute('data-collapse');
       const panel = mobileMenu.querySelector(`[data-panel="${key}"]`);
       if (!panel) return;
+      
+      const svg = btn.querySelector('svg');
+      const isHidden = panel.classList.contains('hidden');
+      
       panel.classList.toggle('hidden');
+      if (svg) svg.classList.toggle('rotate-180', isHidden);
     });
   });
 
