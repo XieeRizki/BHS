@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel - Balong Hardi')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -26,6 +26,7 @@
             --success: #10B981;
             --warning: #F59E0B;
             --danger: #EF4444;
+            --accent-bhs: #EAB308;
         }
 
         html, body {
@@ -37,141 +38,172 @@
             color: var(--secondary);
         }
 
-        /* Layout */
         .admin-container {
             display: flex;
             min-height: 100vh;
         }
 
-        /* Sidebar */
+        /* ===== SIDEBAR MENUBAR TANPA IKON (CLEAN & MODERN) ===== */
         .sidebar {
-            width: 260px;
-            background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%);
+            width: 270px;
+            background: #111827;
             color: white;
-            overflow-y: auto;
             position: fixed;
             height: 100vh;
             z-index: 1000;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar-brand {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: rgba(234, 179, 8, 0.03);
         }
 
-        .sidebar-brand h1 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0 0 0.25rem 0;
-            color: var(--primary-light, #4ADE80);
-        }
-
-        .sidebar-brand p {
-            font-size: 0.75rem;
-            opacity: 0.7;
-            margin: 0;
-        }
-
-        /* Tombol close (X), cuma keliatan di mobile pas menu slide-in aktif */
-        .sidebar-close {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.25rem;
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-
-        .sidebar-menu {
-            padding: 1rem 0;
-        }
-
-        .sidebar-menu a {
+        .sidebar-brand-wrapper {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem 1.25rem;
-            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-left: 3px solid transparent;
+        }
+
+        .sidebar-brand-logo {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .sidebar-brand-text h1 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin: 0;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-brand-text p {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--accent-bhs);
+            letter-spacing: 0.15em;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .sidebar-close {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar-close:hover {
+            color: white;
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 1rem 0.75rem;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .menu-category-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--accent-bhs);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 1.25rem 0.75rem 0.4rem;
+        }
+        .menu-category-label:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #9CA3AF;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border-radius: 12px;
+            margin-bottom: 0.25rem;
+            border: 1px solid transparent;
             transition: all 0.2s ease;
-            margin: 0.25rem 0;
         }
 
         .sidebar-menu a:hover {
-            background: rgba(21, 128, 61, 0.15);
-            color: white;
-            border-left-color: var(--primary);
-            padding-left: 1.5rem;
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
         }
 
         .sidebar-menu a.active {
-            background: rgba(21, 128, 61, 0.2);
-            color: var(--primary-light, #4ADE80);
-            border-left-color: var(--primary);
-            font-weight: 600;
-        }
-
-        .sidebar-menu i {
-            width: 1.25rem;
-            text-align: center;
-            font-size: 0.95rem;
+            color: #0A0A0A;
+            background-color: var(--accent-bhs);
+            font-weight: 900;
+            box-shadow: 0 4px 14px rgba(234, 179, 8, 0.25);
         }
 
         .sidebar-logout {
-            padding: 1rem 1.25rem 1.5rem;
-        }
-
-        .sidebar-logout form {
-            width: 100%;
+            padding: 1rem 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: #111827;
         }
 
         .sidebar-logout button {
             width: 100%;
             padding: 0.75rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
             transition: all 0.2s ease;
         }
 
         .sidebar-logout button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(21, 128, 61, 0.35);
+            background: #EF4444;
+            color: white;
         }
 
-        /* Main Content */
+        /* ===== MAIN CONTENT AREA ===== */
         .main-content {
             flex: 1;
-            margin-left: 260px;
+            margin-left: 270px;
         }
 
         .content {
@@ -217,33 +249,19 @@
             color: #7F1D1D;
         }
 
-        .alert i {
-            font-size: 1rem;
-            margin-top: 0.15rem;
-        }
-
-        /* Topbar mobile (cuma tampil di layar kecil) */
+        /* Topbar Mobile */
         .admin-topbar {
             display: none;
         }
 
-        .sidebar-toggle {
-            background: none;
-            border: none;
-            color: var(--secondary);
-            font-size: 1.35rem;
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-
-        /* Backdrop overlay pas menu mobile aktif */
         .sidebar-backdrop {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
             z-index: 998;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.25s ease;
         }
         .sidebar-backdrop.active {
             display: block;
@@ -254,7 +272,7 @@
             to { opacity: 1; }
         }
 
-        /* ===== Mobile: sidebar jadi slide-in panel dari kanan ===== */
+        /* Mobile Drawer Slide In */
         @media (max-width: 768px) {
             .admin-topbar {
                 display: flex;
@@ -262,21 +280,30 @@
                 justify-content: space-between;
                 position: fixed;
                 top: 0; left: 0; right: 0;
-                height: 60px;
-                background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%);
+                height: 64px;
+                background: #111827;
                 padding: 0 1.25rem;
                 z-index: 999;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             }
 
             .admin-topbar-brand h1 {
-                font-size: 1rem;
-                font-weight: 700;
-                color: var(--primary-light, #4ADE80);
+                font-size: 0.95rem;
+                font-weight: 800;
+                color: #FFFFFF;
+                text-transform: uppercase;
             }
 
             .admin-topbar .sidebar-toggle {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 color: white;
+                padding: 0.4rem 0.8rem;
+                border-radius: 8px;
+                font-size: 0.75rem;
+                font-weight: 800;
+                text-transform: uppercase;
+                cursor: pointer;
             }
 
             .sidebar {
@@ -285,12 +312,9 @@
                 right: -100%;
                 left: auto;
                 height: 100vh;
-                width: 80%;
+                width: 85%;
                 max-width: 300px;
-                transition: right 0.3s ease-in-out;
-                display: flex;
-                flex-direction: column;
-                z-index: 1000;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
             }
 
             .sidebar.active {
@@ -298,86 +322,85 @@
             }
 
             .sidebar-close {
-                display: block;
-            }
-
-            .sidebar-menu {
-                flex: 1;
-            }
-
-            .sidebar-logout {
-                position: sticky;
-                bottom: 0;
-                background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%);
+                display: flex;
             }
 
             .main-content {
                 margin-left: 0;
-                margin-top: 60px;
+                margin-top: 64px;
             }
 
             .content {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Topbar khusus mobile: logo + tombol hamburger -->
+    <!-- Topbar Mobile -->
     <div class="admin-topbar">
         <div class="admin-topbar-brand">
             <h1>BHS Admin</h1>
         </div>
-        <button class="sidebar-toggle" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Buka Menu Mobile">
+            Menu
         </button>
     </div>
 
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="admin-container">
+        
+        <!-- SIDEBAR DRAWER MENU -->
         <div class="sidebar" id="sidebarMenu">
             <div class="sidebar-brand">
-                <div>
-                    <h1>BHS</h1>
-                    <p>Admin</p>
-                </div>
-                <button class="sidebar-close" id="sidebarClose">
-                    <i class="fas fa-times"></i>
+                <a href="{{ route('admin.dashboard') }}" class="sidebar-brand-wrapper">
+                    <img src="{{ asset('images/logow.png') }}" alt="BHS Logo" class="sidebar-brand-logo" />
+                    <div class="sidebar-brand-text">
+                        <h1>BALONG HARDI</h1>
+                        <p>ADMIN PANEL</p>
+                    </div>
+                </a>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Tutup Menu Mobile">
+                    ✕
                 </button>
             </div>
 
             <nav class="sidebar-menu">
+                <div class="menu-category-label">Utama</div>
+
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     Dashboard
                 </a>
 
+                <a href="{{ route('admin.reservations.index') }}" class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
+                    Reservasi
+                </a>
+
+                <div class="menu-category-label">Kelola Konten</div>
+
                 <a href="{{ route('admin.hero.edit') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
                     Hero Banner
-                </a>
-
-                <a href="{{ route('admin.facility.index') }}" class="{{ request()->routeIs('admin.facility.*') ? 'active' : '' }}">
-                    Fasilitas
-                </a>
-
-                <a href="{{ route('admin.faq.index') }}" class="{{ request()->routeIs('admin.faq.*') ? 'active' : '' }}">
-                    FAQ
-                </a>
-
-                <a href="{{ route('admin.awards.index') }}" class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
-                    Penghargaan
                 </a>
 
                 <a href="{{ route('admin.layanan.index') }}" class="{{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
                     Layanan
                 </a>
 
-                <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
-                    Blog
+                <a href="{{ route('admin.facility.index') }}" class="{{ request()->routeIs('admin.facility.*') ? 'active' : '' }}">
+                    Fasilitas
                 </a>
 
                 <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
                     Informasi & Berita
+                </a>
+
+                <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
+                    Blog
+                </a>
+
+                <a href="{{ route('admin.awards.index') }}" class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
+                    Penghargaan
                 </a>
 
                 <a href="{{ route('admin.media-coverage.index') }}" class="{{ request()->routeIs('admin.media-coverage.*') ? 'active' : '' }}">
@@ -388,18 +411,14 @@
                     Testimoni
                 </a>
 
-                <a href="{{ route('admin.reservations.index') }}"class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
-                    Reservasi
+                <a href="{{ route('admin.faq.index') }}" class="{{ request()->routeIs('admin.faq.*') ? 'active' : '' }}">
+                    FAQ
                 </a>
 
-                <!-- <a href="{{ route('admin.gallery.index') }}" class="{{ request()->routeIs('admin.gallery.*') ? 'active' : '' }}">
-                    Galeri
-                </a> -->
-
-                <div style="margin: 0.75rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+                <div class="menu-category-label">Pengaturan</div>
 
                 <a href="{{ route('admin.contact.edit') }}" class="{{ request()->routeIs('admin.contact.*') ? 'active' : '' }}">
-                    <i class="fas fa-address-book"></i> Info Kontak
+                    Info Kontak
                 </a>
             </nav>
 
@@ -407,17 +426,17 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">
-                        <i class="fas fa-sign-out-alt"></i> <span style="font-size: 0.85rem;">Logout</span>
+                        Logout
                     </button>
                 </form>
             </div>
         </div>
 
+        <!-- MAIN CONTENT AREA -->
         <div class="main-content">
             <div class="content">
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-circle"></i>
                         <div>
                             <strong>Terjadi kesalahan:</strong>
                             <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
@@ -431,7 +450,6 @@
 
                 @if (session('success'))
                     <div class="alert alert-success">
-                        <i class="fas fa-check-circle"></i>
                         <span>{{ session('success') }}</span>
                     </div>
                 @endif
@@ -450,18 +468,19 @@
         const openSidebar = () => {
             sidebarMenu.classList.add('active');
             sidebarBackdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
         };
 
         const closeSidebar = () => {
             sidebarMenu.classList.remove('active');
             sidebarBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
         };
 
         sidebarToggle?.addEventListener('click', openSidebar);
         sidebarClose?.addEventListener('click', closeSidebar);
         sidebarBackdrop?.addEventListener('click', closeSidebar);
 
-        // Tutup menu otomatis kalau salah satu link diklik (khusus mobile)
         document.querySelectorAll('.sidebar-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
