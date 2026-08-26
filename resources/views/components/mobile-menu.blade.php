@@ -1,6 +1,12 @@
 @php
     $contact = $contact ?? (object) ['whatsapp' => '62895385703917'];
     $waNumber = $contact->whatsapp ?? '62895385703917';
+
+    try {
+        $navLayananList = \App\Models\Layanan::active()->ordered()->get();
+    } catch (\Throwable $e) {
+        $navLayananList = collect();
+    }
 @endphp
 
 <div id="mobileMenu" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white/95 dark:bg-[#0A0A0A]/95 backdrop-blur-xl shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-200/80 dark:border-gray-800/80">
@@ -84,9 +90,11 @@
         </button>
         
         <div class="hidden pl-4 pr-2 space-y-1 mt-1 border-l-2 border-accent/30 ml-4" data-panel="paket">
-          @foreach (['Wisata Kolam Pemancingan','Villa Kayu','Hotel BHS','Resto & Cafe','Convention Hall'] as $svc)
-            <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">{{ $svc }}</a>
-          @endforeach
+          @forelse ($navLayananList as $item)
+            <a href="{{ route('layanan.show', $item->slug) }}" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">{{ $item->title }}</a>
+          @empty
+            <span class="block px-3 py-2.5 text-xs text-gray-400 italic">Belum ada layanan</span>
+          @endforelse
         </div>
       </div>
 
