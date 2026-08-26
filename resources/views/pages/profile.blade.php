@@ -42,8 +42,6 @@
             'image' => null,
         ],
     ];
-
-
 @endphp
 
 {{-- Breadcrumb --}}
@@ -70,8 +68,8 @@
     </div>
 </section>
 
-{{-- Infografis / Stats --}}
-<section class="bg-white dark:bg-[#1F160D] py-14 md:py-16 border-y border-gray-100 dark:border-white/6">
+{{-- Infografis / Stats (DITAMBAHKAN ID: infografis) --}}
+<section id="infografis" class="bg-white dark:bg-[#1F160D] py-14 md:py-16 border-y border-gray-100 dark:border-white/6 scroll-mt-24">
     <div class="container-max">
         <div class="text-center mb-10">
             <span class="text-xs font-bold tracking-widest uppercase text-accent">Infografis</span>
@@ -109,13 +107,7 @@
     <div class="container-max">
         <div class="grid md:grid-cols-2 gap-10 items-center">
             
-            {{-- Bagian Video (Sudah menggunakan Embed YouTube) --}}
             <div class="relative rounded-2xl overflow-hidden aspect-video bg-secondary/5 dark:bg-white/5 border border-gray-100 dark:border-white/6 shadow-lg">
-                
-                {{-- 
-                    Embed Iframe (sementara hardcode). 
-                    YouTube otomatis menampilkan thumbnail (cover) bawaan videonya.
-                --}}
                 <iframe 
                     class="absolute inset-0 w-full h-full" 
                     src="https://www.youtube.com/embed/SKnz69mMaio" 
@@ -124,7 +116,6 @@
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowfullscreen>
                 </iframe>
-                
             </div>
             <div>
                 <span class="text-xs font-bold tracking-widest uppercase text-accent">Tentang BHS</span>
@@ -160,8 +151,8 @@
     </div>
 </section>
 
-{{-- Penghargaan --}}
-<section class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6">
+{{-- Penghargaan (DITAMBAHKAN ID: penghargaan) --}}
+<section id="penghargaan" class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6 scroll-mt-24">
     <div class="container-max">
         <div class="text-center mb-10">
             <span class="text-xs font-bold tracking-widest uppercase text-accent">Penghargaan</span>
@@ -170,7 +161,7 @@
 
         <div class="flex items-center gap-2 md:gap-4 w-full">
 
-            {{-- Tombol Panah Kiri --}}
+            <!-- Tombol Panah Kiri -->
             <button type="button"
                     id="award-prev"
                     aria-label="Penghargaan Sebelumnya"
@@ -180,7 +171,7 @@
                 </svg>
             </button>
 
-            {{-- Viewport (1 item per tampilan) --}}
+            <!-- Viewport -->
             <div id="award-viewport" class="overflow-hidden w-full">
                 <div id="award-track" class="flex transition-transform duration-500 ease-out">
                     @foreach ($awards as $award)
@@ -205,7 +196,7 @@
                 </div>
             </div>
 
-            {{-- Tombol Panah Kanan --}}
+            <!-- Tombol Panah Kanan -->
             <button type="button"
                     id="award-next"
                     aria-label="Penghargaan Berikutnya"
@@ -216,13 +207,12 @@
             </button>
         </div>
 
-        {{-- Dot Indicator --}}
         <div id="award-dots" class="flex items-center justify-center gap-2 mt-8"></div>
     </div>
 </section>
 
 {{-- Liputan Media --}}
-<section id="liputan-media" class="py-14 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
+<section id="liputan-media" class="py-14 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60 scroll-mt-24">
     <div class="container-max">
         <div class="text-center max-w-xl mx-auto mb-10">
             <h2 class="text-2xl md:text-3xl font-extrabold text-secondary dark:text-light uppercase tracking-wide">
@@ -233,10 +223,8 @@
             </p>
         </div>
 
-        <!-- Carousel Layout Mengisi Seluruh Container -->
         <div class="flex items-center gap-2 md:gap-4 w-full">
 
-            <!-- Tombol Panah Kiri -->
             <button type="button"
                     id="media-prev"
                     aria-label="Media Sebelumnya"
@@ -246,7 +234,6 @@
                 </svg>
             </button>
 
-            <!-- Track Container (Max Width Full) -->
             <div id="media-viewport" class="overflow-hidden w-full py-4">
                     <div id="media-track" class="flex items-center justify-between gap-6 md:gap-10 transition-transform duration-500 ease-out">
                         @if(isset($mediaLogos) && count($mediaLogos) > 0)
@@ -266,7 +253,6 @@
                                 </a>
                             @endforeach
                         @else
-                            {{-- Data Default apabila $mediaLogos di Database kosong --}}
                             <a href="https://infojabar.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
                                     <img src="https://infojabar.id/wp-content/uploads/2021/03/logo-infojabar.png" alt="Info Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
@@ -305,7 +291,6 @@
                     </div>
                 </div>
 
-            <!-- Tombol Panah Kanan -->
             <button type="button"
                     id="media-next"
                     aria-label="Media Berikutnya"
@@ -320,7 +305,7 @@
 </section>
 
 {{-- FAQ --}}
-<section id="faq" class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6">
+<section id="faq" class="bg-white dark:bg-[#1F160D] py-16 md:py-20 border-y border-gray-100 dark:border-white/6 scroll-mt-24">
     <div class="container-max grid md:grid-cols-2 gap-10">
         <div>
             <span class="text-xs font-bold tracking-widest uppercase text-accent">Pertanyaan Umum</span>
@@ -352,7 +337,7 @@
     </div>
 </section>
 
-{{-- BANNER CTA / DISKON (Penawaran Terbatas) --}}
+{{-- BANNER CTA --}}
 <section class="py-14 bg-light dark:bg-[#161616] transition-colors overflow-hidden">
     <div class="container-max">
         <div class="relative overflow-hidden bg-gradient-to-r from-[#0A0A0A] via-secondary to-[#1a1a1a] text-white p-8 md:p-12 rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl border border-accent/20">
@@ -366,9 +351,7 @@
                 <p class="text-gray-300 text-sm mt-2">Hubungi admin kami via WhatsApp untuk informasi ketersediaan lapak galatama, reservasi villa penginapan, dan promo paket rombongan.</p>
             </div>
 
-            <!-- Container 2 Tombol WhatsApp -->
             <div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center">
-                {{-- Tombol WA Pemancingan --}}
                 <a href="https://wa.me/{{ $waNumber ?? '62895385703917' }}?text=Halo%20Admin%20BHS,%20saya%20ingin%20tanya%20info%20dan%20reservasi%20Pemancingan"
                    target="_blank"
                    class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-accent text-[#0A0A0A] font-extrabold rounded-2xl hover:bg-accent/90 hover:scale-105 active:scale-95 transition-all duration-300 uppercase tracking-wider text-xs md:text-sm shadow-xl">
@@ -378,7 +361,6 @@
                     <span>WA Pemancingan</span>
                 </a>
 
-                {{-- Tombol WA Penginapan --}}
                 <a href="https://wa.me/{{ $waNumber ?? '62895385703917' }}?text=Halo%20Admin%20BHS,%20saya%20ingin%20tanya%20info%20dan%20reservasi%20Penginapan%2FVilla"
                    target="_blank"
                    class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-extrabold rounded-2xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300 uppercase tracking-wider text-xs md:text-sm shadow-xl">
@@ -406,9 +388,6 @@
             });
         });
 
-        // ----------------------------------------------------
-        // Penghargaan Carousel (1 item per tampilan)
-        // ----------------------------------------------------
         (function initAwardCarousel() {
             const track = document.getElementById('award-track');
             const prevBtn = document.getElementById('award-prev');
@@ -421,8 +400,6 @@
             const total = items.length;
             if (total === 0) return;
 
-            // Duplikasi item biar geser ke kanan/kiri bisa mulus tanpa batas
-            // (nggak snap balik ke awal, sama kayak slider Liputan Media)
             items.forEach(item => {
                 const clone = item.cloneNode(true);
                 track.appendChild(clone);
@@ -432,7 +409,6 @@
             let isAnimating = false;
             let queue = [];
 
-            // Bikin dot indicator sejumlah data penghargaan asli
             const dots = [];
             if (dotsWrap && total > 1) {
                 items.forEach((_, i) => {
@@ -470,7 +446,7 @@
                     track.style.transition = 'none';
                     track.appendChild(track.firstElementChild);
                     track.style.transform = 'translateX(0)';
-                    void track.offsetWidth; // force reflow
+                    void track.offsetWidth;
                     currentIndex = (currentIndex + 1) % total;
                     updateDots();
                     isAnimating = false;
@@ -483,7 +459,7 @@
                 track.style.transition = 'none';
                 track.insertBefore(track.lastElementChild, track.firstElementChild);
                 track.style.transform = 'translateX(-100%)';
-                void track.offsetWidth; // force reflow
+                void track.offsetWidth;
 
                 track.style.transition = 'transform 500ms ease-out';
                 track.style.transform = 'translateX(0)';
@@ -498,7 +474,6 @@
             }
 
             function jumpTo(targetIndex) {
-                // Cari arah terpendek (maju atau mundur) buat sampai ke dot yang diklik
                 const forwardSteps = (targetIndex - currentIndex + total) % total;
                 const backwardSteps = total - forwardSteps;
 
@@ -516,9 +491,6 @@
             prevBtn.addEventListener('click', () => { queue.push(-1); processQueue(); });
         })();
 
-        // ----------------------------------------------------
-        // Infinite Slider Liputan Media (sama seperti di home)
-        // ----------------------------------------------------
         (function initMediaInfiniteSlider() {
             const track = document.getElementById('media-track');
             const prevBtn = document.getElementById('media-prev');
@@ -529,7 +501,6 @@
             let items = Array.from(track.querySelectorAll('.media-item'));
             if (items.length === 0) return;
 
-            // Duplikasi item agar konten berputar tanpa jeda / tanpa batas
             items.forEach(item => {
                 const clone = item.cloneNode(true);
                 track.appendChild(clone);
@@ -558,7 +529,7 @@
                     track.style.transition = 'none';
                     track.appendChild(track.firstElementChild);
                     track.style.transform = 'translateX(0)';
-                    void track.offsetWidth; // force reflow
+                    void track.offsetWidth;
                     isAnimating = false;
                 });
             }
@@ -571,7 +542,7 @@
                 track.style.transition = 'none';
                 track.insertBefore(track.lastElementChild, track.firstElementChild);
                 track.style.transform = `translateX(-${shift}px)`;
-                void track.offsetWidth; // force reflow
+                void track.offsetWidth;
 
                 track.style.transition = 'transform 500ms ease-out';
                 track.style.transform = 'translateX(0)';
@@ -593,6 +564,5 @@
         display: none;
     }
 </style>
-
 
 @endsection

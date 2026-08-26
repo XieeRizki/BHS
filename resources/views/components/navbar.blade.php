@@ -47,12 +47,11 @@
 
             <div id="menu-profile" class="menu-panel absolute left-0 top-full mt-2 w-64 bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden py-2 z-50" role="menu">
               <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
+                <li><a href="{{ route('profile') }}#infografis" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Infografis</a></li>
                 <li><a href="{{ route('profile') }}#tentang-bhs" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Tentang BHS</a></li>
-                <li><a href="{{ route('facilities') }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Fasilitas</a></li>
-                <li><a href="#" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Penghargaan</a></li>
-                <li><a href="#" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Publikasi Media</a></li>
-                <li><a href="{{ route('testimonials') }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Testimoni</a></li>
-                <li><a href="#" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Kenapa Harus ke BHS?</a></li>
+                <li><a href="{{ route('profile') }}#penghargaan" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Penghargaan</a></li>
+                <li><a href="{{ route('profile') }}#liputan-media" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Liputan Media</a></li>
+                <li><a href="{{ route('profile') }}#faq" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">FAQ Pertanyaan</a></li>
               </ul>
             </div>
           </li>
@@ -158,7 +157,6 @@
           </button>
         </div>
 
-        <!-- Mobile menu toggle button -->
         <button id="mobileMenuBtn" aria-label="Buka Menu Mobile" class="lg:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-white/10 text-secondary dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 transition">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
