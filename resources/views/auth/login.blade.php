@@ -29,12 +29,13 @@
         body {
             background-color: var(--bg-dark);
             min-height: 100vh;
+            min-height: 100dvh; /* Support mobile viewport height */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: clamp(1rem, 3vw, 2rem);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         /* Ambient Glow Effect */
@@ -44,8 +45,8 @@
             top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 350px;
-            height: 350px;
+            width: min(350px, 80vw);
+            height: min(350px, 80vw);
             background: radial-gradient(circle, rgba(234, 179, 8, 0.12) 0%, rgba(0,0,0,0) 70%);
             pointer-events: none;
             z-index: 0;
@@ -55,8 +56,8 @@
             background: var(--card-bg);
             width: 100%;
             max-width: 420px;
-            padding: 2.5rem 2.25rem;
-            border-radius: 24px;
+            padding: clamp(1.75rem, 5vw, 2.5rem) clamp(1.25rem, 4vw, 2.25rem);
+            border-radius: clamp(16px, 4vw, 24px);
             border: 1px solid var(--border-dark);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             position: relative;
@@ -65,12 +66,12 @@
 
         .brand-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1.25rem, 4vw, 2rem);
         }
 
         .brand-logo-img {
-            width: 56px;
-            height: 56px;
+            width: clamp(44px, 10vw, 56px);
+            height: clamp(44px, 10vw, 56px);
             object-fit: contain;
             margin: 0 auto 0.75rem auto;
             display: block;
@@ -79,14 +80,14 @@
         .brand-header h1 {
             font-weight: 900;
             color: var(--text-light);
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 3vw, 1.25rem);
             text-transform: uppercase;
             letter-spacing: -0.01em;
             line-height: 1.2;
         }
 
         .brand-header p {
-            font-size: 0.65rem;
+            font-size: clamp(0.6rem, 2vw, 0.65rem);
             font-weight: 800;
             color: var(--accent-gold);
             letter-spacing: 0.2em;
@@ -101,11 +102,12 @@
             font-size: 0.8rem;
             padding: 0.85rem 1rem;
             border-radius: 12px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            word-break: break-word;
         }
 
         .form-group {
@@ -131,6 +133,7 @@
         .input-wrapper input {
             width: 100%;
             padding: 0.85rem 1rem;
+            padding-right: 3.25rem; /* Space for toggle button */
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-dark);
             border-radius: 14px;
@@ -138,6 +141,7 @@
             font-weight: 500;
             color: var(--text-light);
             transition: all 0.2s ease;
+            -webkit-appearance: none;
         }
 
         .input-wrapper input::placeholder {
@@ -153,7 +157,9 @@
 
         .toggle-password {
             position: absolute;
-            right: 1rem;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
             color: var(--text-muted);
@@ -162,36 +168,41 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 0.25rem;
+            padding: 0.5rem 0.6rem;
+            border-radius: 8px;
+            touch-action: manipulation;
         }
 
-        .toggle-password:hover {
+        .toggle-password:hover,
+        .toggle-password:focus {
             color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .form-options {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
             margin-top: 0.5rem;
         }
 
         .remember-me {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             color: var(--text-muted);
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             user-select: none;
+            touch-action: manipulation;
         }
 
         .remember-me input[type="checkbox"] {
             accent-color: var(--accent-gold);
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -210,6 +221,8 @@
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 4px 14px rgba(234, 179, 8, 0.25);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-submit:hover {
@@ -224,12 +237,23 @@
 
         .footer-copyright {
             text-align: center;
-            margin-top: 1.75rem;
+            margin-top: clamp(1.25rem, 3vw, 1.75rem);
             font-size: 0.7rem;
             color: #4B5563;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .input-wrapper input {
+                font-size: 0.95rem; /* Cegah auto-zoom di iOS Safari */
+            }
+
+            .btn-submit {
+                padding: 1rem 1.25rem;
+            }
         }
     </style>
 </head>
@@ -261,7 +285,7 @@
                 <label for="password">Kata Sandi</label>
                 <div class="input-wrapper">
                     <input type="password" id="password" name="password" required placeholder="••••••••">
-                    <button type="button" class="toggle-password" id="togglePasswordBtn">Lihat</button>
+                    <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Tampilkan Kata Sandi">Lihat</button>
                 </div>
             </div>
 
