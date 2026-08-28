@@ -333,35 +333,81 @@
             </div>
         </div>
 
-        {{-- TAB 5: GALERI FOTO --}}
+       {{-- TAB 5: GALERI FOTO (Versi AJAX) --}}
         <div class="tab-panel" data-panel="galeri">
-            <div class="form-section">
+            <div class="form-section" style="margin-bottom: 1.25rem;">
                 <div class="form-section-title-row">
                     <h2><i class="fas fa-images"></i> Galeri Foto</h2>
                 </div>
-                <p class="form-section-desc">Kumpulan foto yang tampil di section Galeri Media halaman detail.</p>
 
-                @if($isEdit && !empty($existingGallery))
-                    <div class="gallery-grid" id="existing-gallery">
-                        @foreach($existingGallery as $index => $img)
-                            <div class="gallery-item">
-                                <img src="{{ asset('storage/' . $img) }}" alt="Galeri {{ $index + 1 }}">
-                                <button type="button" class="gallery-remove-btn" onclick="removeGalleryImage({{ $layanan->id }}, {{ $index }}, this)" title="Hapus foto ini">
-                                    <i class="fas fa-times"></i>
+                @if(!$isEdit)
+                    <p class="form-section-desc" style="margin-bottom: 0;">
+                        Simpan layanan ini dulu (klik "Simpan Layanan" di bawah), nanti kelola kategori & upload foto galeri di halaman Edit.
+                    </p>
+                @else
+                    <p class="form-section-desc">Kategori & foto di sini khusus milik layanan <strong>{{ $layanan->title }}</strong> — tidak dipakai bareng layanan lain.</p>
+
+                    {{-- ===== Sub-CRUD: Kategori ===== --}}
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="margin-bottom: 0.6rem;">Kategori Galeri</label>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;">
+                            @forelse($layanan->kategoris as $kategori)
+                                <button type="button" onclick="deleteKategori({{ $kategori->id }}, '{{ addslashes($kategori->name) }}')" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.7rem; border-radius: 999px; border: 1px solid var(--border); background: white; font-size: 0.8rem; font-weight: 600; color: var(--secondary); cursor: pointer;">
+                                    {{ $kategori->name }}
+                                    <i class="fas fa-times" style="color: var(--danger); font-size: 0.7rem;"></i>
                                 </button>
-                            </div>
-                        @endforeach
+                            @empty
+                                <span style="font-size: 0.82rem; color: var(--neutral); font-style: italic;">Belum ada kategori.</span>
+                            @endforelse
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="new_kategori_name" placeholder="Nama kategori baru, contoh: Interior" style="flex: 1; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 6px;">
+                            <button type="button" class="btn btn-cancel" onclick="submitKategori()" style="white-space: nowrap;"><i class="fas fa-plus"></i> Tambah</button>
+                        </div>
                     </div>
+
+                    {{-- ===== Sub-CRUD: Upload Foto ===== --}}
+                    <div style="border-top: 1px solid var(--border); padding-top: 1.25rem;">
+                        <label style="margin-bottom: 0.6rem;">Tambah Foto</label>
+                        <div class="form-row">
+                            <div class="form-group">
+                                {{-- Nama id diubah agar tidak bentrok dengan image utama form --}}
+                                <input type="file" id="new_gallery_image" accept="image/*" required>
+                            </div>
+                            <div class="form-group" style="display: flex; gap: 0.5rem;">
+                                <select id="new_gallery_category" style="flex: 1; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 6px;">
+                                    <option value="">Tanpa Kategori</option>
+                                    @foreach($layanan->kategoris as $kategori)
+                                        <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" class="btn btn-save" onclick="submitGallery()" style="white-space: nowrap;"><i class="fas fa-upload"></i> Upload</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- ===== List foto yang sudah ada ===== --}}
+                    @if($layanan->galleries->isNotEmpty())
+                        <div style="border-top: 1px solid var(--border); padding-top: 1.25rem; margin-top: 0.5rem;">
+                            <label style="margin-bottom: 0.75rem;">Foto Tersimpan ({{ $layanan->galleries->count() }})</label>
+                            <div class="gallery-grid">
+                                @foreach($layanan->galleries as $photo)
+                                    <div class="gallery-item">
+                                        <img src="{{ asset('storage/' . $photo->image) }}" alt="{{ $photo->kategori->name ?? 'Galeri' }}">
+                                        <button type="button" class="gallery-remove-btn" onclick="deleteGalleryPhoto({{ $photo->id }})" title="Hapus foto ini">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <span style="position: absolute; bottom: 4px; left: 4px; right: 4px; background: rgba(0,0,0,0.65); color: white; font-size: 0.65rem; font-weight: 600; padding: 0.15rem 0.4rem; border-radius: 4px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            {{ $photo->kategori->name ?? 'Tanpa kategori' }}
+                                        </span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 @endif
-
-                <div class="form-group">
-                    <label for="gallery">Tambah Foto Galeri (bisa pilih beberapa sekaligus)</label>
-                    <input type="file" id="gallery" name="gallery[]" accept="image/*" multiple>
-                    <div class="form-hint">Foto baru akan ditambahkan ke galeri yang sudah ada, bukan mengganti semua</div>
-                </div>
-
-                <div class="gallery-preview-label" id="gallery-new-preview-label" style="display:none;">Preview foto baru</div>
-                <div class="gallery-grid" id="gallery-new-preview"></div>
             </div>
         </div>
 
@@ -433,28 +479,36 @@
 <script>
     // ---------- Tab switcher ----------
     (function () {
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const panels = document.querySelectorAll('.tab-panel');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
 
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                panels.forEach(p => p.classList.remove('active'));
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
 
-                btn.classList.add('active');
-                document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`)?.classList.add('active');
-            });
+            btn.classList.add('active');
+            document.querySelector(`.tab-panel[data-panel="${btn.dataset.tab}"]`)?.classList.add('active');
+            history.replaceState(null, '', '#' + btn.dataset.tab);
         });
+    });
 
-        // Kalau ada error validasi, buka otomatis tab pertama yang punya field error
-        @if($errors->any())
-            const firstErrorField = document.querySelector('.form-error')?.closest('.tab-panel');
-            if (firstErrorField) {
-                const panelName = firstErrorField.dataset.panel;
-                document.querySelector(`.tab-btn[data-tab="${panelName}"]`)?.click();
-            }
-        @endif
-    })();
+    // Buka tab sesuai fragment URL (misal habis redirect dari form Kategori/Galeri)
+    if (location.hash) {
+        const tabName = location.hash.replace('#', '');
+        const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+        if (targetBtn) targetBtn.click();
+    }
+
+    // Kalau ada error validasi, buka otomatis tab pertama yang punya field error (prioritas di atas hash)
+    @if($errors->any())
+        const firstErrorField = document.querySelector('.form-error')?.closest('.tab-panel');
+        if (firstErrorField) {
+            const panelName = firstErrorField.dataset.panel;
+            document.querySelector(`.tab-btn[data-tab="${panelName}"]`)?.click();
+        }
+    @endif
+})();
 
     // ---------- Live image preview (main image, bg image, QR codes, service icons, showcase icons, gallery) ----------
     (function () {
@@ -612,33 +666,76 @@
     })();
 
     @if($isEdit)
-    // ---------- AJAX gallery image delete ----------
-    function removeGalleryImage(layananId, index, btnEl) {
-        if (!confirm('Hapus foto ini dari galeri?')) return;
+    const formCsrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-        const url = `{{ route('admin.layanan.gallery.destroy', ['layanan' => ':layananId', 'index' => ':index']) }}`
-                        .replace(':layananId', layananId)
-                        .replace(':index', index);
+    // Tambah Kategori AJAX
+    function submitKategori() {
+        const nameInput = document.getElementById('new_kategori_name');
+        if (!nameInput.value.trim()) return alert('Nama kategori tidak boleh kosong!');
 
-        fetch(url, {
+        const formData = new FormData();
+        formData.append('_token', formCsrfToken);
+        formData.append('name', nameInput.value.trim());
+
+        fetch("{{ route('admin.layanan.kategori.store', $layanan) }}", {
             method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            body: formData,
+            headers: { 'Accept': 'application/json' }
         })
-        .then(res => {
-            if (res.ok) {
-                btnEl.closest('.gallery-item').remove();
-            } else {
-                return res.json().then(err => { throw new Error(err.message || 'Request failed') });
-            }
+        .then(res => res.ok ? (window.location.hash = 'galeri', window.location.reload()) : alert('Gagal menyimpan kategori.'));
+    }
+
+    // Hapus Kategori AJAX
+    function deleteKategori(id, name) {
+        if (!confirm(`Hapus kategori '${name}'? Foto terkait akan jadi tanpa kategori.`)) return;
+
+        const formData = new FormData();
+        formData.append('_token', formCsrfToken);
+        formData.append('_method', 'DELETE');
+
+        fetch(`/admin/layanan/{{ $layanan->id }}/kategori/${id}`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Gagal menghapus foto: ' + error.message);
-        });
+        .then(res => res.ok ? (window.location.hash = 'galeri', window.location.reload()) : alert('Gagal menghapus kategori.'));
+    }
+
+    // Upload Foto AJAX
+    function submitGallery() {
+        const fileInput = document.getElementById('new_gallery_image');
+        const catInput = document.getElementById('new_gallery_category');
+
+        if (fileInput.files.length === 0) return alert('Pilih foto terlebih dahulu!');
+
+        const formData = new FormData();
+        formData.append('_token', formCsrfToken);
+        formData.append('image', fileInput.files[0]);
+        if (catInput.value) formData.append('layanan_kategori_id', catInput.value);
+
+        fetch("{{ route('admin.layanan.gallery.store', $layanan) }}", {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(res => res.ok ? (window.location.hash = 'galeri', window.location.reload()) : alert('Gagal mengupload foto.'));
+    }
+
+    // Hapus Foto AJAX
+    function deleteGalleryPhoto(id) {
+        if (!confirm('Hapus foto ini?')) return;
+
+        const formData = new FormData();
+        formData.append('_token', formCsrfToken);
+        formData.append('_method', 'DELETE');
+
+        fetch(`/admin/layanan/{{ $layanan->id }}/gallery-photo/${id}`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(res => res.ok ? (window.location.hash = 'galeri', window.location.reload()) : alert('Gagal menghapus foto.'));
     }
     @endif
+
 </script>

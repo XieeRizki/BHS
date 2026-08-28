@@ -132,7 +132,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('layanan', AdminLayananController::class)
         ->except(['show'])
         ->parameters(['layanan' => 'layanan:id']);
+    Route::post('/layanan/{layanan}/kategori', [AdminLayananController::class, 'storeKategori'])->name('layanan.kategori.store');
+    Route::delete('/layanan/{layanan}/kategori/{kategori}', [AdminLayananController::class, 'destroyKategori'])->name('layanan.kategori.destroy');
 
-    Route::post('/layanan/{layanan:id}/gallery/{index}', [AdminLayananController::class, 'destroyGalleryImage'])
-    ->name('layanan.gallery.destroy');
+    Route::post('/layanan/{layanan}/gallery-photo', [AdminLayananController::class, 'storeGalleryPhoto'])->name('layanan.gallery.store');
+    Route::delete('/layanan/{layanan}/gallery-photo/{gallery}', [AdminLayananController::class, 'destroyGalleryPhoto'])->name('layanan.gallery.destroy');
 });

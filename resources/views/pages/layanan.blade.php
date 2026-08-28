@@ -216,54 +216,70 @@
 </section>
 
 {{-- 5. GALERI MEDIA --}}
-<section class="py-14 md:py-20 bg-gray-50 dark:bg-[#141414] border-b border-gray-200/80 dark:border-gray-800 transition-colors">
+@if($layanan->galleries->isNotEmpty())
+<section class="py-14 md:py-20 bg-light dark:bg-dark transition-colors">
     <div class="container-max">
-        <div class="text-center max-w-xl mx-auto mb-8">
-            <h2 class="text-2xl md:text-3xl font-black text-secondary dark:text-white uppercase tracking-wide">
-                GALERI MEDIA
+        <div class="text-center mb-10">
+            <span class="text-xs font-black text-accent uppercase tracking-widest">Galeri</span>
+            <h2 class="text-2xl md:text-3xl font-black text-secondary dark:text-white mt-2">
+                GALERI {{ strtoupper($layanan->title) }}
             </h2>
-            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">
-                SAATNYA ANDA & KELUARGA EKSPLORE SEKARANG JUGA
-            </p>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-10">
-            <button type="button" class="px-5 py-2 rounded-full bg-accent text-[#0A0A0A] text-xs font-black uppercase tracking-wider shadow-sm">SEMUA</button>
-            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">TAMPAK DEPAN</button>
-            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">INTERIOR</button>
-            <button type="button" class="px-5 py-2 rounded-full bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold uppercase tracking-wider hover:border-accent transition">FASILITAS</button>
-        </div>
-
-        @php
-            $galleryImages = $layanan->gallery ?? [];
-            if (empty($galleryImages)) {
-                $galleryImages = array_fill(0, 5, null);
-            }
-        @endphp
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
-            <div class="grid grid-cols-1 gap-4 md:gap-6 order-1">
-                @foreach (array_slice($galleryImages, 0, 2) as $img)
-                    <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                        <img src="{{ $img ? asset('storage/'.$img) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $layanan->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
+        @if($layanan->kategoris->isNotEmpty())
+            <div class="flex flex-wrap justify-center gap-2 mb-8" id="galeriFilterBtns">
+                <button type="button" class="galeri-filter-btn active px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider border border-accent bg-accent text-[#0A0A0A]" data-filter="semua">
+                    Semua
+                </button>
+                @foreach($layanan->kategoris as $kategori)
+                    <button type="button" class="galeri-filter-btn px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider border border-gray-300 dark:border-gray-700 text-secondary dark:text-light hover:border-accent transition-colors" data-filter="kategori-{{ $kategori->id }}">
+                        {{ $kategori->name }}
+                    </button>
                 @endforeach
             </div>
+        @endif
 
-            <div class="order-2 relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video md:aspect-auto h-full min-h-[220px] md:min-h-[420px]">
-                <img src="{{ ($galleryImages[2] ?? null) ? asset('storage/'.$galleryImages[2]) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $layanan->title }} Utama" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-
-            <div class="grid grid-cols-1 gap-4 md:gap-6 order-3">
-                @foreach (array_slice($galleryImages, 3, 2) as $img)
-                    <div class="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-video">
-                        <img src="{{ $img ? asset('storage/'.$img) : asset('images/bhs2.jpg') }}" alt="Galeri {{ $layanan->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                @endforeach
-            </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6" id="galeriGrid">
+            @foreach($layanan->galleries as $photo)
+                <div class="galeri-item relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] shadow-sm group aspect-square"
+                     data-kategori="{{ $photo->layanan_kategori_id ? 'kategori-' . $photo->layanan_kategori_id : 'tanpa-kategori' }}">
+                    <img src="{{ asset('storage/' . $photo->image) }}" alt="{{ $photo->kategori->name ?? $layanan->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    @if($photo->kategori)
+                        <span class="absolute bottom-2 left-2 px-2 py-1 bg-black/60 backdrop-blur text-white text-[10px] font-bold uppercase rounded tracking-wider">
+                            {{ $photo->kategori->name }}
+                        </span>
+                    @endif
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
+
+@if($layanan->kategoris->isNotEmpty())
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterBtns = document.querySelectorAll('.galeri-filter-btn');
+        const items = document.querySelectorAll('.galeri-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'border-accent', 'bg-accent', 'text-[#0A0A0A]');
+                    b.classList.add('border-gray-300', 'dark:border-gray-700', 'text-secondary', 'dark:text-light');
+                });
+                btn.classList.add('active', 'border-accent', 'bg-accent', 'text-[#0A0A0A]');
+                btn.classList.remove('border-gray-300', 'dark:border-gray-700', 'text-secondary', 'dark:text-light');
+
+                const filter = btn.dataset.filter;
+                items.forEach(item => {
+                    item.style.display = (filter === 'semua' || item.dataset.kategori === filter) ? '' : 'none';
+                });
+            });
+        });
+    });
+</script>
+@endif
+@endif
 
 {{-- SCAN BARCODE & ORDER --}}
 <section class="py-14 md:py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">

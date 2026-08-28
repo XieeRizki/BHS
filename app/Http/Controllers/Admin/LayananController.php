@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Layanan; // <-- Sudah diubah pakai model Layanan
+use App\Models\Layanan;
+use App\Models\LayananKategori;
+use App\Models\LayananGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -244,19 +246,57 @@ class LayananController extends Controller
         return redirect()->route('admin.layanan.index')->with('success', 'Layanan berhasil dihapus.');
     }
 
-    public function destroyGalleryImage(Layanan $layanan, int $index)
+    // ================== KATEGORI GALERI (per-layanan) ==================
+
+    public function storeKategori(Request $request, Layanan $layanan)
 {
-    $gallery = $layanan->gallery ?? [];
+    $validated = $request->validate([
+        'name' => 'required|string|max:100',
+    ]);
 
-    if (!array_key_exists($index, $gallery)) {
-        return response()->json(['message' => 'Foto tidak ditemukan.'], 404);
-    }
+    $layanan->kategoris()->create([
+        'name' => $validated['name'],
+        'order' => $layanan->kategoris()->count(),
+    ]);
 
-    Storage::disk('public')->delete($gallery[$index]);
-    unset($gallery[$index]);
-    $layanan->update(['gallery' => array_values($gallery)]);
+    return back()->with('success', 'Kategori berhasil ditambahkan.')->withFragment('galeri');
+}
 
-    return response()->json(['message' => 'Foto galeri berhasil dihapus.']);
+public function destroyKategori(Layanan $layanan, LayananKategori $kategori)
+{
+    abort_unless($kategori->layanan_id === $layanan->id, 404);
+
+    $kategori->delete();
+
+    return back()->with('success', 'Kategori berhasil dihapus. Foto yang terkait jadi tanpa kategori.')->withFragment('galeri');
+}
+
+public function storeGalleryPhoto(Request $request, Layanan $layanan)
+{
+    $validated = $request->validate([
+        'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'layanan_kategori_id' => 'nullable|exists:layanan_kategoris,id',
+    ]);
+
+    $path = $request->file('image')->store('layanan/gallery', 'public');
+
+    $layanan->galleries()->create([
+        'image' => $path,
+        'layanan_kategori_id' => $validated['layanan_kategori_id'] ?? null,
+        'order' => $layanan->galleries()->count(),
+    ]);
+
+    return back()->with('success', 'Foto galeri berhasil ditambahkan.')->withFragment('galeri');
+}
+
+public function destroyGalleryPhoto(Layanan $layanan, LayananGallery $gallery)
+{
+    abort_unless($gallery->layanan_id === $layanan->id, 404);
+
+    Storage::disk('public')->delete($gallery->image);
+    $gallery->delete();
+
+    return back()->with('success', 'Foto galeri berhasil dihapus.')->withFragment('galeri');
 }
 
 
