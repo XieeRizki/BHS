@@ -693,7 +693,8 @@
         formData.append('_token', formCsrfToken);
         formData.append('_method', 'DELETE');
 
-        fetch(`/admin/layanan/{{ $layanan->id }}/kategori/${id}`, {
+        // PERBAIKAN: Gunakan ->slug bukan ->id
+        fetch(`/admin/layanan/{{ $layanan->slug }}/kategori/${id}`, {
             method: 'POST',
             body: formData,
             headers: { 'Accept': 'application/json' }
@@ -729,7 +730,8 @@
         formData.append('_token', formCsrfToken);
         formData.append('_method', 'DELETE');
 
-        fetch(`/admin/layanan/{{ $layanan->id }}/gallery-photo/${id}`, {
+        // PERBAIKAN: Gunakan ->slug bukan ->id
+        fetch(`/admin/layanan/{{ $layanan->slug }}/gallery-photo/${id}`, {
             method: 'POST',
             body: formData,
             headers: { 'Accept': 'application/json' }
