@@ -3,55 +3,68 @@
 @section('content')
 
 <style>
-    .section-header {
+    /* Header Halaman */
+    .admin-page-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background: #FFFFFF;
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
         margin-bottom: 1.5rem;
-        gap: 1rem;
-        flex-wrap: wrap;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
 
-    .section-header h1 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--secondary);
+    .admin-page-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #111827;
         margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
     }
 
-    .section-header-desc {
-        font-size: 0.85rem;
-        color: var(--neutral);
-        margin: 0;
+    .admin-page-subtitle {
+        font-size: 0.825rem;
+        color: #6B7280;
+        margin-top: 0.25rem;
+        font-weight: 500;
     }
 
-    .btn-create {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: white;
-        padding: 0.7rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
+    /* Tombol Utama BHS */
+    .btn-bhs-primary {
+        background: #EAB308;
+        color: #0A0A0A;
+        font-weight: 800;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        border: none;
+        cursor: pointer;
         transition: all 0.2s ease;
-        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
     }
 
-    .btn-create:hover {
+    .btn-bhs-primary:hover {
+        background: #CA8A04;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        box-shadow: 0 6px 16px rgba(234, 179, 8, 0.3);
     }
 
+    /* Tabel Card Container */
     .table-card {
-        background: white;
-        border-radius: 10px;
-        border: 1px solid var(--border);
+        background: #FFFFFF;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
         overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
 
     .table-responsive {
@@ -64,64 +77,76 @@
     }
 
     thead {
-        background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%);
-        color: white;
+        background: #111827;
+        color: #FFFFFF;
     }
 
     th {
-        padding: 0.9rem;
+        padding: 1rem;
         text-align: left;
-        font-weight: 700;
-        font-size: 0.85rem;
+        font-weight: 800;
+        font-size: 0.75rem;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.05em;
     }
 
     td {
-        padding: 0.9rem;
-        border-bottom: 1px solid var(--border);
-        font-size: 0.9rem;
-    }
-
-    tbody tr {
-        transition: background 0.15s ease;
+        padding: 1rem;
+        border-bottom: 1px solid #E5E7EB;
+        font-size: 0.875rem;
+        vertical-align: middle;
+        color: #374151;
     }
 
     tbody tr:hover {
-        background: rgba(249, 115, 22, 0.03);
+        background: #FFFBEB;
     }
 
     .name-cell {
-        font-weight: 600;
-        color: var(--secondary);
+        font-weight: 800;
+        color: #111827;
+        font-size: 0.9rem;
+    }
+
+    .role-cell {
+        font-size: 0.775rem;
+        color: #6B7280;
+        margin-top: 0.2rem;
     }
 
     .rating-cell {
-        font-size: 1rem;
+        font-size: 0.9rem;
         white-space: nowrap;
     }
 
     .badge {
-        display: inline-block;
-        padding: 0.4rem 0.75rem;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
     }
 
     .badge-active {
-        background: rgba(16, 185, 129, 0.15);
-        color: #047857;
+        background: #ECFDF5;
+        color: #065F46;
+        border: 1px solid #A7F3D0;
     }
 
     .badge-inactive {
-        background: rgba(239, 68, 68, 0.15);
-        color: #7F1D1D;
+        background: #F3F4F6;
+        color: #6B7280;
+        border: 1px solid #E5E7EB;
     }
 
+    /* Action Buttons */
     .action-group {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
         justify-content: center;
     }
 
@@ -129,321 +154,260 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.3rem;
-        padding: 0.5rem 0.8rem;
-        border: 1px solid;
-        border-radius: 6px;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
         font-size: 0.8rem;
-        font-weight: 600;
-        text-decoration: none;
         cursor: pointer;
-        transition: all 0.15s ease;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
     }
 
-    .btn-edit {
-        background: rgba(59, 130, 246, 0.1);
-        color: #3B82F6;
-        border-color: rgba(59, 130, 246, 0.2);
-    }
+    .btn-edit { background: #EFF6FF; color: #2563EB; border-color: #BFDBFE; }
+    .btn-edit:hover { background: #2563EB; color: #FFFFFF; border-color: #2563EB; }
 
-    .btn-edit:hover {
-        background: rgba(59, 130, 246, 0.15);
-        border-color: rgba(59, 130, 246, 0.3);
-    }
-
-    .btn-delete {
-        background: rgba(239, 68, 68, 0.1);
-        color: #EF4444;
-        border-color: rgba(239, 68, 68, 0.2);
-    }
-
-    .btn-delete:hover {
-        background: rgba(239, 68, 68, 0.15);
-        border-color: rgba(239, 68, 68, 0.3);
-    }
+    .btn-delete { background: #FEF2F2; color: #DC2626; border-color: #FCA5A5; }
+    .btn-delete:hover { background: #DC2626; color: #FFFFFF; border-color: #DC2626; }
 
     .empty-container {
         text-align: center;
-        padding: 3rem 1.5rem;
+        padding: 4rem 1.5rem;
     }
 
-    .empty-text {
-        color: var(--neutral);
-        font-size: 0.95rem;
-        margin: 0 0 1.5rem 0;
-    }
-
-    /* Modal Styles */
+    /* Modal Component Layout */
     .modal-overlay {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        inset: 0;
+        background: rgba(17, 24, 39, 0.7);
+        backdrop-filter: blur(4px);
         z-index: 2000;
-        animation: fadeIn 0.2s ease;
+        padding: 1.5rem 1rem;
         overflow-y: auto;
+        align-items: center;
+        justify-content: center;
     }
 
     .modal-overlay.active {
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 
     .modal-content {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        max-width: 500px;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
-        animation: slideUp 0.3s ease;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        background: #FFFFFF;
+        border-radius: 20px;
+        padding: 1.5rem;
+        max-width: 520px;
+        width: 100%;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
         position: relative;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        border: 1px solid #E5E7EB;
         margin: auto;
     }
 
     .modal-header {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #F3F4F6;
+        flex-shrink: 0;
     }
 
     .modal-header h2 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--secondary);
-        margin: 0 0 0.25rem 0;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #111827;
+        margin: 0;
+        text-transform: uppercase;
     }
 
     .modal-header p {
-        font-size: 0.85rem;
-        color: var(--neutral);
-        margin: 0;
+        font-size: 0.8rem;
+        color: #6B7280;
+        margin-top: 0.25rem;
     }
 
-    .modal-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--neutral);
-        cursor: pointer;
-        width: 2rem;
-        height: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        transition: all 0.2s ease;
+    /* Modal Scrollable Form Body */
+    .modal-body {
+        overflow-y: auto;
+        padding-right: 0.35rem;
+        flex: 1;
     }
 
-    .modal-close:hover {
-        background: var(--border);
-        color: var(--secondary);
+    .modal-body::-webkit-scrollbar {
+        width: 4px;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+        background: #E5E7EB;
+        border-radius: 4px;
     }
 
+    /* Form Items Inside Modal */
     .form-group {
-        margin-bottom: 1.1rem;
+        margin-bottom: 1rem;
     }
 
-    label {
+    .form-group label {
         display: block;
         font-weight: 700;
-        color: var(--secondary);
-        margin-bottom: 0.4rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        color: #374151;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.35rem;
     }
 
-    .required {
-        color: var(--danger);
-        margin-left: 0.2rem;
+    .form-group label .required {
+        color: #EF4444;
     }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="file"],
-    select,
-    textarea {
+    .input-control {
         width: 100%;
-        padding: 0.65rem 0.8rem;
-        border: 1px solid var(--border);
-        border-radius: 6px;
+        padding: 0.7rem 0.9rem;
+        background: #FFFFFF;
+        border: 1px solid #D1D5DB;
+        border-radius: 10px;
         font-family: inherit;
-        font-size: 0.9rem;
-        transition: all 0.15s ease;
+        font-size: 0.875rem;
+        color: #111827;
+        transition: all 0.2s ease;
         box-sizing: border-box;
-        background: white;
     }
 
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    input[type="file"]:focus,
-    select:focus,
-    textarea:focus {
+    .input-control:focus {
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        border-color: #EAB308;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.15);
     }
 
-    textarea {
+    textarea.input-control {
         resize: vertical;
-        min-height: 100px;
+        min-height: 90px;
     }
 
     .form-hint {
         font-size: 0.75rem;
-        color: var(--neutral);
-        margin-top: 0.3rem;
+        color: #6B7280;
+        margin-top: 0.25rem;
     }
 
     .form-error {
         font-size: 0.75rem;
-        color: var(--danger);
-        margin-top: 0.3rem;
+        color: #EF4444;
+        margin-top: 0.25rem;
+        font-weight: 600;
     }
 
     .checkbox-wrap {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
     }
 
-    input[type="checkbox"] {
-        width: 1rem;
-        height: 1rem;
+    .checkbox-wrap input[type="checkbox"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        accent-color: #EAB308;
         cursor: pointer;
-        accent-color: var(--primary);
     }
 
     .checkbox-wrap label {
         margin: 0;
-        font-weight: 500;
-        font-size: 0.9rem;
-        cursor: pointer;
-    }
-
-    .form-actions {
-        display: flex;
-        gap: 0.6rem;
-        margin-top: 1.5rem;
-    }
-
-    .btn {
-        flex: 1;
-        padding: 0.75rem;
-        border: none;
-        border-radius: 6px;
-        font-weight: 700;
         font-size: 0.85rem;
+        color: #111827;
         cursor: pointer;
-        text-decoration: none;
-        text-align: center;
-        transition: all 0.15s ease;
+        text-transform: none;
+        font-weight: 600;
+    }
+
+    .modal-actions {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.4rem;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid #F3F4F6;
+        flex-shrink: 0;
     }
 
-    .btn-save {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: white;
+    .btn-bhs-save-modal {
+        background: #EAB308;
+        color: #0A0A0A;
+        font-weight: 900;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.8rem 1.25rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
     }
 
-    .btn-save:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+    .btn-bhs-save-modal:hover {
+        background: #CA8A04;
     }
 
-    .btn-cancel {
-        background: var(--border);
-        color: var(--secondary);
+    .btn-bhs-cancel-modal {
+        background: #FFFFFF;
+        color: #4B5563;
+        font-weight: 700;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        padding: 0.8rem 1.25rem;
+        border-radius: 10px;
+        border: 1px solid #D1D5DB;
+        cursor: pointer;
+        transition: all 0.2s ease;
     }
 
-    .btn-cancel:hover {
-        background: #D1D5DB;
+    .btn-bhs-cancel-modal:hover {
+        background: #F9FAFB;
+        color: #111827;
     }
 
     .image-preview {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .image-preview img {
-        max-width: 150px;
-        border-radius: 6px;
-        border: 1px solid var(--border);
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid #E5E7EB;
     }
 
     @media (max-width: 768px) {
-        .section-header {
+        .admin-page-header {
             flex-direction: column;
             align-items: flex-start;
+            gap: 1rem;
         }
-
-        .btn-create {
+        .btn-bhs-primary {
             width: 100%;
             justify-content: center;
         }
-
-        th, td {
-            padding: 0.7rem;
-            font-size: 0.8rem;
-        }
-
-        th {
-            font-size: 0.75rem;
-        }
-
-        .modal-content {
-            padding: 1.5rem;
-            margin: 1rem;
-        }
-
-        .modal-header h2 {
-            font-size: 1.1rem;
-        }
-
-        .form-actions {
-            flex-direction: column;
-        }
-
-        .btn {
-            width: 100%;
-        }
+        th, td { padding: 0.75rem; }
     }
 </style>
 
-<div class="section-header">
+<!-- Header Page -->
+<div class="admin-page-header">
     <div>
-        <h1>Kelola Testimoni</h1>
-        <p class="section-header-desc">Manage semua testimoni pelanggan</p>
+        <h1 class="admin-page-title">Kelola Testimoni</h1>
+        <p class="admin-page-subtitle">Ulasan & testimoni pelanggan Balong Hardi Sumedang</p>
     </div>
-    <button class="btn-create" onclick="openModal('addModal')">
+    <button type="button" class="btn-bhs-primary" onclick="openModal('addModal')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
         Tambah Testimoni
     </button>
 </div>
 
+<!-- Table Card -->
 <div class="table-card">
     <div class="table-responsive">
         <table>
@@ -452,7 +416,7 @@
                     <th>Nama & Jabatan</th>
                     <th>Rating</th>
                     <th>Status</th>
-                    <th style="width: 140px; text-align: center;">Aksi</th>
+                    <th style="width: 120px; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -461,21 +425,35 @@
                         <td>
                             <div class="name-cell">{{ $testimonial->name }}</div>
                             @if($testimonial->role)
-                                <div style="font-size: 0.75rem; color: var(--neutral); margin-top: 2px;">{{ $testimonial->role }}</div>
+                                <div class="role-cell">{{ $testimonial->role }}</div>
                             @endif
                         </td>
                         <td>
                             <span class="rating-cell">{{ str_repeat('⭐', $testimonial->rating ?? 5) }}</span>
                         </td>
                         <td>
-                            <span class="badge {{ $testimonial->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $testimonial->is_active ? 'Aktif' : 'Nonaktif' }}
-                            </span>
+                            @if($testimonial->is_active)
+                                <span class="badge badge-active">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="badge badge-inactive">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                    Nonaktif
+                                </span>
+                            @endif
                         </td>
                         <td>
                             <div class="action-group">
-                                <button onclick="openEditTestimonialModal({{ $testimonial->id }})" 
-                                    class="btn-icon btn-edit" 
+                                <button type="button" onclick="openEditTestimonialModal(this)" 
+                                    class="btn-icon btn-edit"
+                                    title="Edit Testimoni" 
                                     data-testimonial-id="{{ $testimonial->id }}" 
                                     data-name="{{ $testimonial->name }}" 
                                     data-role="{{ $testimonial->role }}" 
@@ -483,12 +461,12 @@
                                     data-rating="{{ $testimonial->rating }}" 
                                     data-is-active="{{ $testimonial->is_active }}" 
                                     data-avatar="{{ $testimonial->avatar }}">
-                                    Edit
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"/><path stroke-linecap="round" stroke-linejoin="round" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                 </button>
-                                <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
+                                <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus testimoni ini?');">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete" style="border: none; padding: 0.5rem 0.8rem;">
-                                        Hapus
+                                    <button type="submit" class="btn-icon btn-delete" title="Hapus">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6h16z"/></svg>
                                     </button>
                                 </form>
                             </div>
@@ -498,8 +476,9 @@
                     <tr>
                         <td colspan="4">
                             <div class="empty-container">
-                                <p class="empty-text">Belum ada testimoni</p>
-                                <button class="btn-create" onclick="openModal('addModal')">
+                                <p style="color: #6B7280; font-size: 0.9rem; margin-bottom: 1.25rem;">Belum ada testimoni pelanggan.</p>
+                                <button type="button" class="btn-bhs-primary" onclick="openModal('addModal')">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14"/></svg>
                                     Tambah Testimoni
                                 </button>
                             </div>
@@ -510,7 +489,7 @@
         </table>
     </div>
     @if($testimonials->hasPages())
-        <div style="padding: 1rem; text-align: center; border-top: 1px solid var(--border);">
+        <div style="padding: 1.25rem; border-top: 1px solid #E5E7EB; display: flex; justify-content: center;">
             {{ $testimonials->links('pagination::bootstrap-4') }}
         </div>
     @endif
@@ -519,65 +498,60 @@
 <!-- Modal Add Testimoni -->
 <div class="modal-overlay" id="addModal">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
             <h2>Tambah Testimoni</h2>
             <p>Tambahkan testimoni pelanggan baru</p>
         </div>
 
-        <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; flex:1; overflow:hidden;">
             @csrf
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name">Nama Pelanggan <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" class="input-control" placeholder="Contoh: Budi Santoso" value="{{ old('name') }}" required>
+                    @error('name')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="name">Nama <span class="required">*</span></label>
-                <input type="text" id="name" name="name" placeholder="Contoh: Budi Santoso" value="{{ old('name') }}" required>
-                @error('name')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="role">Jabatan / Keterangan (Opsional)</label>
+                    <input type="text" id="role" name="role" class="input-control" placeholder="Contoh: Anggota Komunitas Mancing" value="{{ old('role') }}">
+                    @error('role')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <!-- KOLOM JABATAN DITAMBAHKAN DI SINI -->
-            <div class="form-group">
-                <label for="role">Jabatan / Keterangan (Opsional)</label>
-                <input type="text" id="role" name="role" placeholder="Contoh: Anggota Komunitas Mancing" value="{{ old('role') }}">
-                @error('role')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="message">Isi Testimoni <span class="required">*</span></label>
+                    <textarea id="message" name="message" class="input-control" placeholder="Tulis testimoni pelanggan di sini..." required>{{ old('message') }}</textarea>
+                    @error('message')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="message">Isi Testimoni <span class="required">*</span></label>
-                <textarea id="message" name="message" placeholder="Tulis testimoni pelanggan di sini..." required>{{ old('message') }}</textarea>
-                @error('message')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="rating">Rating <span class="required">*</span></label>
+                    <select id="rating" name="rating" class="input-control" required>
+                        @for($i = 5; $i >= 1; $i--)
+                            <option value="{{ $i }}" {{ old('rating', 5) == $i ? 'selected' : '' }}>{{ str_repeat('⭐', $i) }} ({{ $i }} Bintang)</option>
+                        @endfor
+                    </select>
+                    @error('rating')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="rating">Rating <span class="required">*</span></label>
-                <select id="rating" name="rating" required>
-                    @for($i = 5; $i >= 1; $i--)
-                        <option value="{{ $i }}" {{ old('rating', 5) == $i ? 'selected' : '' }}>{{ str_repeat('⭐', $i) }} ({{ $i }})</option>
-                    @endfor
-                </select>
-                @error('rating')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="avatar">Foto Profil (Opsional)</label>
+                    <input type="file" id="avatar" name="avatar" class="input-control" accept="image/*">
+                    <div class="form-hint">* Format JPG, PNG, WEBP. Maksimal 2MB.</div>
+                    @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="avatar">Foto (Opsional)</label>
-                <input type="file" id="avatar" name="avatar" accept="image/*">
-                <div class="form-hint">JPG, PNG · Maks 2MB</div>
-                @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
-
-            <div class="form-group">
-                <div class="checkbox-wrap">
-                    <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}>
-                    <label for="is_active">Tampilkan testimoni ini</label>
+                <div class="form-group">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}>
+                        <label for="is_active">Tampilkan testimoni ini</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-save">
-                    Simpan
-                </button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')">
-                    Batal
-                </button>
+            <div class="modal-actions">
+                <button type="submit" class="btn-bhs-save-modal">Simpan Testimoni</button>
+                <button type="button" class="btn-bhs-cancel-modal" onclick="closeModal('addModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -586,67 +560,63 @@
 <!-- Modal Edit Testimoni -->
 <div class="modal-overlay" id="editModal">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
             <h2>Edit Testimoni</h2>
-            <p>Perbarui informasi testimoni</p>
+            <p>Perbarui rincian data testimoni</p>
         </div>
 
-        <form action="" method="POST" id="editForm" enctype="multipart/form-data">
+        <form action="" method="POST" id="editForm" enctype="multipart/form-data" style="display:flex; flex-direction:column; flex:1; overflow:hidden;">
             @csrf
             @method('PUT')
 
-            <div class="form-group">
-                <label for="edit_name">Nama <span class="required">*</span></label>
-                <input type="text" id="edit_name" name="name" required>
-                @error('name')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit_name">Nama Pelanggan <span class="required">*</span></label>
+                    <input type="text" id="edit_name" name="name" class="input-control" required>
+                    @error('name')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <!-- KOLOM JABATAN UNTUK EDIT JUGA DITAMBAHKAN -->
-            <div class="form-group">
-                <label for="edit_role">Jabatan / Keterangan (Opsional)</label>
-                <input type="text" id="edit_role" name="role" placeholder="Contoh: Anggota Komunitas Mancing">
-                @error('role')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="edit_role">Jabatan / Keterangan (Opsional)</label>
+                    <input type="text" id="edit_role" name="role" class="input-control" placeholder="Contoh: Anggota Komunitas Mancing">
+                    @error('role')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="edit_message">Isi Testimoni <span class="required">*</span></label>
-                <textarea id="edit_message" name="message" required></textarea>
-                @error('message')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="edit_message">Isi Testimoni <span class="required">*</span></label>
+                    <textarea id="edit_message" name="message" class="input-control" required></textarea>
+                    @error('message')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="edit_rating">Rating <span class="required">*</span></label>
-                <select id="edit_rating" name="rating" required>
-                    @for($i = 5; $i >= 1; $i--)
-                        <option value="{{ $i }}">{{ str_repeat('⭐', $i) }} ({{ $i }})</option>
-                    @endfor
-                </select>
-                @error('rating')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="edit_rating">Rating <span class="required">*</span></label>
+                    <select id="edit_rating" name="rating" class="input-control" required>
+                        @for($i = 5; $i >= 1; $i--)
+                            <option value="{{ $i }}">{{ str_repeat('⭐', $i) }} ({{ $i }} Bintang)</option>
+                        @endfor
+                    </select>
+                    @error('rating')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <label for="edit_image">Foto (Opsional)</label>
-                <div id="edit_image_preview" class="image-preview"></div>
-                <input type="file" id="edit_image" name="avatar" accept="image/*" onchange="previewImageTestimonial()">
-                <div class="form-hint">JPG, PNG · Maks 2MB</div>
-                @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
-            </div>
+                <div class="form-group">
+                    <label for="edit_image">Foto Profil</label>
+                    <div id="edit_image_preview" class="image-preview"></div>
+                    <input type="file" id="edit_image" name="avatar" class="input-control" accept="image/*" onchange="previewImageTestimonial()">
+                    <div class="form-hint">Kosongkan jika tidak ingin mengganti foto.</div>
+                    @error('avatar')<div class="form-error">{{ $message }}</div>@enderror
+                </div>
 
-            <div class="form-group">
-                <div class="checkbox-wrap">
-                    <input type="checkbox" id="edit_is_active" name="is_active" value="1">
-                    <label for="edit_is_active">Tampilkan testimoni ini</label>
+                <div class="form-group">
+                    <div class="checkbox-wrap">
+                        <input type="checkbox" id="edit_is_active" name="is_active" value="1">
+                        <label for="edit_is_active">Tampilkan testimoni ini</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-save">
-                    Simpan
-                </button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')">
-                    Batal
-                </button>
+            <div class="modal-actions">
+                <button type="submit" class="btn-bhs-save-modal">Simpan Perubahan</button>
+                <button type="button" class="btn-bhs-cancel-modal" onclick="closeModal('editModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -663,27 +633,26 @@
         document.body.style.overflow = 'auto';
     }
 
-    function openEditTestimonialModal(testimonialId) {
-        const button = event.target.closest('.btn-edit');
+    function openEditTestimonialModal(button) {
         const data = {
             id: button.getAttribute('data-testimonial-id'),
             name: button.getAttribute('data-name'),
-            role: button.getAttribute('data-role'), // Tangkap role
+            role: button.getAttribute('data-role'),
             message: button.getAttribute('data-message').replace(/&quot;/g, '"'),
             rating: button.getAttribute('data-rating'),
             isActive: button.getAttribute('data-is-active'),
             avatar: button.getAttribute('data-avatar')
         };
 
-        document.getElementById('editForm').action = `/admin/testimonials/${testimonialId}`;
+        document.getElementById('editForm').action = `/admin/testimonials/${data.id}`;
         document.getElementById('edit_name').value = data.name;
-        document.getElementById('edit_role').value = data.role || ''; // Masukkan data role
+        document.getElementById('edit_role').value = data.role || '';
         document.getElementById('edit_message').value = data.message;
         document.getElementById('edit_rating').value = data.rating;
         document.getElementById('edit_is_active').checked = data.isActive == 1;
 
         const previewDiv = document.getElementById('edit_image_preview');
-        if (data.avatar) {
+        if (data.avatar && data.avatar !== 'null') {
             previewDiv.innerHTML = `<img src="{{ asset('storage/') }}/${data.avatar}" alt="Preview">`;
         } else {
             previewDiv.innerHTML = '';
@@ -707,19 +676,19 @@
 
     document.querySelectorAll('.modal-overlay').forEach(modal => {
         modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal(this.id);
-            }
+            if (e.target === this) closeModal(this.id);
         });
     });
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-                closeModal(modal.id);
-            });
+            document.querySelectorAll('.modal-overlay.active').forEach(modal => closeModal(modal.id));
         }
     });
+
+    @if($errors->any())
+        document.addEventListener('DOMContentLoaded', () => openModal('addModal'));
+    @endif
 </script>
 
 @endsection
