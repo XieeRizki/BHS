@@ -43,7 +43,7 @@
             min-height: 100vh;
         }
 
-        /* ===== SIDEBAR MENUBAR TANPA IKON (CLEAN & MODERN) ===== */
+        /* ===== SIDEBAR MENUBAR ===== */
         .sidebar {
             width: 270px;
             background: #111827;
@@ -220,16 +220,33 @@
             margin-bottom: 1rem;
         }
 
-        /* Alert */
+        /* Alert Notification Styles with Auto-Dismiss Animations */
         .alert {
             padding: 1rem 1.25rem;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: space-between;
             gap: 0.75rem;
             animation: slideDown 0.3s ease;
             border-left: 4px solid;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            max-height: 120px;
+            overflow: hidden;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .alert.hide-alert {
+            opacity: 0;
+            max-height: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            transform: translateY(-10px);
+            border: none;
         }
 
         @keyframes slideDown {
@@ -238,15 +255,37 @@
         }
 
         .alert-success {
-            background: rgba(16, 185, 129, 0.1);
+            background: #ECFDF5;
             border-left-color: var(--success);
-            color: #047857;
+            border-top: 1px solid #A7F3D0;
+            border-right: 1px solid #A7F3D0;
+            border-bottom: 1px solid #A7F3D0;
+            color: #065F46;
         }
 
         .alert-danger {
-            background: rgba(239, 68, 68, 0.1);
+            background: #FEF2F2;
             border-left-color: var(--danger);
-            color: #7F1D1D;
+            border-top: 1px solid #FCA5A5;
+            border-right: 1px solid #FCA5A5;
+            border-bottom: 1px solid #FCA5A5;
+            color: #991B1B;
+        }
+
+        .alert-close-btn {
+            background: transparent;
+            border: none;
+            color: currentColor;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            padding: 0 0.25rem;
+            line-height: 1;
+        }
+
+        .alert-close-btn:hover {
+            opacity: 1;
         }
 
         /* Topbar Mobile */
@@ -272,7 +311,7 @@
             to { opacity: 1; }
         }
 
-        /* Mobile Drawer Slide In */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .admin-topbar {
                 display: flex;
@@ -436,7 +475,7 @@
         <div class="main-content">
             <div class="content">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger auto-dismiss-alert">
                         <div>
                             <strong>Terjadi kesalahan:</strong>
                             <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
@@ -445,12 +484,14 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <button type="button" class="alert-close-btn" onclick="dismissParentAlert(this)">✕</button>
                     </div>
                 @endif
 
                 @if (session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success auto-dismiss-alert">
                         <span>{{ session('success') }}</span>
+                        <button type="button" class="alert-close-btn" onclick="dismissParentAlert(this)">✕</button>
                     </div>
                 @endif
 
@@ -460,6 +501,7 @@
     </div>
 
     <script>
+        // Drawer Navigation Logic
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebarClose = document.getElementById('sidebarClose');
         const sidebarMenu = document.getElementById('sidebarMenu');
@@ -486,6 +528,27 @@
                 if (window.innerWidth <= 768) {
                     closeSidebar();
                 }
+            });
+        });
+
+        // Auto-Dismiss Notification Logic
+        function dismissParentAlert(btn) {
+            const alert = btn.closest('.alert');
+            if (alert) {
+                alert.classList.add('hide-alert');
+                setTimeout(() => alert.remove(), 500);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.auto-dismiss-alert');
+            alerts.forEach(function (alert) {
+                setTimeout(function () {
+                    alert.classList.add('hide-alert');
+                    setTimeout(function () {
+                        alert.remove();
+                    }, 500);
+                }, 3500); // Otomatis hilang dalam 3.5 detik
             });
         });
     </script>
