@@ -14,6 +14,7 @@
         display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; white-space: nowrap;
     }
     .btn-create:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .btn-create svg { display: block; }
 
     .table-card { background: white; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; }
     .table-responsive { overflow-x: auto; }
@@ -28,12 +29,14 @@
     .slug-cell { font-size: 0.75rem; color: var(--neutral); font-family: monospace; }
     .desc-cell { color: var(--neutral); max-width: 280px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-    .badge { display: inline-block; padding: 0.4rem 0.75rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+    .badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.4rem 0.75rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+    .badge svg { display: block; }
     .badge-active { background: rgba(16, 185, 129, 0.15); color: #047857; }
     .badge-inactive { background: rgba(107, 114, 128, 0.15); color: var(--neutral); }
 
     .action-group { display: flex; gap: 0.5rem; }
-    .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.8rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+    .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.7rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+    .btn-icon svg { display: block; }
     .btn-view { background: rgba(107, 114, 128, 0.1); color: var(--neutral); border-color: rgba(107, 114, 128, 0.2); }
     .btn-view:hover { background: rgba(107, 114, 128, 0.15); }
     .btn-edit { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border-color: rgba(59, 130, 246, 0.2); }
@@ -42,7 +45,8 @@
     .btn-delete:hover { background: rgba(239, 68, 68, 0.15); }
 
     .empty-container { text-align: center; padding: 3rem 1.5rem; }
-    .empty-icon { font-size: 3rem; color: #D1D5DB; margin-bottom: 1rem; }
+    .empty-icon { color: #D1D5DB; margin-bottom: 1rem; display: flex; justify-content: center; }
+    .empty-icon svg { display: block; }
     .empty-text { color: var(--neutral); font-size: 0.95rem; margin: 0 0 1.5rem 0; }
 
     @media (max-width: 768px) {
@@ -59,7 +63,11 @@
         <p class="section-header-desc">Konten "Unit & Layanan" (Hotel, Villa, Food & Beverage, dst) yang tampil di homepage</p>
     </div>
     <a href="{{ route('admin.layanan.create') }}" class="btn-create">
-        <i class="fas fa-plus"></i> Tambah Layanan
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Tambah Layanan
     </a>
 </div>
 
@@ -89,21 +97,48 @@
                         <td class="desc-cell">{{ $item->short_description }}</td>
                         <td>{{ $item->order }}</td>
                         <td>
-                            <span class="badge {{ $item->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $item->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
-                            </span>
+                            @if($item->is_active)
+                                <span class="badge badge-active">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="badge badge-inactive">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"/>
+                                        <line x1="6" y1="6" x2="18" y2="18"/>
+                                    </svg>
+                                    Nonaktif
+                                </span>
+                            @endif
                         </td>
                         <td>
                             <div class="action-group">
                                 <a href="{{ route('layanan.show', $item->slug) }}" target="_blank" class="btn-icon btn-view" title="Lihat halaman detail">
-                                    <i class="fas fa-eye"></i>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
                                 </a>
-                                <a href="{{ route('admin.layanan.edit', $item) }}" class="btn-icon btn-edit">
-                                    <i class="fas fa-edit"></i>
+                                <a href="{{ route('admin.layanan.edit', $item) }}" class="btn-icon btn-edit" title="Edit">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 20h9"/>
+                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                                    </svg>
                                 </a>
                                 <form action="{{ route('admin.layanan.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus layanan ini? Semua foto terkait (gambar utama, galeri, QR, icon) akan ikut terhapus.')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn-icon btn-delete" title="Hapus">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"/>
+                                            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                                            <path d="M10 11v6"/>
+                                            <path d="M14 11v6"/>
+                                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                        </svg>
+                                    </button>
                                 </form>
                             </div>
                         </td>
@@ -112,9 +147,19 @@
                     <tr>
                         <td colspan="6">
                             <div class="empty-container">
-                                <div class="empty-icon">✨</div>
+                                <div class="empty-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2l1.9 5.8a2 2 0 0 0 1.3 1.3L21 11l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 20l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 11l5.8-1.9a2 2 0 0 0 1.3-1.3L12 2Z"/>
+                                    </svg>
+                                </div>
                                 <p class="empty-text">Belum ada layanan</p>
-                                <a href="{{ route('admin.layanan.create') }}" class="btn-create"><i class="fas fa-plus"></i> Tambah Layanan</a>
+                                <a href="{{ route('admin.layanan.create') }}" class="btn-create">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                    Tambah Layanan
+                                </a>
                             </div>
                         </td>
                     </tr>
