@@ -56,25 +56,6 @@
             </div>
           </li>
 
-          <!-- Dropdown: Event -->
-          <li class="relative">
-            <button type="button"
-                    class="menu-toggle px-4 py-2 rounded-xl inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-accent transition focus:outline-none"
-                    aria-expanded="false"
-                    aria-controls="menu-event"
-                    data-menu="event">
-              <span>Event</span>
-              <svg class="w-3.5 h-3.5 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-
-            <div id="menu-event" class="menu-panel absolute left-0 top-full mt-2 w-56 bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden py-2 z-50" role="menu">
-              <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
-                <li><a href="#" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Galatama</a></li>
-                <li><a href="#" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Fishing Community</a></li>
-              </ul>
-            </div>
-          </li>
-
           <!-- Dropdown: Paket Layanan -->
           <li class="relative">
             <button type="button"

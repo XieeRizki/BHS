@@ -65,19 +65,6 @@
         </div>
       </div>
 
-      <!-- Event Accordion -->
-      <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2">
-        <button type="button" class="w-full text-left px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition flex items-center justify-between" data-collapse="event">
-          <span>Event</span>
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        
-        <div class="hidden pl-4 pr-2 space-y-1 mt-1 border-l-2 border-accent/30 ml-4" data-panel="event">
-          <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Galatama</a>
-          <a href="#" class="block px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-accent hover:bg-gray-50 dark:hover:bg-white/5 transition">Fishing Community</a>
-        </div>
-      </div>
-
       <!-- Paket Layanan Accordion -->
       <div class="border-t border-gray-100 dark:border-gray-800/80 pt-2">
         <button type="button" class="w-full text-left px-4 py-3 rounded-xl text-secondary dark:text-white hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition flex items-center justify-between" data-collapse="paket">
