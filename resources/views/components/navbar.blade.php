@@ -32,40 +32,31 @@
           </li>
 
           <!-- Dropdown: Profile -->
-          <li class="relative flex items-center">
-            <a href="{{ route('profile') }}" class="pl-4 pr-1 py-2 rounded-l-xl text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-accent transition duration-200">
-              Profile
+          <li class="relative group">
+            <a href="{{ route('profile') }}" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-accent transition duration-200">
+              <span>Profile</span>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </a>
-            <button type="button"
-                    class="menu-toggle pr-3 pl-1 py-2 rounded-r-xl inline-flex items-center text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-accent transition focus:outline-none"
-                    aria-expanded="false"
-                    aria-controls="menu-profile"
-                    aria-label="Buka submenu Profile"
-                    data-menu="profile">
-              <svg class="w-3.5 h-3.5 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-            </button>
 
-            <div id="menu-profile" class="menu-panel absolute left-0 top-full mt-2 w-64 bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden py-2 z-50" role="menu">
-              <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
-                <li><a href="{{ route('profile') }}#infografis" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Infografis</a></li>
-                <li><a href="{{ route('profile') }}#tentang-bhs" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Tentang BHS</a></li>
-                <li><a href="{{ route('profile') }}#penghargaan" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Penghargaan</a></li>
-                <li><a href="{{ route('profile') }}#liputan-media" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Liputan Media</a></li>
-                <li><a href="{{ route('profile') }}#faq" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">FAQ Pertanyaan</a></li>
-              </ul>
+            <div class="hidden group-hover:block absolute left-0 top-full w-64 pt-1 z-50">
+              <div class="bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl py-2" role="menu">
+                <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
+                  <li><a href="{{ route('profile') }}#infografis" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Infografis</a></li>
+                  <li><a href="{{ route('profile') }}#tentang-bhs" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Tentang BHS</a></li>
+                  <li><a href="{{ route('profile') }}#penghargaan" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Penghargaan</a></li>
+                  <li><a href="{{ route('profile') }}#liputan-media" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">Liputan Media</a></li>
+                  <li><a href="{{ route('profile') }}#faq" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">FAQ Pertanyaan</a></li>
+                </ul>
+              </div>
             </div>
           </li>
 
           <!-- Dropdown: Paket Layanan -->
-          <li class="relative">
-            <button type="button"
-                    class="menu-toggle px-4 py-2 rounded-xl inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-accent transition focus:outline-none"
-                    aria-expanded="false"
-                    aria-controls="menu-paket"
-                    data-menu="paket">
+          <li class="relative group">
+            <span class="px-4 py-2 rounded-xl inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-gray-700 dark:text-gray-200 group-hover:bg-gray-100 dark:group-hover:bg-white/10 group-hover:text-accent transition duration-200 cursor-default select-none">
               <span>Paket Layanan</span>
-              <svg class="w-3.5 h-3.5 transform transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-            </button>
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
 
             @php
                 try {
@@ -78,36 +69,38 @@
                 $navLayananHidden = $navLayananAll->slice($navLayananLimit);
             @endphp
 
-            <div id="menu-paket" class="menu-panel absolute left-0 top-full mt-2 w-72 bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl hidden py-2 max-h-96 overflow-y-auto z-50" role="menu">
-              <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
-                @forelse ($navLayananVisible as $item)
-                    <li>
-                        <a href="{{ route('layanan.show', $item->slug) }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
-                            {{ $item->title }}
-                        </a>
-                    </li>
-                @empty
-                    <li><span class="block px-4 py-2.5 text-xs text-gray-400 italic">Belum ada layanan</span></li>
-                @endforelse
+            <div class="hidden group-hover:block absolute left-0 top-full w-72 pt-1 z-50">
+              <div class="bg-white dark:bg-[#161616] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl py-2 max-h-96 overflow-y-auto" role="menu">
+                <ul class="flex flex-col text-xs font-bold uppercase tracking-wider">
+                  @forelse ($navLayananVisible as $item)
+                      <li>
+                          <a href="{{ route('layanan.show', $item->slug) }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+                              {{ $item->title }}
+                          </a>
+                      </li>
+                  @empty
+                      <li><span class="block px-4 py-2.5 text-xs text-gray-400 italic">Belum ada layanan</span></li>
+                  @endforelse
 
-                @if ($navLayananHidden->isNotEmpty())
-                    <ul id="layananHiddenList" class="hidden flex-col">
-                        @foreach ($navLayananHidden as $item)
-                            <li>
-                                <a href="{{ route('layanan.show', $item->slug) }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
-                                    {{ $item->title }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                  @if ($navLayananHidden->isNotEmpty())
+                      <ul id="layananHiddenList" class="hidden flex-col">
+                          @foreach ($navLayananHidden as $item)
+                              <li>
+                                  <a href="{{ route('layanan.show', $item->slug) }}" class="block px-4 py-2.5 text-gray-700 dark:text-gray-300 hover:bg-amber-50 dark:hover:bg-accent/10 hover:text-accent transition">
+                                      {{ $item->title }}
+                                  </a>
+                              </li>
+                          @endforeach
+                      </ul>
 
-                    <li class="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
-                        <button type="button" id="toggleLayananBtn" onclick="toggleLayananList()" class="w-full text-left px-4 py-2.5 font-extrabold text-accent hover:bg-amber-50 dark:hover:bg-accent/10 transition">
-                            Lihat Semua Layanan ({{ $navLayananHidden->count() }} lagi)
-                        </button>
-                    </li>
-                @endif
-              </ul>
+                      <li class="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                          <button type="button" id="toggleLayananBtn" onclick="toggleLayananList()" class="w-full text-left px-4 py-2.5 font-extrabold text-accent hover:bg-amber-50 dark:hover:bg-accent/10 transition">
+                              Lihat Semua Layanan ({{ $navLayananHidden->count() }} lagi)
+                          </button>
+                      </li>
+                  @endif
+                </ul>
+              </div>
             </div>
           </li>
 
@@ -148,46 +141,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const toggles = document.querySelectorAll('.menu-toggle');
-
-      function closeAllMenus(except = null) {
-        document.querySelectorAll('.menu-panel').forEach(panel => {
-          if (panel !== except) panel.classList.add('hidden');
-        });
-        toggles.forEach(btn => btn.setAttribute('aria-expanded','false'));
-      }
-
-      toggles.forEach(btn => {
-        const menuKey = btn.dataset.menu;
-        const panel = document.querySelector(`#menu-${menuKey}`);
-        btn.addEventListener('click', function (e) {
-          const isHidden = panel.classList.contains('hidden');
-          if (isHidden) {
-            closeAllMenus(panel);
-            panel.classList.remove('hidden');
-            btn.setAttribute('aria-expanded','true');
-            const first = panel.querySelector('a');
-            if (first) first.focus();
-          } else {
-            panel.classList.add('hidden');
-            btn.setAttribute('aria-expanded','false');
-          }
-          e.stopPropagation();
-        });
-
-        document.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Escape') {
-            panel.classList.add('hidden');
-            btn.setAttribute('aria-expanded','false');
-          }
-        });
-      });
-
-      document.addEventListener('click', function (e) {
-        const inside = e.target.closest('.menu-panel') || e.target.closest('.menu-toggle');
-        if (!inside) closeAllMenus();
-      });
-
       document.getElementById('mobileMenuBtn')?.addEventListener('click', function () {
         window.dispatchEvent(new CustomEvent('toggleMobileMenu'));
       });
