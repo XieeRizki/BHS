@@ -3,105 +3,271 @@
 
 @section('content')
 <style>
-    .admin-header { margin-bottom: 2rem; }
-    .admin-header h1 { font-size: 1.75rem; font-weight: 700; color: var(--secondary); margin-bottom: 0.25rem; }
-    .admin-header p { font-size: 0.9rem; color: var(--neutral); }
-
-    .form-card { background: white; padding: 2rem; border-radius: 10px; border: 1px solid var(--border); }
-    .form-group { margin-bottom: 1.5rem; }
-    .form-label { display: block; font-weight: 600; color: var(--secondary); margin-bottom: 0.5rem; font-size: 0.95rem; }
-    .form-control { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: var(--secondary); }
-    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1); }
-
-    .switch-container { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
-    .switch-container input[type="checkbox"] { width: 1.25rem; height: 1.25rem; accent-color: var(--primary); }
-
-    .btn-submit {
-        background-color: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem;
-        border-radius: 8px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+    /* Header Page */
+    .admin-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FFFFFF;
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     }
-    .btn-submit:hover { background-color: #ea580c; }
-    .btn-cancel {
-        background: var(--border); color: var(--secondary); border: none; padding: 0.75rem 1.5rem;
-        border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+
+    .admin-page-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #111827;
+        margin: 0;
+        text-transform: uppercase;
     }
-    .btn-submit svg, .btn-cancel svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .admin-page-subtitle {
+        font-size: 0.825rem;
+        color: #6B7280;
+        margin-top: 0.25rem;
+        font-weight: 500;
+    }
+
+    .btn-bhs-cancel {
+        background: #FFFFFF;
+        color: #4B5563;
+        font-weight: 700;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        border: 1px solid #D1D5DB;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.2s ease;
+    }
+
+    .btn-bhs-cancel:hover {
+        background: #F9FAFB;
+        color: #111827;
+    }
+
+    /* Form Container */
+    .bhs-form-card {
+        background: #FFFFFF;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        padding: 1.75rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .form-section-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #111827;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #F3F4F6;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: #374151;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.4rem;
+    }
+
+    .form-group label .required {
+        color: #EF4444;
+    }
+
+    .input-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        background: #FFFFFF;
+        border: 1px solid #D1D5DB;
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 0.875rem;
+        color: #111827;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+
+    .input-control:focus {
+        outline: none;
+        border-color: #EAB308;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.15);
+    }
+
+    textarea.input-control {
+        resize: vertical;
+    }
+
+    .input-hint {
+        font-size: 0.75rem;
+        color: #6B7280;
+        margin-top: 0.35rem;
+    }
+
+    .grid-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+
+    .placement-box {
+        background: #F9FAFB;
+        border: 1px solid #E5E7EB;
+        border-radius: 14px;
+        padding: 1.25rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .switch-container {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 0.6rem;
+    }
+
+    .switch-container input[type="checkbox"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        accent-color: #EAB308;
+        cursor: pointer;
+    }
+
+    .switch-container label {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #374151;
+        cursor: pointer;
+        text-transform: none;
+        font-weight: 600;
+    }
+
+    .btn-bhs-save {
+        background: #EAB308;
+        color: #0A0A0A;
+        font-weight: 900;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.9rem 1.5rem;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(234, 179, 8, 0.25);
+    }
+
+    .btn-bhs-save:hover {
+        background: #CA8A04;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(234, 179, 8, 0.35);
+    }
+
+    @media (max-width: 768px) {
+        .grid-2col { grid-template-columns: 1fr; }
+    }
 </style>
 
-<div class="admin-header">
-    <h1>Edit Konten</h1>
-    <p>{{ $post->title }}</p>
+<div class="admin-page-header">
+    <div>
+        <h1 class="admin-page-title">Edit Konten</h1>
+        <p class="admin-page-subtitle">Perbarui data: <strong>{{ $post->title }}</strong></p>
+    </div>
+    <a href="{{ route('admin.informasi.index') }}" class="btn-bhs-cancel">
+        Kembali
+    </a>
 </div>
 
-<div class="form-card">
+<div class="bhs-form-card">
     <form action="{{ route('admin.informasi.update', $post) }}" method="POST" enctype="multipart/form-data">
-        @csrf @method('PUT')
+        @csrf 
+        @method('PUT')
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem;">
+        <div class="form-section-title">Informasi Utama</div>
+
+        <div class="grid-2col">
             <div class="form-group">
-                <label class="form-label">Tipe Konten</label>
-                <select name="type" class="form-control" required>
+                <label>Tipe Konten <span class="required">*</span></label>
+                <select name="type" class="input-control" required>
                     <option value="berita" {{ $post->type === 'berita' ? 'selected' : '' }}>Berita Kegiatan</option>
                     <option value="artikel" {{ $post->type === 'artikel' ? 'selected' : '' }}>Artikel</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Kategori</label>
-                <select name="category_id" class="form-control" required>
+                <label>Kategori <span class="required">*</span></label>
+                <select name="category_id" class="input-control" required>
                     <option value="">-- Pilih Kategori --</option>
                     @foreach($categories as $kategori)
-                        <option value="{{ $kategori->id }}" {{ $post->category_id == $kategori->id ? 'selected' : '' }}>{{ $kategori->name }}</option>
+                        <option value="{{ $kategori->id }}" {{ $post->category_id == $kategori->id ? 'selected' : '' }}>
+                            {{ $kategori->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="form-label">Judul</label>
-            <input type="text" name="title" value="{{ old('title', $post->title) }}" class="form-control" required>
+            <label>Judul <span class="required">*</span></label>
+            <input type="text" name="title" value="{{ old('title', $post->title) }}" class="input-control" required>
         </div>
 
         <div class="form-group">
-            <label class="form-label">Gambar Thumbnail (Cover)</label>
+            <label>Gambar Thumbnail (Cover)</label>
             @if($post->cover_image)
                 <div style="margin-bottom: 0.75rem;">
-                    <img src="{{ asset('storage/'.$post->cover_image) }}" style="width: 120px; height: 90px; object-fit: cover; border-radius: 8px;">
+                    <img src="{{ asset('storage/'.$post->cover_image) }}" style="width: 120px; height: 90px; object-fit: cover; border-radius: 12px; border: 1px solid #E5E7EB;">
                 </div>
             @endif
-            <input type="file" name="cover_image" class="form-control" accept="image/*">
-            <p class="text-xs text-gray-500 mt-1.5">Kosongkan kalau tidak mau ganti gambar. Maks 2MB.</p>
+            <input type="file" name="cover_image" class="input-control" accept="image/*">
+            <p class="input-hint">Kosongkan jika tidak ingin mengganti foto cover. Maks. 2MB.</p>
         </div>
 
         <div class="form-group">
-            <label class="form-label">Kutipan Singkat (Excerpt)</label>
-            <textarea name="excerpt" class="form-control" rows="2">{{ old('excerpt', $post->excerpt) }}</textarea>
+            <label>Kutipan Singkat (Excerpt)</label>
+            <textarea name="excerpt" class="input-control" rows="2">{{ old('excerpt', $post->excerpt) }}</textarea>
         </div>
 
         <div class="form-group">
-            <label class="form-label">Konten Lengkap</label>
-            <textarea name="content" class="form-control" rows="8" required>{{ old('content', $post->content) }}</textarea>
+            <label>Konten Lengkap <span class="required">*</span></label>
+            <textarea name="content" class="input-control" rows="8" required>{{ old('content', $post->content) }}</textarea>
         </div>
 
-        <div class="form-group p-4 bg-gray-50 border border-gray-200 rounded-lg" style="padding:1rem; background:#F9FAFB; border:1px solid var(--border); border-radius:8px;">
-            <label class="form-label">Penempatan Khusus di Halaman Informasi</label>
+        <div class="placement-box">
+            <div style="font-weight: 800; font-size: 0.85rem; color: #111827; text-transform: uppercase;">Penempatan Khusus Halaman Informasi</div>
+            <p class="input-hint" style="margin-bottom: 0.75rem;">Atur posisi tampil khusus pada halaman informasi.</p>
+
             <div class="switch-container">
                 <input type="checkbox" id="is_spotlight" name="is_spotlight" value="1" {{ old('is_spotlight', $post->is_spotlight) ? 'checked' : '' }}>
-                <label for="is_spotlight">Jadikan <b>Spotlight</b></label>
+                <label for="is_spotlight">Jadikan <b>Spotlight</b> (Sidebar Atas)</label>
             </div>
+
             <div class="switch-container">
                 <input type="checkbox" id="is_featured" name="is_featured" value="1" {{ old('is_featured', $post->is_featured) ? 'checked' : '' }}>
-                <label for="is_featured">Jadikan <b>Menarik Tuk Disimak</b></label>
+                <label for="is_featured">Jadikan <b>Menarik Tuk Disimak</b> (Sidebar Bawah)</label>
             </div>
         </div>
 
         <div style="display:flex; gap:0.75rem; margin-top:1.5rem;">
-            <button type="submit" class="btn-submit">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-8H7v8M7 3v5h8"/></svg>
+            <button type="submit" class="btn-bhs-save">
                 Simpan Perubahan
             </button>
-            <a href="{{ route('admin.informasi.index') }}" class="btn-cancel">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            <a href="{{ route('admin.informasi.index') }}" class="btn-bhs-cancel" style="justify-content: center; width: 140px;">
                 Batal
             </a>
         </div>
