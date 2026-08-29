@@ -379,7 +379,7 @@
 
                 <div class="menu-category-label">Kelola Konten</div>
 
-                <a href="{{ route('admin.hero.edit') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.hero.index') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
                     Hero Banner
                 </a>
 
