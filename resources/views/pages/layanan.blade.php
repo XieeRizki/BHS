@@ -54,8 +54,8 @@
 
             @foreach ($services as $svc)
                 <button type="button" class="group p-5 rounded-2xl bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 hover:border-accent dark:hover:border-accent shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center">
-                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-accent/40 bg-gray-100 dark:bg-[#222] mb-3 group-hover:scale-110 transition-transform p-0.5 shrink-0">
-                        <img src="{{ !empty($svc['image']) ? asset('storage/'.$svc['image']) : asset('images/bhs2.jpg') }}" alt="{{ $svc['name'] }}" class="w-full h-full object-cover rounded-full">
+                    <div class="w-14 h-14 md:w-16 md:h-16 overflow-hidden mb-3 group-hover:scale-110 transition-transform shrink-0">
+                        <img src="{{ !empty($svc['image']) ? asset('storage/'.$svc['image']) : asset('images/bhs2.jpg') }}" alt="{{ $svc['name'] }}" class="w-full h-full object-contain">
                     </div>
                     <span class="text-xs md:text-sm font-extrabold text-secondary dark:text-white uppercase tracking-wider">
                         {{ $svc['name'] }}
