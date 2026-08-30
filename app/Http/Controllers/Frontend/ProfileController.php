@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use App\Models\MediaCoverage;
 use App\Models\Award;
+use App\Models\Stat;
+
 
 class ProfileController extends Controller
 {
@@ -19,13 +21,21 @@ class ProfileController extends Controller
             'benefits' => collect(),
         ];
 
-        $stats = [
-            ['value' => '3300+', 'label' => 'Pemancing', 'icon' => 'angler'],
-            ['value' => '99+',   'label' => 'Event Galatama', 'icon' => 'fish'],
-            ['value' => '120+',  'label' => 'Komunitas', 'icon' => 'community'],
-            ['value' => '60x20', 'label' => 'Kolam', 'icon' => 'pond'],
-            ['value' => '7+',    'label' => 'Tahun', 'icon' => 'badge'],
-        ];
+        try {
+            $stats = Stat::active()->ordered()->get();
+
+            if ($stats->isEmpty()) {
+                throw new \Exception('No stat data');
+            }
+        } catch (\Throwable $e) {
+            $stats = collect([
+                ['value' => '3300+', 'label' => 'Pemancing', 'icon' => 'angler'],
+                ['value' => '99+',   'label' => 'Event Galatama', 'icon' => 'fish'],
+                ['value' => '120+',  'label' => 'Komunitas', 'icon' => 'community'],
+                ['value' => '60x20', 'label' => 'Kolam', 'icon' => 'pond'],
+                ['value' => '7+',    'label' => 'Tahun', 'icon' => 'badge'],
+            ]);
+        }
 
         
         # Penghargaan

@@ -434,6 +434,10 @@
                     Informasi & Berita
                 </a>
 
+                <a href="{{ route('admin.stats.index') }}" class="{{ request()->routeIs('admin.stats.*') ? 'active' : '' }}">
+                    <i class="fas fa-chart-bar"></i> Infografis
+                </a>
+
                 <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
                     Blog
                 </a>

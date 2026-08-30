@@ -78,26 +78,20 @@
 
         <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
             @foreach ($stats as $stat)
-                <div class="flex flex-col items-center text-center gap-3">
-                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-accent/10 dark:bg-accent/15 flex items-center justify-center text-primary dark:text-accent">
-                        @php
-                            $iconFile = match ($stat['icon']) {
-                                'angler' => 'cowboy.png',
-                                'fish' => 'fishing.png',
-                                'community' => 'community.png',
-                                'pond' => 'aquaculture.png',
-                                'badge' => 'authentic.png',
-                                default => 'community.png',
-                            };
-                        @endphp
-                        <img src="{{ asset('images/' . $iconFile) }}" alt="{{ $stat['label'] }}" class="w-11 h-11 md:w-14 md:h-14 object-contain dark:invert dark:brightness-0 dark:contrast-200" />
-                    </div>
-                    <div>
-                        <div class="text-xl md:text-2xl font-extrabold text-secondary dark:text-light">{{ $stat['value'] }}</div>
-                        <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400">{{ $stat['label'] }}</div>
-                    </div>
+            <div class="flex flex-col items-center text-center gap-3">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-accent/10 dark:bg-accent/15 flex items-center justify-center overflow-hidden">
+                    @if(!empty($stat['image']))
+                        <img src="{{ asset('storage/' . $stat['image']) }}" alt="{{ $stat['title'] ?? $stat['label'] }}" class="w-full h-full object-cover rounded-full" />
+                    @else
+                        <img src="{{ asset('images/community.png') }}" alt="{{ $stat['title'] ?? $stat['label'] }}" class="w-11 h-11 md:w-14 md:h-14 object-contain dark:invert dark:brightness-0 dark:contrast-200" />
+                    @endif
                 </div>
-            @endforeach
+                <div>
+                    <div class="text-xl md:text-2xl font-extrabold text-secondary dark:text-light">{{ $stat['value'] }}</div>
+                    <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400">{{ $stat['title'] ?? $stat['label'] }}</div>
+                </div>
+            </div>
+        @endforeach
         </div>
     </div>
 </section>

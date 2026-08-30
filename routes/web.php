@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\MediaCoverageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\AwardController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
+use App\Http\Controllers\Admin\StatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,9 +127,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('faq', FaqController::class)->except(['show', 'create', 'edit']);
     Route::resource('awards', AwardController::class)->except(['show', 'create', 'edit']);
 
-    // --------------------------------------------------
-    // Layanan (Unit & Layanan: Hotel, Villa, Food & Beverage, dst)
-    // --------------------------------------------------
+    
     Route::resource('layanan', AdminLayananController::class)
         ->except(['show'])
         ->parameters(['layanan' => 'layanan:id']);
@@ -137,4 +136,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::post('/layanan/{layanan}/gallery-photo', [AdminLayananController::class, 'storeGalleryPhoto'])->name('layanan.gallery.store');
     Route::delete('/layanan/{layanan}/gallery-photo/{gallery}', [AdminLayananController::class, 'destroyGalleryPhoto'])->name('layanan.gallery.destroy');
+
+    Route::resource('stats', StatController::class)->except(['show', 'create', 'edit']);
 });
