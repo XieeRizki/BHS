@@ -8,6 +8,7 @@ use App\Models\MediaCoverage;
 use App\Models\Testimonial;
 use App\Models\Layanan;
 use Carbon\Carbon;
+use App\Models\Facility;
 
 class HomeController extends Controller
 {
@@ -49,13 +50,21 @@ class HomeController extends Controller
         $aboutVideoUrl = 'https://www.youtube.com/watch?v=TK3PaH0ZAyY';
 
         // FACILITIES
-        $facilities = collect([
-            (object)['name' => 'Kolam Pemancingan', 'description' => 'Kolam luas dan terawat', 'image' => null, 'icon' => '🎣'],
-            (object)['name' => 'Villa Kayu', 'description' => 'Villa nyaman untuk keluarga', 'image' => null, 'icon' => '🏡'],
-            (object)['name' => 'Resto & Cafe', 'description' => 'Makanan lezat & kopi', 'image' => null, 'icon' => '🍽️'],
-            (object)['name' => 'Meeting Room', 'description' => 'Ruang pertemuan serbaguna', 'image' => null, 'icon' => '🏛️'],
-            (object)['name' => 'Hotel BHS', 'description' => 'Penginapan dekat lokasi', 'image' => null, 'icon' => '🏨'],
-        ]);
+        try {
+    $facilities = Facility::active()->ordered()->get();
+
+    if ($facilities->isEmpty()) {
+        throw new \Exception('No facility data');
+    }
+        } catch (\Throwable $e) {
+            $facilities = collect([
+                (object)['title' => 'Kolam Pemancingan Utama', 'description' => 'Kolam luas untuk lomba & rekreasi.', 'image' => null],
+                (object)['title' => 'Villa Kayu Estetik', 'description' => 'Penginapan nyaman untuk keluarga.', 'image' => null],
+                (object)['title' => 'Resto & Cafe', 'description' => 'Menu lokal & kopi spesial.', 'image' => null],
+                (object)['title' => 'Area Parkir Luas', 'description' => 'Aman & muat banyak kendaraan.', 'image' => null],
+                (object)['title' => 'Toilet & Musholla', 'description' => 'Bersih dan mudah diakses.', 'image' => null],
+            ]);
+        }
 
         // PACKAGES (dipakai form reservasi)
         $packages = collect([

@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\InformasiController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ReservationController;
 
+
 // ================= ADMIN =================
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\AwardController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\Admin\StatController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -117,7 +120,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/kategori', [CategoryController::class, 'store'])->name('kategori.store');
     Route::delete('/kategori/{kategori}', [CategoryController::class, 'destroy'])->name('kategori.destroy');
 
-    Route::resource('facility', FacilityController::class)->except(['show']);
+    Route::resource('facilities', FacilityController::class)->except(['show', 'create', 'edit']);
     Route::resource('gallery', AdminGalleryController::class)->except(['show']);
     Route::resource('packages', PackageController::class)->except(['show']);
     Route::resource('testimonials', TestimonialController::class)->except(['show']);

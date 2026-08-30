@@ -426,8 +426,8 @@
                     Layanan
                 </a>
 
-                <a href="{{ route('admin.facility.index') }}" class="{{ request()->routeIs('admin.facility.*') ? 'active' : '' }}">
-                    Fasilitas
+                <a href="{{ route('admin.facilities.index') }}" class="{{ request()->routeIs('admin.facilities.*') ? 'active' : '' }}">
+                    <i class="fas fa-swimming-pool"></i> Fasilitas
                 </a>
 
                 <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">

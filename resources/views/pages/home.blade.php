@@ -132,64 +132,48 @@
                 <h3 class="text-2xl md:text-3xl font-bold text-secondary dark:text-light">Lengkap, Asri & Nyaman</h3>
             </div>
 
+            @php
+                $featuredFacility = $facilities->first();
+                $otherFacilities = $facilities->skip(1)->take(4);
+            @endphp
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="relative lg:col-span-2 h-[420px] rounded-2xl overflow-hidden shadow-lg flex items-end p-8 bg-gray-100 dark:bg-[#212121]" data-aos="fade-right" data-aos-duration="800">
-                    <img src="{{ asset('images/bhs2.jpg') }}"
-                         alt="Kolam Pemancingan" class="absolute inset-0 w-full h-full object-cover opacity-80">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div class="relative z-10 text-white">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div>
-                                <h4 class="text-2xl font-bold">Kolam Pemancingan Utama</h4>
-                                <p class="text-sm text-[#EDEDED]">Kolam luas untuk lomba & rekreasi.</p>
+                {{-- Foto besar --}}
+                @if($featuredFacility)
+                    <div class="lg:col-span-2 relative rounded-3xl overflow-hidden shadow-xl h-[400px] md:h-[460px] group">
+                        <img src="{{ $featuredFacility->image ? asset('storage/'.$featuredFacility->image) : asset('images/bhs2.jpg') }}"
+                            alt="{{ $featuredFacility->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <h3 class="text-xl md:text-2xl font-extrabold mb-1">{{ $featuredFacility->title }}</h3>
+                            <p class="text-sm md:text-base text-gray-200">{{ $featuredFacility->description }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                {{-- List kecil di kanan --}}
+                <div class="flex flex-col gap-4">
+                    @foreach($otherFacilities as $facility)
+                        <div class="flex items-center gap-4 bg-white dark:bg-[#161616] rounded-xl p-4 shadow-sm">
+                            <div class="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-[#212121]">
+                                <img src="{{ $facility->image ? asset('storage/'.$facility->image) : asset('images/bhs2.jpg') }}" alt="{{ $facility->title }}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-semibold text-base text-secondary dark:text-light truncate">{{ $facility->title }}</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">{{ $facility->description }}</p>
                             </div>
                         </div>
-                        <p class="text-gray-200 max-w-xl">Area terawat, bibit ikan pilihan, dan fasilitas pendukung untuk event komunitas & keluarga.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 lg:h-[420px]">
-                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="100">
-                        <div class="w-28 sm:w-32 flex-shrink-0">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Villa Kayu Estetik" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-col justify-center p-4">
-                            <h4 class="font-bold text-secondary dark:text-light">Villa Kayu Estetik</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Penginapan nyaman untuk keluarga.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="200">
-                        <div class="w-28 sm:w-32 flex-shrink-0">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Resto & Cafe" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-col justify-center p-4">
-                            <h4 class="font-bold text-secondary dark:text-light">Resto & Cafe</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Menu lokal & kopi spesial.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="300">
-                        <div class="w-28 sm:w-32 flex-shrink-0">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Area Parkir Luas" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-col justify-center p-4">
-                            <h4 class="font-bold text-secondary dark:text-light">Area Parkir Luas</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Aman & muat banyak kendaraan.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-stretch bg-white dark:bg-[#212121] border border-gray-200/60 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" data-aos="fade-left" data-aos-delay="400">
-                        <div class="w-28 sm:w-32 flex-shrink-0">
-                            <img src="{{ asset('images/bhs2.jpg') }}" alt="Toilet & Musholla" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-col justify-center p-4">
-                            <h4 class="font-bold text-secondary dark:text-light">Toilet & Musholla</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-300">Bersih dan mudah diakses.</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+
+            @if($facilities->count() > 5)
+                <div class="mt-8 text-center">
+                    <a href="{{ route('facilities') }}" class="inline-block px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-xl hover:bg-accent-dark transition">
+                        Lihat Semua Fasilitas
+                    </a>
+                </div>
+            @endif
 
             <div class="mt-8 text-center" data-aos="zoom-in">
                 <a href="#paket-layanan" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition hover:scale-105 duration-300">
