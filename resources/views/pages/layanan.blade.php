@@ -126,8 +126,8 @@
 
             <div id="article-viewport" class="overflow-hidden w-full py-4">
                 <div id="article-track" class="flex gap-6 transition-transform duration-500 ease-out">
-                    @forelse ($layanan->showcase_items ?? [] as $item)
-                        <div class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    @forelse ($layanan->items as $item)
+                        <a href="{{ route('layanan-item.show', [$layanan, $item]) }}" class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                             <div>
                                 <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
                                     <img src="{{ !empty($item['image']) ? asset('storage/'.$item['image']) : asset('images/bhs2.jpg') }}" alt="{{ $item['name'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -148,7 +148,7 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     @empty
                         <p class="text-sm text-gray-500 italic px-1">Belum ada item ditambahkan.</p>
                     @endforelse

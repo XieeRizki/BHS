@@ -74,4 +74,9 @@ class Layanan extends Model
     {
         return $this->hasMany(LayananGallery::class)->orderBy('order')->orderBy('id');
     }
+
+    public function items()
+    {
+    return $this->hasMany(LayananItem::class)->orderBy('order')->orderBy('id');
+    }
 }

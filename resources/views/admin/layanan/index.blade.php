@@ -251,6 +251,7 @@
         <h1 class="admin-page-title">Kelola Layanan</h1>
         <p class="admin-page-subtitle">Konten "Unit & Layanan" (Hotel, Villa, Food & Beverage, dst) yang tampil di homepage BHS</p>
     </div>
+    
     <a href="{{ route('admin.layanan.create') }}" class="btn-bhs-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"/>
@@ -311,6 +312,11 @@
                                         <circle cx="12" cy="12" r="3"/>
                                     </svg>
                                 </a>
+
+                                <a href="{{ route('admin.layanan-item.index', $item) }}" class="btn-icon btn-view" title="Kelola Item/Paket">
+                                    <i class="fas fa-boxes"></i>
+                                </a>
+
                                 <a href="{{ route('admin.layanan.edit', $item) }}" class="btn-icon btn-edit" title="Edit Layanan">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 20h9"/>
