@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Balong Hardi Sumedang - Tempat Pemancingan')</title>
 
+    {{-- Favicon Publik --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/logo_bhs.jpg') }}">
     <!-- Anti-flash: set class 'dark' SEBELUM Tailwind CDN & body render -->
     <script>
         (function () {

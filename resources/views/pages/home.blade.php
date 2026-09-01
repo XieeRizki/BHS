@@ -14,7 +14,7 @@
                     <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:{{ $index === 0 ? '1' : '0' }};" data-slide-index="{{ $index }}">
                         <img src="{{ asset('storage/' . $img->image) }}"
                              alt="{{ $hero->title ?? 'Balong Hardi Sumedang' }}"
-                             class="absolute inset-0 w-full h-full object-cover opacity-70">
+                             class="absolute inset-0 w-full h-full object-cover opacity-85">
                     </div>
                 @endforeach
             @elseif(isset($hero) && $hero->image)
@@ -22,31 +22,32 @@
                 <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
                     <img src="{{ asset('storage/' . $hero->image) }}"
                          alt="{{ $hero->title ?? 'Balong Hardi Sumedang' }}"
-                         class="absolute inset-0 w-full h-full object-cover opacity-70">
+                         class="absolute inset-0 w-full h-full object-cover opacity-85">
                 </div>
             @else
                 {{-- Default bawaan kalau database kosong --}}
                 <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out" style="opacity:1;" data-slide-index="0">
                     <img src="{{ asset('images/banner1.jpeg') }}"
                          alt="Kolam Pemancingan Balong Hardi Sumedang"
-                         class="absolute inset-0 w-full h-full object-cover opacity-70">
+                         class="absolute inset-0 w-full h-full object-cover opacity-85">
                 </div>
             @endif
 
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/85 via-[#0A0A0A]/60 to-transparent"></div>
+            {{-- Gradient Hitam Awal (Opasitas Dikurangi Agar Gambar Terlihat Cerah) --}}
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/60 via-[#0A0A0A]/30 to-transparent"></div>
         </div>
 
         <div class="container-max relative z-10 w-full py-24 md:py-32">
             <div class="max-w-3xl text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
-                <span class="inline-block px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 text-sm font-semibold text-accent">Tempat Memancing Premium</span>
+                <!-- <span class="inline-block px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full mb-6 text-sm font-semibold text-accent">Tempat Memancing Premium</span> -->
 
                 {{-- Judul Dinamis --}}
-                <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
+                <h1 class="text-3xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-md">
                     {{ $hero->title ?? 'Selamat Datang di Balong Hardi Sumedang' }}
                 </h1>
 
                 {{-- Subtitle Dinamis --}}
-                <p class="text-lg md:text-xl text-[#EDEDED] mb-8">
+                <p class="text-lg md:text-xl text-[#EDEDED] mb-8 drop-shadow-sm">
                     {{ $hero->subtitle ?? 'Nikmati pengalaman memancing & rekreasi keluarga dengan nuansa coklat-keemasan — asri, nyaman, dan penuh layanan.' }}
                 </p>
 
@@ -129,7 +130,7 @@
         <div class="container-max">
             <div class="text-center mb-10" data-aos="fade-up">
                 <p class="text-accent font-bold uppercase tracking-wider mb-2">Fasilitas Kami</p>
-                <h3 class="text-2xl md:text-3xl font-bold text-secondary dark:text-light">Lengkap, Asri & Nyaman</h3>
+                <h3 class="text-2xl md:text-3xl font-bold text-secondary dark:text-light">Lengkap, Modern, Asri, & Nyaman</h3>
             </div>
 
             @php
@@ -167,17 +168,13 @@
                 </div>
             </div>
 
-            @if($facilities->count() > 5)
-                <div class="mt-8 text-center">
-                    <a href="{{ route('facilities') }}" class="inline-block px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-xl hover:bg-accent-dark transition">
-                        Lihat Semua Fasilitas
-                    </a>
-                </div>
-            @endif
-
-            <div class="mt-8 text-center" data-aos="zoom-in">
-                <a href="#paket-layanan" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-lg shadow-md hover:bg-accent-dark hover:shadow-lg transition hover:scale-105 duration-300">
-                    Lihat Paket Layanan
+            {{-- Tombol Aksi Fasilitas Rapi & Presisi --}}
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" data-aos="zoom-in">
+                <a href="{{ route('facilities') }}" class="inline-flex items-center gap-2 px-7 py-3.5 bg-accent text-[#0A0A0A] font-extrabold rounded-xl shadow-md hover:bg-accent-dark transition hover:scale-105 duration-300">
+                    Lihat Semua Fasilitas
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
                 </a>
             </div>
         </div>
