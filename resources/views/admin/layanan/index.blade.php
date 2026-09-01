@@ -185,8 +185,21 @@
         border-color: #E5E7EB;
     }
     .btn-view:hover {
-        background: #E5E7EB;
-        color: #111827;
+        background: #111827;
+        color: #FFFFFF;
+        border-color: #111827;
+    }
+
+    /* Style khusus tombol Kelola Item */
+    .btn-item {
+        background: #FEF3C7;
+        color: #D97706;
+        border-color: #FDE68A;
+    }
+    .btn-item:hover {
+        background: #D97706;
+        color: #FFFFFF;
+        border-color: #D97706;
     }
 
     .btn-edit {
@@ -271,7 +284,7 @@
                     <th>Deskripsi Singkat</th>
                     <th>Urutan</th>
                     <th>Status</th>
-                    <th style="width: 140px; text-align: center;">Aksi</th>
+                    <th style="width: 160px; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -306,6 +319,7 @@
                         </td>
                         <td>
                             <div class="action-group">
+                                {{-- 1. Tombol Lihat Detail Publik --}}
                                 <a href="{{ route('layanan.show', $item->slug) }}" target="_blank" class="btn-icon btn-view" title="Lihat Halaman Detail">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/>
@@ -313,16 +327,24 @@
                                     </svg>
                                 </a>
 
-                                <a href="{{ route('admin.layanan-item.index', $item) }}" class="btn-icon btn-view" title="Kelola Item/Paket">
-                                    <i class="fas fa-boxes"></i>
+                                {{-- 2. TOMBOL KELOLA ITEM / PAKET (DENGAN SVG ICON) --}}
+                                <a href="{{ route('admin.layanan-item.index', $item) }}" class="btn-icon btn-item" title="Kelola Item/Paket">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="4" y1="6" x2="20" y2="6"/>
+                                        <line x1="4" y1="12" x2="20" y2="12"/>
+                                        <line x1="4" y1="18" x2="20" y2="18"/>
+                                    </svg>
                                 </a>
 
+                                {{-- 3. Tombol Edit Layanan --}}
                                 <a href="{{ route('admin.layanan.edit', $item) }}" class="btn-icon btn-edit" title="Edit Layanan">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M12 20h9"/>
                                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
                                     </svg>
                                 </a>
+
+                                {{-- 4. Tombol Hapus Layanan --}}
                                 <form action="{{ route('admin.layanan.destroy', $item) }}" method="POST" onsubmit="return confirm('Yakin hapus layanan ini? Semua foto terkait (gambar utama, galeri, QR, icon) akan ikut terhapus.')" style="margin: 0;">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn-icon btn-delete" title="Hapus">
