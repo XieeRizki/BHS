@@ -92,7 +92,7 @@
                                     <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-0.5">Layanan Lainnya ( Wisata Pemancingan, Villa, Hotel, Resto & Cafe )</span>
                                     {{-- TODO backend: idealnya pakai field nomor telepon khusus layanan lainnya, sementara pakai $contact->whatsapp untuk href, teks ditampilkan hardcode format lokal --}}
                                     <a href="https://wa.me/{{ $contact->whatsapp }}" class="text-primary dark:text-accent hover:text-primary-dark dark:hover:text-accent-dark transition-colors duration-300 font-bold">
-                                        0857-9452-4976
+                                        +{{ substr($contact->whatsapp, 0, 2) }} {{ substr($contact->whatsapp, 2, 3) }}-{{ substr($contact->whatsapp, 5, 4) }}-{{ substr($contact->whatsapp, 9) }}
                                     </a>
                                 </div>
                             </div>

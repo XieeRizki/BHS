@@ -8,11 +8,6 @@
     normal, gak nge-crash. Konsisten sama pola di HomeController.
 --}}
 @php
-    try {
-        $contact = $contact ?? \App\Models\Contact::first();
-    } catch (\Throwable $e) {
-        $contact = null;
-    }
 
     $waNumber = $contact->whatsapp ?? '6289538570391';
     $fbUrl = $contact->facebook ?? null;

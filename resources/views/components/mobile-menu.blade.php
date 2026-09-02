@@ -1,5 +1,4 @@
 @php
-    $contact = $contact ?? (object) ['whatsapp' => '62895385703917'];
     $waNumber = $contact->whatsapp ?? '62895385703917';
 
     try {
