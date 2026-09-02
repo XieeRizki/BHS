@@ -180,14 +180,6 @@
 </head>
 <body class="bg-light dark:bg-dark transition-colors duration-300">
     {{-- Safe fallback contact (no DB calls in layout) --}}
-    @php
-        $contact = $contact ?? (object) [
-            'phone' => '(022) 1234-567',
-            'whatsapp' => '62895385703917',
-            'email' => 'info@balonghardi.test',
-            'operational_hours' => '08:00 - 20:00',
-        ];
-    @endphp
 
     <x-navbar :contact="$contact" />
     <x-mobile-menu :contact="$contact" />

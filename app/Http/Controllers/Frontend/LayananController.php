@@ -25,8 +25,7 @@ class LayananController extends Controller
 
         
 
-        $contact = (object)['whatsapp' => '62895385703917'];
-
-        return view('pages.layanan', compact('layanan', 'awards', 'contact'));
+        
+        return view('pages.layanan', compact('layanan', 'awards'));
     }
 }
