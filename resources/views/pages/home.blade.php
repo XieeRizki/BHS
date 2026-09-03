@@ -180,7 +180,7 @@
         </div>
     </section>
 
-    {{-- EVENT (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
+    <!-- {{-- EVENT (Light: bg-white | Dark: dark:bg-[#0A0A0A]) --}}
     <section id="event" class="py-14 bg-white dark:bg-[#0A0A0A] transition-colors overflow-hidden border-b border-gray-100 dark:border-gray-800/60">
         <div class="container-max">
             <div class="text-center mb-8" data-aos="fade-up">
@@ -204,7 +204,7 @@
                 @endfor
             </div>
         </div>
-    </section>
+    </section> -->
 
     {{-- INFORMASI & BERITA BHS (Light: bg-light | Dark: dark:bg-[#161616]) --}}
     <section id="informasi" class="py-16 bg-light dark:bg-[#161616] transition-colors overflow-hidden border-b border-gray-200/80 dark:border-gray-800/80">
@@ -221,7 +221,7 @@
                 {{-- Berita Card 1 --}}
                 <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/berita_1.jpg') }}" alt="Berita 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Kegiatan</span>
                     </div>
                     <div class="p-6">
@@ -234,7 +234,7 @@
                 {{-- Berita Card 2 --}}
                 <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/berita_2.jpg') }}" alt="Berita 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Event</span>
                     </div>
                     <div class="p-6">
@@ -247,7 +247,7 @@
                 {{-- Berita Card 3 --}}
                 <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Berita 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/berita_2.jpg') }}" alt="Berita 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Pengumuman</span>
                     </div>
                     <div class="p-6">
@@ -275,7 +275,7 @@
                 {{-- Artikel Card 1 --}}
                 <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/artikel_1.jpg') }}" alt="Artikel 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center justify-between text-xs font-bold mb-2">
@@ -290,7 +290,7 @@
                 {{-- Artikel Card 2 --}}
                 <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/artikel_2.jpg') }}" alt="Artikel 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center justify-between text-xs font-bold mb-2">
@@ -305,7 +305,7 @@
                 {{-- Artikel Card 3 --}}
                 <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/bhs2.jpg') }}" alt="Artikel 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('images/artikel_3.jpg') }}" alt="Artikel 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center justify-between text-xs font-bold mb-2">

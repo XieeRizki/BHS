@@ -16,7 +16,7 @@
       <a href="{{ route('home') }}" class="flex items-center gap-3 group">
         <img src="{{ asset('images/logo_bhs.jpg') }}" alt="Logo BHS" class="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border border-amber-500/30 group-hover:scale-105 transition-transform duration-300" />
         <div class="hidden sm:flex flex-col leading-tight">
-          <span class="text-base font-black text-secondary dark:text-white uppercase tracking-tight">PEMANCINGAN</span>
+          <span class="text-base font-black text-secondary dark:text-white uppercase tracking-tight">Wisata Pemancingan</span>
           <small class="text-xs font-extrabold text-accent uppercase tracking-widest">Balong Hardi Sumedang</small>
         </div>
       </a>
