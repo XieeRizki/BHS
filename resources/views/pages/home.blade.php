@@ -218,44 +218,36 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {{-- Berita Card 1 --}}
-                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/berita_1.jpg') }}" alt="Berita 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Kegiatan</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-bold text-accent tracking-wide uppercase">SENIN, 03/08/2026</span>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mt-1 mb-2 group-hover:text-accent transition-colors">KEGIATAN BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Seputar dokumentasi kegiatan memancing dan agenda rutin komunitas.</p>
-                    </div>
-                </div>
+                @forelse ($latestNews as $index => $item)
+                    <a href="{{ route('informasi') }}" class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="{{ !empty($item->cover_image) ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
+                                {{ $item->category->name ?? 'Umum' }}
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold text-accent tracking-wide uppercase">
+                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, d/m/Y') }}
+                            </span>
+                            <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mt-1 mb-2 group-hover:text-accent transition-colors">
+                                {{ $item->title }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                {{ $item->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($item->content ?? ''), 100) }}
+                            </p>
+                        </div>
+                    </a>
+                @empty
+                    <p class="col-span-full text-center text-gray-500 dark:text-gray-400">Belum ada berita terbaru.</p>
+                @endforelse
+            </div>
 
-                {{-- Berita Card 2 --}}
-                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/berita_2.jpg') }}" alt="Berita 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Event</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-bold text-accent tracking-wide uppercase">MINGGU, 02/08/2026</span>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mt-1 mb-2 group-hover:text-accent transition-colors">EVENT BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Info jadwal babak penyisihan turnamen pemancingan Galatama mingguan.</p>
-                    </div>
-                </div>
-
-                {{-- Berita Card 3 --}}
-                <div class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/berita_2.jpg') }}" alt="Berita 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">Pengumuman</span>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-xs font-bold text-accent tracking-wide uppercase">SABTU, 01/08/2026</span>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mt-1 mb-2 group-hover:text-accent transition-colors">EVENT BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Pembaruan fasilitas baru dan rilis jadwal pemeliharaan kolam utama.</p>
-                    </div>
-                </div>
+            <div class="text-center mt-10">
+                <a href="{{ route('informasi') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-accent text-[#0A0A0A] font-bold rounded-xl hover:bg-accent-dark transition">
+                    Lihat Semua Informasi
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </a>
             </div>
         </div>
     </section>

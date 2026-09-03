@@ -9,6 +9,8 @@ use App\Models\Testimonial;
 use App\Models\Layanan;
 use Carbon\Carbon;
 use App\Models\Facility;
+use App\Models\Post;
+
 
 class HomeController extends Controller
 {
@@ -115,6 +117,25 @@ class HomeController extends Controller
             ],
         ]);
 
+        try {
+            $latestNews = Post::with('category')
+                ->whereNotNull('published_at')
+                ->where('published_at', '<=', now())
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+
+            if ($latestNews->isEmpty()) {
+                throw new \Exception('No news data');
+            }
+        } catch (\Throwable $e) {
+            $latestNews = collect([
+                (object)['title' => 'Kegiatan BHS #1', 'excerpt' => 'Seputar dokumentasi kegiatan memancing dan agenda rutin komunitas.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Kegiatan'], 'published_at' => now()->subDays(2)],
+                (object)['title' => 'Event BHS #1', 'excerpt' => 'Info jadwal babak penyisihan turnamen pemancingan Galatama mingguan.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Event'], 'published_at' => now()->subDays(3)],
+                (object)['title' => 'Event BHS #2', 'excerpt' => 'Pembaruan fasilitas baru dan rilis jadwal pemeliharaan kolam utama.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Pengumuman'], 'published_at' => now()->subDays(4)],
+            ]);
+        }
+
         // CONTACT & LOCATION (supaya layout tidak memanggil DB)
         
 
@@ -179,7 +200,8 @@ class HomeController extends Controller
             'homeServices',
             'mediaLogos',
             'homeEvents',
-            'layanans'
+            'layanans',
+            'latestNews'
         ));
     }
 }
