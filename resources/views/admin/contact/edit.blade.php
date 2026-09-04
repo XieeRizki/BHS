@@ -136,7 +136,7 @@
 <div style="margin-bottom: 2rem;">
     <span style="font-size: 0.7rem; font-weight: 800; color: var(--accent-bhs); text-transform: uppercase; letter-spacing: 0.15em;">Pengaturan Sistem</span>
     <h1 style="font-size: 1.65rem; font-weight: 800; color: #111827; margin: 0.1rem 0 0.3rem 0; text-transform: uppercase;">Info Kontak BHS</h1>
-    <p style="font-size: 0.85rem; font-weight: 500; color: #6B7280; margin: 0;">Kelola informasi kontak publik yang terhubung ke Navbar, Footer, & WhatsApp[cite: 14].</p>
+    <p style="font-size: 0.85rem; font-weight: 500; color: #6B7280; margin: 0;">Kelola informasi kontak publik yang terhubung ke Navbar, Footer, & WhatsApp.</p>
 </div>
 
 <div class="contact-card">
@@ -146,24 +146,26 @@
 
         <div class="form-grid">
             
-            {{-- Telepon --}}
+            {{-- WhatsApp Admin 1 (Field DB tetap 'phone') --}}
             <div class="form-group">
-                <label for="phone">Nomor Telepon</label>
+                <label for="phone">No. WhatsApp Admin 1 (Pemancingan)</label>
                 <div class="input-wrapper">
-                    <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', $contact->phone) }}" placeholder="(022) 1234-567">
-                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', $contact->phone) }}" placeholder="628123456789">
+                    {{-- Icon WhatsApp --}}
+                    <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 </div>
+                <div class="form-hint">Format: 628xxx (Tanpa "+" atau angka "0")</div>
                 @error('phone')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 
-            {{-- WhatsApp --}}
+            {{-- WhatsApp Admin 2 (Field DB tetap 'whatsapp') --}}
             <div class="form-group">
-                <label for="whatsapp">Nomor WhatsApp Admin</label>
+                <label for="whatsapp">No. WhatsApp Admin 2 (Villa & Resto)</label>
                 <div class="input-wrapper">
-                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp', $contact->whatsapp) }}" placeholder="628123456789">
+                    <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp', $contact->whatsapp) }}" placeholder="628987654321">
                     <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 </div>
-                <div class="form-hint">Format: 628xxx (Tanpa "+" atau angka "0")[cite: 14]</div>
+                <div class="form-hint">Format: 628xxx (Tanpa "+" atau angka "0")</div>
                 @error('whatsapp')<div class="form-error">{{ $message }}</div>@enderror
             </div>
 

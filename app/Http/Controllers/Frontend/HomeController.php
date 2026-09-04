@@ -119,6 +119,7 @@ class HomeController extends Controller
 
         try {
             $latestNews = Post::with('category')
+                ->where('type', 'berita')
                 ->whereNotNull('published_at')
                 ->where('published_at', '<=', now())
                 ->latest('published_at')
@@ -130,9 +131,29 @@ class HomeController extends Controller
             }
         } catch (\Throwable $e) {
             $latestNews = collect([
-                (object)['title' => 'Kegiatan BHS #1', 'excerpt' => 'Seputar dokumentasi kegiatan memancing dan agenda rutin komunitas.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Kegiatan'], 'published_at' => now()->subDays(2)],
-                (object)['title' => 'Event BHS #1', 'excerpt' => 'Info jadwal babak penyisihan turnamen pemancingan Galatama mingguan.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Event'], 'published_at' => now()->subDays(3)],
-                (object)['title' => 'Event BHS #2', 'excerpt' => 'Pembaruan fasilitas baru dan rilis jadwal pemeliharaan kolam utama.', 'cover_image' => null, 'type' => 'berita', 'category' => (object)['name' => 'Pengumuman'], 'published_at' => now()->subDays(4)],
+                (object)['title' => 'Kegiatan BHS #1', 'excerpt' => 'Seputar dokumentasi kegiatan memancing dan agenda rutin komunitas.', 'cover_image' => null, 'category' => (object)['name' => 'Kegiatan'], 'published_at' => now()->subDays(2)],
+                (object)['title' => 'Event BHS #1', 'excerpt' => 'Info jadwal babak penyisihan turnamen pemancingan Galatama mingguan.', 'cover_image' => null, 'category' => (object)['name' => 'Event'], 'published_at' => now()->subDays(3)],
+                (object)['title' => 'Event BHS #2', 'excerpt' => 'Pembaruan fasilitas baru dan rilis jadwal pemeliharaan kolam utama.', 'cover_image' => null, 'category' => (object)['name' => 'Pengumuman'], 'published_at' => now()->subDays(4)],
+            ]);
+        }
+
+        try {
+            $latestArticles = Post::with('category')
+                ->where('type', 'artikel')
+                ->whereNotNull('published_at')
+                ->where('published_at', '<=', now())
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+
+            if ($latestArticles->isEmpty()) {
+                throw new \Exception('No article data');
+            }
+        } catch (\Throwable $e) {
+            $latestArticles = collect([
+                (object)['title' => 'Tips Memancing untuk Pemula', 'excerpt' => 'Beberapa trik sederhana untuk pemancing baru.', 'cover_image' => null, 'category' => (object)['name' => 'Tips'], 'published_at' => now()->subDays(5)],
+                (object)['title' => 'Persiapan Sebelum ke Galatama', 'excerpt' => 'Checklist peralatan yang wajib dibawa.', 'cover_image' => null, 'category' => (object)['name' => 'Tips'], 'published_at' => now()->subDays(6)],
+                (object)['title' => 'Cara Merawat Umpan', 'excerpt' => 'Simpan umpan biar tetap segar sampai lokasi.', 'cover_image' => null, 'category' => (object)['name' => 'Tips'], 'published_at' => now()->subDays(7)],
             ]);
         }
 
@@ -201,7 +222,8 @@ class HomeController extends Controller
             'mediaLogos',
             'homeEvents',
             'layanans',
-            'latestNews'
+            'latestNews',
+            'latestArticles'
         ));
     }
 }

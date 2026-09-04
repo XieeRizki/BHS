@@ -264,50 +264,31 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {{-- Artikel Card 1 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/artikel_1.jpg') }}" alt="Artikel 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-between text-xs font-bold mb-2">
-                            <span class="text-accent uppercase">SENIN, 03/08/2026</span>
-                            <span class="text-gray-400">3 Min Read</span>
+                @forelse ($latestArticles as $index => $item)
+                    {{-- Arahkan href ke route detail artikel nantinya --}}
+                    <a href="{{ route('informasi') }}" class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="{{ !empty($item->cover_image) ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mb-2 group-hover:text-accent transition-colors">ARTIKEL BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Trik memilih umpan jitu dan memahami karakter arus kolam saat cuaca dingin.</p>
-                    </div>
-                </div>
-
-                {{-- Artikel Card 2 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/artikel_2.jpg') }}" alt="Artikel 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-between text-xs font-bold mb-2">
-                            <span class="text-accent uppercase">MINGGU, 02/08/2026</span>
-                            <span class="text-gray-400">5 Min Read</span>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between text-xs font-bold mb-2">
+                                <span class="text-accent uppercase">
+                                    {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, d/m/Y') }}
+                                </span>
+                                {{-- Hardcode sementara, nanti bisa dibikin dinamis berdasarkan hitungan jumlah kata --}}
+                                <span class="text-gray-400">5 Min Read</span> 
+                            </div>
+                            <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mb-2 group-hover:text-accent transition-colors">
+                                {{ $item->title }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                {{ $item->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($item->content ?? ''), 100) }}
+                            </p>
                         </div>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mb-2 group-hover:text-accent transition-colors">ARTIKEL BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Persiapan fisik dan pancing yang pas untuk bertanding di ajang Galatama malam hari.</p>
-                    </div>
-                </div>
-
-                {{-- Artikel Card 3 --}}
-                <div class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="{{ asset('images/artikel_3.jpg') }}" alt="Artikel 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center justify-between text-xs font-bold mb-2">
-                            <span class="text-accent uppercase">SABTU, 01/08/2026</span>
-                            <span class="text-gray-400">4 Min Read</span>
-                        </div>
-                        <h3 class="font-extrabold text-lg text-secondary dark:text-light uppercase mb-2 group-hover:text-accent transition-colors">ARTIKEL BHS #1</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">Cara merawat joran dan reel kesayangan agar awet dan performa tetap maksimal.</p>
-                    </div>
-                </div>
+                    </a>
+                @empty
+                    <p class="col-span-full text-center text-gray-500 dark:text-gray-400">Belum ada artikel terbaru.</p>
+                @endforelse
             </div>
         </div>
     </section>
