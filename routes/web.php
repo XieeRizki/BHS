@@ -13,12 +13,10 @@ use App\Http\Controllers\Frontend\LayananItemController as FrontendLayananItemCo
 use App\Http\Controllers\Frontend\TestimonialController as FrontendTestimonialController;
 use App\Http\Controllers\Frontend\InformasiController;
 use App\Http\Controllers\Frontend\BlogController;
-use App\Http\Controllers\Frontend\ReservationController;
 
 // ================= ADMIN =================
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
@@ -49,7 +47,6 @@ Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('fa
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::post('/reservasi', [ReservationController::class, 'store'])->name('reservation.store');
 
 // --- Halaman detail (pakai slug via route model binding) ---
 Route::get('/layanan/{layanan}', [FrontendLayananController::class, 'show'])->name('layanan.show');
@@ -99,11 +96,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     })->name('dashboard.stats');
 
     // --------------------------------------------------
-    // Reservasi
+    // ------
     // --------------------------------------------------
-    Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
-    Route::put('/reservations/{reservation}/status', [AdminReservationController::class, 'updateStatus'])->name('reservations.update-status');
-    Route::delete('/reservations/{reservation}', [AdminReservationController::class, 'destroy'])->name('reservations.destroy');
+    
 
     // --------------------------------------------------
     // Hero Banner (singleton: index → edit → update/delete)

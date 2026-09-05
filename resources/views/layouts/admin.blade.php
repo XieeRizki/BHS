@@ -416,10 +416,6 @@
                     Dashboard
                 </a>
 
-                <a href="{{ route('admin.reservations.index') }}" class="{{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}">
-                    Reservasi
-                </a>
-
                 <div class="menu-category-label">Kelola Konten</div>
 
                 <a href="{{ route('admin.hero.index') }}" class="{{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
