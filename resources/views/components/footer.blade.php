@@ -8,14 +8,19 @@
     normal, gak nge-crash. Konsisten sama pola di HomeController.
 --}}
 @php
-
     $waNumber = $contact->whatsapp ?? '6289538570391';
     $fbUrl = $contact->facebook ?? null;
     $igUrl = $contact->instagram ?? null;
     $emailAddr = $contact->email ?? null;
 
-    // Halaman profile sekarang jadi rumah buat konten "Tentang" & section FAQ
     $profileUrl = Route::has('profile') ? route('profile') : route('home');
+
+    // Query untuk mengambil layanan (Sama seperti Navbar)
+    try {
+        $navLayananList = \App\Models\Layanan::active()->ordered()->get();
+    } catch (\Throwable $e) {
+        $navLayananList = collect();
+    }
 @endphp
 
 <footer class="relative bg-secondary dark:bg-dark text-light py-12 md:py-16 transition-colors duration-300">
@@ -43,10 +48,15 @@
             <div>
                 <h4 class="text-lg font-bold mb-6 text-light">Paket Layanan</h4>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Wisata Kolam Pemancingan</a></li>
-                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Villa Kayu</a></li>
-                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Hotel BHS</a></li>
-                    <li><a href="{{ route('home') }}#harga" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Resto & Cafe</a></li>
+                    @forelse ($navLayananList as $item)
+                        <li>
+                            <a href="{{ route('layanan.show', $item->slug) }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">
+                                {{ $item->title }}
+                            </a>
+                        </li>
+                    @empty
+                        <li><span class="text-gray-500 italic">Belum ada layanan</span></li>
+                    @endforelse
                 </ul>
             </div>
 
