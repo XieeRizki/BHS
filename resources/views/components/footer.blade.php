@@ -48,15 +48,26 @@
             <div>
                 <h4 class="text-lg font-bold mb-6 text-light">Paket Layanan</h4>
                 <ul class="space-y-3 text-sm">
-                    @forelse ($navLayananList as $item)
+                    {{-- Batasi hanya 5 item menggunakan take(5) --}}
+                    @forelse ($navLayananList->take(5) as $item)
                         <li>
-                            <a href="{{ route('layanan.show', $item->slug) }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">
+                            <a href="{{ route('layanan.show', $item->slug) }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium line-clamp-1">
                                 {{ $item->title }}
                             </a>
                         </li>
                     @empty
                         <li><span class="text-gray-500 italic">Belum ada layanan</span></li>
                     @endforelse
+
+                    {{-- Munculkan link "Lihat Semua" jika total layanan lebih dari 5 --}}
+                    @if ($navLayananList->count() > 5)
+                        <li class="pt-2 mt-2 border-t border-white/10">
+                            <a href="{{ route('home') }}#harga" class="text-accent hover:text-yellow-400 transition-colors duration-300 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                                Lihat Semua ({{ $navLayananList->count() - 5 }}) 
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 
