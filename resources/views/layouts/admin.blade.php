@@ -438,10 +438,6 @@
                     <i class="fas fa-chart-bar"></i> Infografis
                 </a>
 
-                <a href="{{ route('admin.blog-posts.index') }}" class="{{ request()->routeIs('admin.blog-posts.*') ? 'active' : '' }}">
-                    Blog
-                </a>
-
                 <a href="{{ route('admin.awards.index') }}" class="{{ request()->routeIs('admin.awards.*') ? 'active' : '' }}">
                     Penghargaan
                 </a>
