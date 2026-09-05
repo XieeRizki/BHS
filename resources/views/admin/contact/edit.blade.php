@@ -160,7 +160,7 @@
 
             {{-- WhatsApp Admin 2 (Field DB tetap 'whatsapp') --}}
             <div class="form-group">
-                <label for="whatsapp">No. WhatsApp Admin 2 (Villa & Resto)</label>
+                <label for="whatsapp">No. WhatsApp Admin 2 (Villa & Hotel)</label>
                 <div class="input-wrapper">
                     <input type="text" id="whatsapp" name="whatsapp" class="form-control" value="{{ old('whatsapp', $contact->whatsapp) }}" placeholder="628987654321">
                     <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
