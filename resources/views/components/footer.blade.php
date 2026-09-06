@@ -78,7 +78,6 @@
                     <li><a href="{{ $profileUrl }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Tentang</a></li>
                     <li><a href="{{ Route::has('facilities') ? route('facilities') : route('home') . '#fasilitas' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Fasilitas</a></li>
                     <li><a href="#" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Penghargaan</a></li>
-                    <li><a href="{{ Route::has('blog.index') ? route('blog.index') : '#' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Publikasi</a></li>
                     <li><a href="{{ Route::has('contact') ? route('contact') : route('home') . '#kontak' }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Kontak Kami</a></li>
                 </ul>
             </div>
@@ -132,7 +131,7 @@
                     <h5 class="text-sm font-bold mb-3 text-light uppercase tracking-wider">Bantuan & Navigasi</h5>
                     <ul class="space-y-2 text-sm">
                         <li><a href="{{ $profileUrl }}#faq" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">FAQ (Pertanyaan Umum)</a></li>
-                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Sitemap (Peta Situs)</a></li>
+                        <li><a href="{{ Route::has('contact') ? route('contact') . '#peta-lokasi' : route('home') }}" class="text-gray-300 hover:text-accent transition-colors duration-300 font-medium">Sitemap (Peta Situs)</a></li>
                     </ul>
                 </div>
             </div>

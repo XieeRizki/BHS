@@ -206,7 +206,7 @@
     </section>
 
     {{-- RAPIH & PRESISI GOOGLE MAPS SECTION --}}
-    <section class="pb-16 bg-light dark:bg-[#121212] transition-colors">
+    <section id="peta-lokasi" class="pb-12 md:pb-16 bg-light dark:bg-dark transition-colors scroll-mt-24">
         <div class="container-max max-w-6xl">
             <div class="bg-white dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-3xl shadow-xl overflow-hidden" data-aos="fade-up">
                 
