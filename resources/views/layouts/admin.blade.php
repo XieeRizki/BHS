@@ -456,6 +456,12 @@
 
                 <div class="menu-category-label">Pengaturan</div>
 
+                @if(auth()->check() && auth()->user()->email === 'admin@balonghardi.com')
+                    <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                        <i class="fas fa-users-cog"></i> Kelola Akun
+                    </a>
+                @endif
+
                 <a href="{{ route('admin.contact.edit') }}" class="{{ request()->routeIs('admin.contact.*') ? 'active' : '' }}">
                     Info Kontak
                 </a>
