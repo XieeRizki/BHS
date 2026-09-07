@@ -1,41 +1,84 @@
 @extends('layouts.admin')
+
 @section('title', 'Tambah Akun')
+
 @section('content')
 
-<h1 style="font-size:1.5rem; font-weight:700; color:var(--secondary); margin-bottom:1.5rem;">Tambah Akun</h1>
+{{-- HEADER CARD BAR --}}
+<div style="background: white; border-radius: 16px; border: 1px solid var(--border, #e5e7eb); padding: 1.5rem 2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div>
+        <h1 style="font-size: 1.5rem; font-weight: 900; color: #0f172a; margin: 0; text-transform: uppercase; letter-spacing: -0.5px;">TAMBAH AKUN BARU</h1>
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem; font-weight: 600;">Buat akses login baru untuk tim admin atau operator Balong Hardi.</p>
+    </div>
+    <a href="{{ route('admin.users.index') }}" style="background: #f1f5f9; color: #334155; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 900; font-size: 0.85rem; text-decoration: none; text-transform: uppercase;">
+        ← KEMBALI
+    </a>
+</div>
 
-<div style="background:white; border-radius:10px; border:1px solid var(--border); padding:1.75rem; max-width:480px;">
+{{-- FORM CARD CONTAINER (2 KOLOM SIMETRIS) --}}
+<div style="background: white; border-radius: 16px; border: 1px solid var(--border, #e5e7eb); padding: 2rem;">
     <form action="{{ route('admin.users.store') }}" method="POST">
         @csrf
 
-        <div style="margin-bottom:1.1rem;">
-            <label style="display:block; font-weight:700; margin-bottom:0.4rem; font-size:0.85rem;">Nama</label>
-            <input type="text" name="name" value="{{ old('name') }}" required style="width:100%; padding:0.65rem 0.8rem; border:1px solid var(--border); border-radius:6px;">
-            @error('name')<div style="color:var(--danger); font-size:0.75rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            
+            {{-- KOLOM KIRI --}}
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {{-- 1. NAMA LENGKAP --}}
+                <div>
+                    <label style="display: block; font-weight: 800; margin-bottom: 0.4rem; font-size: 0.75rem; color: #0f172a; text-transform: uppercase;">
+                        NAMA LENGKAP <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="text" name="name" value="{{ old('name') }}" required placeholder="Contoh: Budi Santoso" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
+                    @error('name')
+                        <div style="color: #ef4444; font-size: 0.78rem; margin-top: 0.35rem; font-weight: 700;">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- 2. EMAIL LOGIN --}}
+                <div>
+                    <label style="display: block; font-weight: 800; margin-bottom: 0.4rem; font-size: 0.75rem; color: #0f172a; text-transform: uppercase;">
+                        EMAIL LOGIN <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="email" name="email" value="{{ old('email') }}" required placeholder="operator@balonghardi.com" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
+                    @error('email')
+                        <div style="color: #ef4444; font-size: 0.78rem; margin-top: 0.35rem; font-weight: 700;">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            {{-- KOLOM KANAN --}}
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {{-- 3. PASSWORD --}}
+                <div>
+                    <label style="display: block; font-weight: 800; margin-bottom: 0.4rem; font-size: 0.75rem; color: #0f172a; text-transform: uppercase;">
+                        PASSWORD <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="password" name="password" required minlength="8" placeholder="••••••••" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.35rem; font-weight: 600;">Minimal 8 karakter.</div>
+                    @error('password')
+                        <div style="color: #ef4444; font-size: 0.78rem; margin-top: 0.35rem; font-weight: 700;">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- 4. KONFIRMASI PASSWORD --}}
+                <div>
+                    <label style="display: block; font-weight: 800; margin-bottom: 0.4rem; font-size: 0.75rem; color: #0f172a; text-transform: uppercase;">
+                        KONFIRMASI PASSWORD <span style="color: #ef4444;">*</span>
+                    </label>
+                    <input type="password" name="password_confirmation" required minlength="8" placeholder="••••••••" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: #0f172a; outline: none; box-sizing: border-box;">
+                </div>
+            </div>
+
         </div>
 
-        <div style="margin-bottom:1.1rem;">
-            <label style="display:block; font-weight:700; margin-bottom:0.4rem; font-size:0.85rem;">Email (dipakai untuk login)</label>
-            <input type="email" name="email" value="{{ old('email') }}" required style="width:100%; padding:0.65rem 0.8rem; border:1px solid var(--border); border-radius:6px;">
-            @error('email')<div style="color:var(--danger); font-size:0.75rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
+        {{-- ACTION BUTTONS --}}
+        <div style="padding-top: 1.25rem; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 0.75rem;">
+            <button type="submit" style="background: #eab308; color: #0f172a; padding: 0.75rem 1.75rem; border: none; border-radius: 10px; font-weight: 900; font-size: 0.85rem; cursor: pointer; text-transform: uppercase;">
+                SIMPAN AKUN
+            </button>
+            <a href="{{ route('admin.users.index') }}" style="color: #64748b; text-decoration: none; font-size: 0.85rem; font-weight: 800; padding: 0.75rem 1rem;">BATAL</a>
         </div>
-
-        <div style="margin-bottom:1.1rem;">
-            <label style="display:block; font-weight:700; margin-bottom:0.4rem; font-size:0.85rem;">Password</label>
-            <input type="password" name="password" required minlength="8" style="width:100%; padding:0.65rem 0.8rem; border:1px solid var(--border); border-radius:6px;">
-            <div style="font-size:0.75rem; color:var(--neutral); margin-top:0.3rem;">Minimal 8 karakter</div>
-            @error('password')<div style="color:var(--danger); font-size:0.75rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
-        </div>
-
-        <div style="margin-bottom:1.5rem;">
-            <label style="display:block; font-weight:700; margin-bottom:0.4rem; font-size:0.85rem;">Konfirmasi Password</label>
-            <input type="password" name="password_confirmation" required minlength="8" style="width:100%; padding:0.65rem 0.8rem; border:1px solid var(--border); border-radius:6px;">
-        </div>
-
-        <button type="submit" style="background:var(--primary); color:white; padding:0.65rem 1.4rem; border:none; border-radius:6px; font-weight:600; cursor:pointer;">
-            <i class="fas fa-save"></i> Simpan Akun
-        </button>
-        <a href="{{ route('admin.users.index') }}" style="margin-left:0.5rem; color:var(--neutral); text-decoration:none;">Batal</a>
     </form>
 </div>
 
