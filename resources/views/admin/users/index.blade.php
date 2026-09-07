@@ -8,7 +8,7 @@
         <p style="font-size:0.85rem; color:var(--neutral); margin:0;">Akun yang bisa login ke panel admin ini (Admin, Operator, dll)</p>
     </div>
     <a href="{{ route('admin.users.create') }}" style="background:var(--primary); color:white; padding:0.7rem 1.4rem; border-radius:8px; font-weight:700; font-size:0.9rem; text-decoration:none;">
-        <i class="fas fa-plus"></i> Tambah Akun
+        + Tambah Akun
     </a>
 </div>
 
@@ -19,7 +19,7 @@
                 <th style="padding:0.9rem; text-align:left; font-size:0.8rem; text-transform:uppercase;">Nama</th>
                 <th style="padding:0.9rem; text-align:left; font-size:0.8rem; text-transform:uppercase;">Email</th>
                 <th style="padding:0.9rem; text-align:left; font-size:0.8rem; text-transform:uppercase;">Dibuat</th>
-                <th style="padding:0.9rem; text-align:center; font-size:0.8rem; text-transform:uppercase; width:140px;">Aksi</th>
+                <th style="padding:0.9rem; text-align:center; font-size:0.8rem; text-transform:uppercase; width:160px;">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -34,11 +34,18 @@
                     <td style="padding:0.9rem; color:var(--neutral);">{{ $user->email }}</td>
                     <td style="padding:0.9rem; color:var(--neutral); font-size:0.85rem;">{{ $user->created_at->format('d M Y') }}</td>
                     <td style="padding:0.9rem; text-align:center;">
-                        <a href="{{ route('admin.users.edit', $user) }}" style="color:#3B82F6; margin-right:0.75rem;" title="Edit"><i class="fas fa-edit"></i></a>
+                        {{-- Tombol Edit dengan Teks Jelas --}}
+                        <a href="{{ route('admin.users.edit', $user) }}" style="background:#EFF6FF; color:#1D4ED8; padding:0.35rem 0.75rem; border-radius:6px; font-size:0.75rem; font-weight:700; text-decoration:none; margin-right:0.35rem; display:inline-block;">
+                            Edit
+                        </a>
+
+                        {{-- Tombol Hapus (Hanya muncul jika bukan akun yang sedang login) --}}
                         @if($user->id !== auth()->id())
                             <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus akun {{ $user->name }}?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" style="background:none; border:none; color:var(--danger); cursor:pointer;" title="Hapus"><i class="fas fa-trash"></i></button>
+                                <button type="submit" style="background:#FEF2F2; color:#DC2626; border:none; padding:0.35rem 0.6rem; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;" title="Hapus">
+                                    Hapus
+                                </button>
                             </form>
                         @endif
                     </td>
