@@ -15,11 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // 1. Akun Admin Utama
         User::factory()->create([
-            'name' => 'Admin',
+            'name' => 'Admin Utama',
             'email' => 'admin@balonghardi.com',
+            'password' => bcrypt('password123'), // Sebaiknya diganti saat production
+        ]);
+
+        // 2. Akun Operator 1
+        User::factory()->create([
+            'name' => 'Operator Satu',
+            'email' => 'operator1@balonghardi.com',
+            'password' => bcrypt('password123'),
+        ]);
+
+        // 3. Akun Operator 2
+        User::factory()->create([
+            'name' => 'Operator Dua',
+            'email' => 'operator2@balonghardi.com',
             'password' => bcrypt('password123'),
         ]);
     }
