@@ -51,4 +51,22 @@ class InformasiController extends Controller
             'berita', 'spotlight', 'kategoriTrending', 'artikelPilihan', 'selectedCategory', 'selectedType'
         ));
     }
+
+    // app/Http/Controllers/Frontend/InformasiController.php
+
+    public function show(Post $post)
+    {
+        
+
+        $relatedPosts = Post::with('category')
+            ->where('id', '!=', $post->id)
+            ->where('type', $post->type)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('pages.informasi-show', compact('post', 'relatedPosts'));
+    }
 }

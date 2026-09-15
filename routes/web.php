@@ -47,20 +47,12 @@ Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::get('/fasilitas', [FrontendFacilityController::class, 'index'])->name('facilities');
 Route::get('/testimoni', [FrontendTestimonialController::class, 'index'])->name('testimonials');
 Route::get('/informasi', [InformasiController::class, 'index'])->name('informasi');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/informasi/{post}', [InformasiController::class, 'show'])->name('informasi.show');
+
 
 // --- Halaman detail (pakai slug via route model binding) ---
 Route::get('/layanan/{layanan}', [FrontendLayananController::class, 'show'])->name('layanan.show');
 Route::get('/layanan/{layanan}/{item}', [FrontendLayananItemController::class, 'show'])->name('layanan-item.show');
-
-Route::get('/blog/{blogPost}', function (BlogPost $blogPost) {
-    abort_unless($blogPost->is_published, 404);
-    return view('pages.blog-show', compact('blogPost'));
-})->name('blog.show');
-
-Route::get('/fasilitas/{facility}', function (\App\Models\Facility $facility) {
-    return view('pages.facility-show', compact('facility'));
-})->name('facility.show');
 
 
 /*

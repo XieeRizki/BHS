@@ -59,7 +59,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             @foreach ($berita as $item)
                                 <article class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                    <a href="#" class="block relative h-44 overflow-hidden bg-gray-200 dark:bg-[#161616]">
+                                    <a href="{{ route('informasi.show', $item->slug) }}" class="block relative h-44 overflow-hidden bg-gray-200 dark:bg-[#161616]">
                                         <!-- Gunakan gambar default jika cover_image kosong -->
                                         @if($item->cover_image)
                                             <img src="{{ asset('storage/' . $item->cover_image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -75,7 +75,7 @@
                                         <span class="text-[11px] font-extrabold text-accent tracking-wider uppercase ml-1">{{ $item->category->name ?? 'Uncategorized' }}</span>
                                         <h3 class="font-extrabold text-secondary dark:text-light mt-1.5 mb-2 leading-snug line-clamp-2">
                                             <!-- TODO: Arahkan href ke route detail berita misal route('informasi.show', $item->slug) -->
-                                            <a href="#" class="hover:text-accent transition-colors">{{ $item->title }}</a>
+                                            <a href="{{ route('informasi.show', $item->slug) }}" class="hover:text-accent transition-colors">{{ $item->title }}</a>
                                         </h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-4">
                                             {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 100) }}
@@ -111,7 +111,7 @@
                         <div class="space-y-4">
                             @forelse ($spotlight as $item)
                                 <!-- TODO: Arahkan href ke route detail artikel -->
-                                <a href="#" class="flex items-start gap-3 group">
+                                <a href="{{ route('informasi.show', $item->slug) }}" class="flex items-start gap-3 group">
                                     <div class="flex-1 min-w-0">
                                         <span class="text-[11px] font-extrabold text-accent tracking-wider uppercase">{{ $item->category->name ?? 'Umum' }}</span>
                                         <h4 class="text-sm font-bold text-secondary dark:text-light leading-snug mt-1 line-clamp-2 group-hover:text-accent transition-colors">
@@ -158,7 +158,7 @@
                         <h3 class="text-lg font-extrabold text-secondary dark:text-light uppercase tracking-wide mb-4">Menarik Tuk Disimak</h3>
                         @if ($artikelPilihan)
                             <!-- TODO: Arahkan href ke route detail artikel -->
-                            <a href="#" class="group block relative h-56 rounded-2xl overflow-hidden bg-gray-200 dark:bg-[#212121] shadow-sm hover:shadow-xl transition-all duration-300">
+                            <a href="{{ route('informasi.show', $artikelPilihan->slug) }}" class="group block relative h-56 rounded-2xl overflow-hidden bg-gray-200 dark:bg-[#212121] shadow-sm hover:shadow-xl transition-all duration-300">
                                 @if($artikelPilihan->cover_image)
                                     <img src="{{ asset('storage/' . $artikelPilihan->cover_image) }}" alt="{{ $artikelPilihan->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 @else
