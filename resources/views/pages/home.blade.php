@@ -193,7 +193,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($latestNews as $index => $item)
-                    <a href="{{ route('informasi') }}" class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                    <a href="{{ route('informasi.show', $item->slug) }}" class="group bg-white dark:bg-[#212121] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
                         <div class="relative h-48 overflow-hidden">
                             <img src="{{ !empty($item->cover_image) ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-3 left-3 bg-secondary/80 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md">
@@ -239,8 +239,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($latestArticles as $index => $item)
-                    {{-- Arahkan href ke route detail artikel nantinya --}}
-                    <a href="{{ route('informasi') }}" class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+                    <a href="{{ route('informasi.show', $item->slug) }}" class="group bg-light dark:bg-[#161616] border border-gray-200/80 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
                         <div class="relative h-48 overflow-hidden">
                             <img src="{{ !empty($item->cover_image) ? asset('storage/'.$item->cover_image) : asset('images/bhs2.jpg') }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </div>
