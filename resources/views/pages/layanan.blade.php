@@ -130,20 +130,22 @@
                         <a href="{{ route('layanan-item.show', [$layanan, $item]) }}" class="article-item w-full md:w-[calc(33.333%-16px)] shrink-0 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                             <div>
                                 <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-800">
-                                    <img src="{{ !empty($item['image']) ? asset('storage/'.$item['image']) : asset('images/bhs2.jpg') }}" alt="{{ $item['name'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    @if(!empty($item['category']))
+                                    <img src="{{ $item->cover ? asset('storage/'.$item->cover) : asset('images/bhs2.jpg') }}"
+                                         alt="{{ $item->title }}"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    @if($item->formatted_price)
                                         <span class="absolute top-3 left-3 px-3 py-1 bg-accent text-[#0A0A0A] text-[10px] font-black uppercase rounded-md tracking-wider">
-                                            {{ $item['category'] }}
+                                            {{ $item->formatted_price }}
                                         </span>
                                     @endif
                                 </div>
                                 <div class="p-6">
                                     <h3 class="text-base md:text-lg font-black text-secondary dark:text-white uppercase tracking-tight mb-2">
-                                        {{ $item['name'] }}
+                                        {{ $item->title }}
                                     </h3>
-                                    @if(!empty($item['description']))
+                                    @if($item->description)
                                         <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                                            {{ $item['description'] }}
+                                            {{ \Illuminate\Support\Str::limit($item->description, 110) }}
                                         </p>
                                     @endif
                                 </div>
