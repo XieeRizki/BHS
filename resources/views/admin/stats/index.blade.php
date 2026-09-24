@@ -3,97 +3,436 @@
 @section('content')
 
 <style>
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
-    .section-header h1 { font-size: 1.5rem; font-weight: 700; color: var(--secondary); margin: 0; }
-    .section-header-desc { font-size: 0.85rem; color: var(--neutral); margin: 0; }
-
-    .btn-create {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        color: white; padding: 0.7rem 1.5rem; border: none; border-radius: 8px;
-        font-weight: 600; font-size: 0.9rem; cursor: pointer; text-decoration: none;
-        display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; white-space: nowrap;
+    /* Header Page */
+    .admin-page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FFFFFF;
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        gap: 1rem;
     }
-    .btn-create:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
 
-    .table-card { background: white; border-radius: 10px; border: 1px solid var(--border); overflow: hidden; }
-    .table-responsive { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; }
-    thead { background: linear-gradient(135deg, var(--secondary) 0%, #111827 100%); color: white; }
-    th { padding: 0.9rem; text-align: left; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    td { padding: 0.9rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
-    tbody tr:hover { background: rgba(249, 115, 22, 0.03); }
-
-    .image-cell img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); background: #F3F4F6; }
-    .value-cell { font-weight: 800; color: var(--secondary); font-size: 1rem; }
-    .title-cell { color: var(--neutral); }
-
-    .badge { display: inline-block; padding: 0.4rem 0.75rem; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
-    .badge-active { background: rgba(16, 185, 129, 0.15); color: #047857; }
-    .badge-inactive { background: rgba(107, 114, 128, 0.15); color: var(--neutral); }
-
-    .action-group { display: flex; gap: 0.5rem; }
-    .btn-icon { display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 0.8rem; border: 1px solid; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
-    .btn-edit { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border-color: rgba(59, 130, 246, 0.2); }
-    .btn-edit:hover { background: rgba(59, 130, 246, 0.15); }
-    .btn-delete { background: rgba(239, 68, 68, 0.1); color: #EF4444; border-color: rgba(239, 68, 68, 0.2); }
-    .btn-delete:hover { background: rgba(239, 68, 68, 0.15); }
-
-    .empty-container { text-align: center; padding: 3rem 1.5rem; }
-    .empty-icon { font-size: 3rem; color: #D1D5DB; margin-bottom: 1rem; }
-    .empty-text { color: var(--neutral); font-size: 0.95rem; margin: 0 0 1.5rem 0; }
-
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
-    .modal-overlay.active { display: flex; align-items: center; justify-content: center; }
-    .modal-content { background: white; border-radius: 12px; padding: 2rem; max-width: 480px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; margin: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
-    .modal-header { margin-bottom: 1.5rem; }
-    .modal-header h2 { font-size: 1.25rem; font-weight: 700; color: var(--secondary); margin: 0 0 0.25rem 0; }
-    .modal-header p { font-size: 0.85rem; color: var(--neutral); margin: 0; }
-    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: var(--neutral); cursor: pointer; width: 2rem; height: 2rem; border-radius: 6px; }
-    .modal-close:hover { background: var(--border); color: var(--secondary); }
-
-    .form-group { margin-bottom: 1.1rem; }
-    label { display: block; font-weight: 700; color: var(--secondary); margin-bottom: 0.4rem; font-size: 0.85rem; }
-    .required { color: var(--danger); margin-left: 0.2rem; }
-    input[type="text"], input[type="number"], input[type="file"] {
-        width: 100%; padding: 0.65rem 0.8rem; border: 1px solid var(--border); border-radius: 6px;
-        font-family: inherit; font-size: 0.9rem; box-sizing: border-box;
+    .header-left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
     }
-    input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1); }
-    .form-hint { font-size: 0.75rem; color: var(--neutral); margin-top: 0.3rem; }
 
-    .checkbox-wrap { display: flex; align-items: center; gap: 0.5rem; }
-    input[type="checkbox"] { width: 1rem; height: 1rem; accent-color: var(--primary); }
-    .checkbox-wrap label { margin: 0; font-weight: 500; font-size: 0.9rem; cursor: pointer; }
+    .admin-page-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #111827;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+    }
 
-    .form-actions { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
-    .btn { flex: 1; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
-    .btn-save { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
-    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
-    .btn-cancel { background: var(--border); color: var(--secondary); }
-    .btn-cancel:hover { background: #D1D5DB; }
+    .admin-page-subtitle {
+        font-size: 0.825rem;
+        color: #6B7280;
+        margin: 0;
+        font-weight: 500;
+    }
 
-    .image-preview { margin-bottom: 1rem; }
-    .image-preview img { max-width: 90px; border-radius: 50%; border: 1px solid var(--border); }
+    /* Buttons */
+    .btn-bhs-primary {
+        background: #EAB308;
+        color: #0A0A0A;
+        font-weight: 800;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
+        white-space: nowrap;
+    }
+
+    .btn-bhs-primary:hover {
+        background: #CA8A04;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(234, 179, 8, 0.3);
+    }
+
+    /* Table Component */
+    .table-card {
+        background: #FFFFFF;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: #111827;
+        color: #FFFFFF;
+    }
+
+    th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 800;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    td {
+        padding: 1rem;
+        border-bottom: 1px solid #E5E7EB;
+        font-size: 0.875rem;
+        vertical-align: middle;
+        color: #374151;
+    }
+
+    tbody tr:hover {
+        background: #FFFBEB;
+    }
+
+    .image-cell img {
+        width: 52px;
+        height: 52px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid #E5E7EB;
+        background: #F3F4F6;
+    }
+
+    .value-cell {
+        font-weight: 800;
+        color: #111827;
+        font-size: 1rem;
+    }
+
+    .title-cell {
+        font-weight: 700;
+        color: #111827;
+        font-size: 0.9rem;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .badge-active {
+        background: #ECFDF5;
+        color: #065F46;
+        border: 1px solid #A7F3D0;
+    }
+
+    .badge-inactive {
+        background: #F3F4F6;
+        color: #6B7280;
+        border: 1px solid #E5E7EB;
+    }
+
+    /* Action Buttons (teks, tanpa icon) */
+    .action-group {
+        display: flex;
+        gap: 0.4rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .action-group form {
+        margin: 0;
+    }
+
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 34px;
+        padding: 0 0.85rem;
+        border-radius: 10px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        font-family: inherit;
+    }
+
+    .btn-edit { background: #EFF6FF; color: #2563EB; border-color: #BFDBFE; }
+    .btn-edit:hover { background: #2563EB; color: #FFFFFF; border-color: #2563EB; }
+
+    .btn-delete { background: #FEF2F2; color: #DC2626; border-color: #FCA5A5; }
+    .btn-delete:hover { background: #DC2626; color: #FFFFFF; border-color: #DC2626; }
+
+    .empty-container {
+        text-align: center;
+        padding: 4rem 1.5rem;
+    }
+
+    .empty-text {
+        color: #6B7280;
+        font-size: 0.9rem;
+        margin: 0 0 1.25rem 0;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 24, 39, 0.55);
+        z-index: 2000;
+        overflow-y: auto;
+        padding: 1rem;
+    }
+
+    .modal-overlay.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: #FFFFFF;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+        padding: 1.75rem;
+        max-width: 480px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        margin: auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    }
+
+    .modal-header {
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.9rem;
+        border-bottom: 1px solid #F3F4F6;
+        padding-right: 2rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #111827;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin: 0 0 0.25rem 0;
+    }
+
+    .modal-header p {
+        font-size: 0.8rem;
+        color: #6B7280;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: #6B7280;
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 8px;
+    }
+
+    .modal-close:hover {
+        background: #F3F4F6;
+        color: #111827;
+    }
+
+    /* Form */
+    .form-group {
+        margin-bottom: 1.15rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: #374151;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.4rem;
+    }
+
+    .required {
+        color: #EF4444;
+    }
+
+    .input-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        background: #FFFFFF;
+        border: 1px solid #D1D5DB;
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 0.875rem;
+        color: #111827;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+
+    .input-control:focus {
+        outline: none;
+        border-color: #EAB308;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.15);
+    }
+
+    .form-hint {
+        font-size: 0.75rem;
+        color: #6B7280;
+        margin-top: 0.35rem;
+    }
+
+    .form-error {
+        font-size: 0.75rem;
+        color: #EF4444;
+        margin-top: 0.35rem;
+        font-weight: 600;
+    }
+
+    .checkbox-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+        width: 1.15rem;
+        height: 1.15rem;
+        accent-color: #EAB308;
+        cursor: pointer;
+    }
+
+    .checkbox-wrap label {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #111827;
+        cursor: pointer;
+        text-transform: none;
+        font-weight: 600;
+    }
+
+    .image-preview {
+        margin-bottom: 0.75rem;
+    }
+
+    .image-preview img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid #E5E7EB;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    .btn-bhs-save {
+        background: #EAB308;
+        color: #0A0A0A;
+        font-weight: 900;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.85rem 1.25rem;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        flex: 1;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 14px rgba(234, 179, 8, 0.25);
+    }
+
+    .btn-bhs-save:hover {
+        background: #CA8A04;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(234, 179, 8, 0.35);
+    }
+
+    .btn-bhs-cancel {
+        background: #FFFFFF;
+        color: #4B5563;
+        font-weight: 700;
+        font-size: 0.825rem;
+        text-transform: uppercase;
+        padding: 0.85rem 1.25rem;
+        border-radius: 12px;
+        border: 1px solid #D1D5DB;
+        cursor: pointer;
+        width: 120px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-bhs-cancel:hover {
+        background: #F9FAFB;
+        color: #111827;
+    }
 
     @media (max-width: 768px) {
-        .section-header { flex-direction: column; align-items: flex-start; }
-        .btn-create { width: 100%; justify-content: center; }
-        th, td { padding: 0.7rem; font-size: 0.8rem; }
-        .modal-content { padding: 1.5rem; margin: 1rem; }
+        .admin-page-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .btn-bhs-primary {
+            width: 100%;
+        }
+        th, td { padding: 0.75rem; }
+        .modal-content { padding: 1.25rem; }
         .form-actions { flex-direction: column; }
+        .btn-bhs-cancel { width: 100%; }
     }
 </style>
 
-<div class="section-header">
-    <div>
-        <h1>Kelola Infografis</h1>
-        <p class="section-header-desc">Angka pencapaian yang tampil di section "Momentum Kebersamaan Kita" halaman Profile</p>
+<!-- Header Page -->
+<div class="admin-page-header">
+    <div class="header-left">
+        <h1 class="admin-page-title">Kelola Infografis</h1>
+        <p class="admin-page-subtitle">Angka pencapaian yang tampil di section "Momentum Kebersamaan Kita" halaman Profile</p>
     </div>
-    <button class="btn-create" onclick="openModal('addModal')">
-        <i class="fas fa-plus"></i> Tambah Infografis
+    <button type="button" class="btn-bhs-primary" onclick="openModal('addModal')">
+        Tambah Infografis
     </button>
 </div>
 
+<!-- Table Card -->
 <div class="table-card">
     <div class="table-responsive">
         <table>
@@ -104,7 +443,7 @@
                     <th>Judul</th>
                     <th>Urutan</th>
                     <th>Status</th>
-                    <th style="width: 120px; text-align: center;">Aksi</th>
+                    <th style="width: 150px; text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,27 +454,30 @@
                         </td>
                         <td class="value-cell">{{ $stat->value }}</td>
                         <td class="title-cell">{{ $stat->title }}</td>
-                        <td>{{ $stat->order }}</td>
+                        <td style="font-weight: 700;">{{ $stat->order }}</td>
                         <td>
-                            <span class="badge {{ $stat->is_active ? 'badge-active' : 'badge-inactive' }}">
-                                {{ $stat->is_active ? '✓ Aktif' : '✗ Nonaktif' }}
-                            </span>
+                            @if($stat->is_active)
+                                <span class="badge badge-active">Aktif</span>
+                            @else
+                                <span class="badge badge-inactive">Nonaktif</span>
+                            @endif
                         </td>
                         <td>
                             <div class="action-group">
-                                <button onclick="openEditStatModal(this)"
-                                    class="btn-icon btn-edit"
+                                <button type="button" onclick="openEditStatModal(this)"
+                                    class="btn-action btn-edit"
+                                    title="Edit Infografis"
                                     data-stat-id="{{ $stat->id }}"
                                     data-title="{{ $stat->title }}"
                                     data-value="{{ $stat->value }}"
                                     data-order="{{ $stat->order }}"
                                     data-is-active="{{ $stat->is_active }}"
                                     data-image="{{ $stat->image }}">
-                                    <i class="fas fa-edit"></i>
+                                    Edit
                                 </button>
                                 <form action="{{ route('admin.stats.destroy', $stat) }}" method="POST" onsubmit="return confirm('Yakin hapus infografis ini?')">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn-icon btn-delete"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn-action btn-delete" title="Hapus">Hapus</button>
                                 </form>
                             </div>
                         </td>
@@ -144,9 +486,10 @@
                     <tr>
                         <td colspan="6">
                             <div class="empty-container">
-                                <div class="empty-icon">📊</div>
-                                <p class="empty-text">Belum ada data infografis</p>
-                                <button class="btn-create" onclick="openModal('addModal')"><i class="fas fa-plus"></i> Tambah Infografis</button>
+                                <p class="empty-text">Belum ada data infografis.</p>
+                                <button type="button" class="btn-bhs-primary" onclick="openModal('addModal')">
+                                    Tambah Infografis
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -159,31 +502,31 @@
 <!-- Modal Add -->
 <div class="modal-overlay" id="addModal">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeModal('addModal')">&times;</button>
+        <button type="button" class="modal-close" onclick="closeModal('addModal')">&times;</button>
         <div class="modal-header">
-            <h2>📊 Tambah Infografis</h2>
+            <h2>Tambah Infografis</h2>
             <p>Tambahkan angka pencapaian baru</p>
         </div>
         <form action="{{ route('admin.stats.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="value">Value / Angka <span class="required">*</span></label>
-                <input type="text" id="value" name="value" value="{{ old('value') }}" placeholder="Contoh: 3300+" required>
-                @error('value')<div style="color:var(--danger); font-size:0.75rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
+                <input type="text" id="value" name="value" class="input-control" value="{{ old('value') }}" placeholder="Contoh: 3300+" required>
+                @error('value')<div class="form-error">{{ $message }}</div>@enderror
             </div>
             <div class="form-group">
                 <label for="title">Judul / Label <span class="required">*</span></label>
-                <input type="text" id="title" name="title" value="{{ old('title') }}" placeholder="Contoh: Pemancing" required>
-                @error('title')<div style="color:var(--danger); font-size:0.75rem; margin-top:0.3rem;">{{ $message }}</div>@enderror
+                <input type="text" id="title" name="title" class="input-control" value="{{ old('title') }}" placeholder="Contoh: Pemancing" required>
+                @error('title')<div class="form-error">{{ $message }}</div>@enderror
             </div>
             <div class="form-group">
-                <label for="image">Gambar/Icon (Opsional)</label>
-                <input type="file" id="image" name="image" accept="image/*">
+                <label for="image">Gambar (Opsional)</label>
+                <input type="file" id="image" name="image" class="input-control" accept="image/*">
                 <div class="form-hint">JPG, PNG, WEBP · Maks 2MB</div>
             </div>
             <div class="form-group">
                 <label for="order">Urutan Tampil</label>
-                <input type="number" id="order" name="order" value="{{ old('order', 0) }}">
+                <input type="number" id="order" name="order" class="input-control" value="{{ old('order', 0) }}">
             </div>
             <div class="form-group">
                 <div class="checkbox-wrap">
@@ -192,8 +535,8 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('addModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn-bhs-save">Simpan Infografis</button>
+                <button type="button" class="btn-bhs-cancel" onclick="closeModal('addModal')">Batal</button>
             </div>
         </form>
     </div>
@@ -202,30 +545,30 @@
 <!-- Modal Edit -->
 <div class="modal-overlay" id="editModal">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+        <button type="button" class="modal-close" onclick="closeModal('editModal')">&times;</button>
         <div class="modal-header">
-            <h2>✏️ Edit Infografis</h2>
+            <h2>Edit Infografis</h2>
             <p>Perbarui angka pencapaian</p>
         </div>
         <form action="" method="POST" id="editForm" enctype="multipart/form-data">
             @csrf @method('PUT')
             <div class="form-group">
                 <label for="edit_value">Value / Angka <span class="required">*</span></label>
-                <input type="text" id="edit_value" name="value" required>
+                <input type="text" id="edit_value" name="value" class="input-control" required>
             </div>
             <div class="form-group">
                 <label for="edit_title">Judul / Label <span class="required">*</span></label>
-                <input type="text" id="edit_title" name="title" required>
+                <input type="text" id="edit_title" name="title" class="input-control" required>
             </div>
             <div class="form-group">
-                <label for="edit_image">Gambar/Icon</label>
+                <label for="edit_image">Gambar</label>
                 <div id="edit_image_preview" class="image-preview"></div>
-                <input type="file" id="edit_image" name="image" accept="image/*" onchange="previewImageStat()">
+                <input type="file" id="edit_image" name="image" class="input-control" accept="image/*" onchange="previewImageStat()">
                 <div class="form-hint">Kosongkan kalau tidak mau ganti gambar</div>
             </div>
             <div class="form-group">
                 <label for="edit_order">Urutan Tampil</label>
-                <input type="number" id="edit_order" name="order">
+                <input type="number" id="edit_order" name="order" class="input-control">
             </div>
             <div class="form-group">
                 <div class="checkbox-wrap">
@@ -234,8 +577,8 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Simpan</button>
-                <button type="button" class="btn btn-cancel" onclick="closeModal('editModal')"><i class="fas fa-times"></i> Batal</button>
+                <button type="submit" class="btn-bhs-save">Simpan Perubahan</button>
+                <button type="button" class="btn-bhs-cancel" onclick="closeModal('editModal')">Batal</button>
             </div>
         </form>
     </div>
