@@ -584,6 +584,8 @@
     </div>
 </div>
 
+<div id="stats-page-flags" data-show-add-modal="{{ $errors->any() ? '1' : '0' }}" style="display:none;"></div>
+
 <script>
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
@@ -625,9 +627,12 @@
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
     });
-    @if($errors->any())
-        document.addEventListener('DOMContentLoaded', () => openModal('addModal'));
-    @endif
+    document.addEventListener('DOMContentLoaded', function() {
+        var flags = document.getElementById('stats-page-flags');
+        if (flags && flags.dataset.showAddModal === '1') {
+            openModal('addModal');
+        }
+    });
 </script>
 
 @endsection
