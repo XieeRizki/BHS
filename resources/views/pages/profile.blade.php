@@ -79,9 +79,9 @@
         <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
             @foreach ($stats as $stat)
             <div class="flex flex-col items-center text-center gap-3">
-                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-accent/10 dark:bg-accent/15 flex items-center justify-center overflow-hidden">
+                <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden {{ empty($stat['image']) ? 'bg-accent/10 dark:bg-accent/15 flex items-center justify-center' : '' }}">
                     @if(!empty($stat['image']))
-                        <img src="{{ asset('storage/' . $stat['image']) }}" alt="{{ $stat['title'] ?? $stat['label'] }}" class="w-full h-full object-cover rounded-full" />
+                        <img src="{{ asset('storage/' . $stat['image']) }}" alt="{{ $stat['title'] ?? $stat['label'] }}" class="w-full h-full object-cover" />
                     @else
                         <img src="{{ asset('images/community.png') }}" alt="{{ $stat['title'] ?? $stat['label'] }}" class="w-11 h-11 md:w-14 md:h-14 object-contain dark:invert dark:brightness-0 dark:contrast-200" />
                     @endif
@@ -559,4 +559,4 @@
     }
 </style>
 
-@endsection  
+@endsection
