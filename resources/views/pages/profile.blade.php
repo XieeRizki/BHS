@@ -5,6 +5,9 @@
 @section('content')
 
 @php
+    // Path gambar fallback (dipakai di onerror img, dipisah biar gak ada tabrakan kutip)
+    $fallbackImg = asset('images/bhs2.jpg');
+
     // Fallback dummy data — ganti dengan data dari controller kalau udah connect ke DB
     $profile = $profile ?? (object) [
         'title' => 'Kenapa Balong Hardi Sumedang?',
@@ -239,7 +242,7 @@
                                         <img src="{{ isset($media->logo) ? asset('storage/' . $media->logo) : asset('images/bhs2.jpg') }}"
                                              alt="{{ $media->name ?? 'Media Partner' }}" 
                                              class="w-full h-full object-contain rounded-full"
-                                             onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                             onerror="this.src='{{ $fallbackImg }}'">
                                     </div>
                                     <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">
                                         {{ $media->name }}
@@ -249,35 +252,35 @@
                         @else
                             <a href="https://infojabar.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                    <img src="https://infojabar.id/wp-content/uploads/2021/03/logo-infojabar.png" alt="Info Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    <img src="https://infojabar.id/wp-content/uploads/2021/03/logo-infojabar.png" alt="Info Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ $fallbackImg }}'">
                                 </div>
                                 <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">INFOJABAR</span>
                             </a>
 
                             <a href="https://jabar.tribunnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                    <img src="https://asset-1.tribunnews.com/img/logo/tribun/tribunjabar.png" alt="Tribun Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    <img src="https://asset-1.tribunnews.com/img/logo/tribun/tribunjabar.png" alt="Tribun Jabar" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ $fallbackImg }}'">
                                 </div>
                                 <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRIBUN JABAR</span>
                             </a>
 
                             <a href="https://pikiran-rakyat.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                    <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2020/01/pikiran-rakyat.png" alt="Pikiran Rakyat" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2020/01/pikiran-rakyat.png" alt="Pikiran Rakyat" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ $fallbackImg }}'">
                                 </div>
                                 <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">PIKIRAN RAKYAT</span>
                             </a>
 
                             <a href="https://www.trans7.co.id" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/TRANS7_logo.svg" alt="TRANS7" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/TRANS7_logo.svg" alt="TRANS7" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ $fallbackImg }}'">
                                 </div>
                                 <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">TRANS7</span>
                             </a>
 
                             <a href="https://www.metrotvnews.com" target="_blank" class="media-item group flex items-center gap-3 md:gap-4 shrink-0 hover:scale-105 transition-transform duration-300">
                                 <div class="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 border-gray-300 dark:border-gray-700 group-hover:border-accent overflow-hidden flex items-center justify-center bg-white dark:bg-[#161616] p-2 md:p-2.5 shadow-md shrink-0">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/MetroTV_2010.svg" alt="Metro TV" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ asset('images/bhs2.jpg') }}'">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/MetroTV_2010.svg" alt="Metro TV" class="w-full h-full object-contain rounded-full" onerror="this.src='{{ $fallbackImg }}'">
                                 </div>
                                 <span class="font-black text-sm md:text-lg text-secondary dark:text-light group-hover:text-accent tracking-wider uppercase transition-colors whitespace-nowrap">METRO TV</span>
                             </a>
