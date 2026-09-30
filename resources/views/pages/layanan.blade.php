@@ -286,9 +286,11 @@
 {{-- SCAN BARCODE & ORDER --}}
 <section class="py-14 md:py-20 bg-white dark:bg-[#0A0A0A] border-b border-gray-100 dark:border-gray-800/80 transition-colors">
     <div class="container-max text-center max-w-3xl mx-auto">
-        <span class="text-xs font-extrabold text-accent uppercase tracking-widest block mb-2">SCAN BARCODE & ORDER</span>
+        <span class="text-xs font-extrabold text-accent uppercase tracking-widest block mb-2">
+            {{ $layanan->qr_badge_text ?? 'SCAN BARCODE & ORDER' }}
+        </span>
         <h2 class="text-2xl md:text-4xl font-black text-secondary dark:text-white tracking-tight leading-tight mb-8">
-            Get 40% extra on first order through ShopeeFood & GoFood
+            {{ $layanan->qr_title ?? 'Pesan Menu Favorit Anda Sekarang Secara Online' }}
         </h2>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-12">
