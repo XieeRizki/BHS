@@ -724,14 +724,14 @@
                         <div class="current-image" id="qr-shopeefood-preview" style="{{ ($isEdit && $layanan->qr_shopeefood) ? '' : 'display:none;' }}">
                             <img id="qr-shopeefood-preview-img" src="{{ ($isEdit && $layanan->qr_shopeefood) ? asset('storage/' . $layanan->qr_shopeefood) : '' }}" alt="QR ShopeeFood">
                         </div>
-                        <label for="qr_shopeefood">QR Code ShopeeFood</label>
+                        <label for="qr_shopeefood">QR</label>
                         <input type="file" id="qr_shopeefood" name="qr_shopeefood" accept="image/*">
                     </div>
                     <div class="form-group">
                         <div class="current-image" id="qr-gofood-preview" style="{{ ($isEdit && $layanan->qr_gofood) ? '' : 'display:none;' }}">
                             <img id="qr-gofood-preview-img" src="{{ ($isEdit && $layanan->qr_gofood) ? asset('storage/' . $layanan->qr_gofood) : '' }}" alt="QR GoFood">
                         </div>
-                        <label for="qr_gofood">QR Code GoFood</label>
+                        <label for="qr_gofood">QR</label>
                         <input type="file" id="qr_gofood" name="qr_gofood" accept="image/*">
                     </div>
                 </div>
