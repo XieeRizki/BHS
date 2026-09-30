@@ -437,10 +437,12 @@
             Icon Layanan
             <span class="tab-dot {{ !empty($existingServices) ? 'filled' : '' }}"></span>
         </button>
+        {{-- TAB SHOWCASE DISEMBUNYIKAN
         <button type="button" class="tab-btn" data-tab="showcase">
             Showcase
             <span class="tab-dot {{ !empty($existingShowcase) ? 'filled' : '' }}"></span>
         </button>
+        --}}
         <button type="button" class="tab-btn" data-tab="galeri">
             Galeri Foto
             <span class="tab-dot {{ !empty($existingGallery) ? 'filled' : '' }}"></span>
